@@ -126,7 +126,7 @@ public class App {
 
                
 
-                int j = 0;
+                //int j = 0;
                 // Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
 		while ( !glfwWindowShouldClose(window) ) {
@@ -159,7 +159,7 @@ public class App {
                 
                 glUseProgram(p);
                 
-                System.out.println(p);
+                //System.out.println(p);
                 FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
 verticesBuffer.put(vertices).flip();
 
