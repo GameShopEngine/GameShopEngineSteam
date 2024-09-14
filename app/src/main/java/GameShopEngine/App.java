@@ -123,7 +123,9 @@ public class App {
 
 		// Set the clear color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
+                         
+                GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
+                GameShopShaderHash.getInstance().compileShader("Hello GameShop");
                
 
                 //int j = 0;
@@ -134,9 +136,7 @@ public class App {
 
 //                        System.out.println(j);
 //                        j++;
-                         
-                GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
-                GameShopShaderHash.getInstance().compileShader("Hello GameShop");
+
                 
                 
                 glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
