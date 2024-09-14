@@ -135,30 +135,13 @@ public class App {
 //                        System.out.println(j);
 //                        j++;
                          
+                GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
+                GameShopShaderHash.getInstance().compileShader("Hello GameShop");
                 
-                glShaderSource(GL_VERTEX_SHADER, vertexShader);
-                glCompileShader(GL_VERTEX_SHADER);
-                //glDeleteShader(GL_VERTEX_SHADER);
                 
-                glShaderSource(GL_FRAGMENT_SHADER, fragmentShader);
-                glCompileShader(GL_FRAGMENT_SHADER);
-               // glDeleteShader(GL_FRAGMENT_SHADER);
+                glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
                 
-                int p = glCreateProgram();
-                glAttachShader (p, GL_VERTEX_SHADER);
-                glAttachShader (p, GL_FRAGMENT_SHADER);
-                
-                glLinkProgram(p);
-                
-                glDetachShader(p, GL_VERTEX_SHADER);
-                glDetachShader(p, GL_FRAGMENT_SHADER);
-                
-                glDeleteShader(GL_VERTEX_SHADER);
-                glDeleteShader(GL_FRAGMENT_SHADER);
-                
-                glUseProgram(p);
-                
-                System.out.println(p);
+                System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
                 FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
 verticesBuffer.put(vertices).flip();
 int i = glGenBuffers();

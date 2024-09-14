@@ -7,13 +7,15 @@ package GameShopEngine;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import static org.lwjgl.glfw.GLFW.*;
+//import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL46.*;
 
 /**
  *
  * @author gameshopengine
  */
 public class GameShopShaderHash {
-    
     
  
     /**
@@ -48,6 +50,7 @@ public class GameShopShaderHash {
         shader.put(name, shader.size());
         vertexAndFragment.put(fragmentShader, vertexShader);
         glShaderProgram.put(shader, vertexAndFragment);
+        assert(shader.get(name) == glCreateProgram());
         
     }
     
@@ -59,12 +62,83 @@ public class GameShopShaderHash {
             
         }
         
-        return 0;
+        return -1;
     }
     
-    public void compileShader(){
+    public String getVertexShader(String name){
     
+        int i = 0;
         
+       for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
+        
+            i = shader.get(name);
+            
+        }
+       
+       int j = 0;
+       for (HashMap<String, String> values: glShaderProgram.values()){
+        
+            //return shader.get(name);
+            if (j == i){
+            
+                for (String s: values.values()){
+                
+                    return s;
+                }
+            }
+        }
+       
+       return "";
+       
+    }
+    
+    public String getFragmentShader(String name){
+    
+        int i = 0;
+        
+       for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
+        
+            i = shader.get(name);
+            
+        }
+       
+       int j = 0;
+       for (HashMap<String, String> values: glShaderProgram.values()){
+        
+            //return shader.get(name);
+            if (j == i){
+            
+                for (String s: values.keySet()){
+                
+                    return s;
+                }
+            }
+        }
+       
+       return "";
+    }
+    
+    public void compileShader(String name){
+    
+        glShaderSource(GL_VERTEX_SHADER, getVertexShader(name));
+                glCompileShader(GL_VERTEX_SHADER);
+                //glDeleteShader(GL_VERTEX_SHADER);
+                
+                glShaderSource(GL_FRAGMENT_SHADER, getFragmentShader(name));
+                glCompileShader(GL_FRAGMENT_SHADER);
+               // glDeleteShader(GL_FRAGMENT_SHADER);
+                
+                
+                glAttachShader (getGLShaderProgram(name), GL_VERTEX_SHADER);
+                glAttachShader (getGLShaderProgram(name), GL_FRAGMENT_SHADER);
+                
+                glLinkProgram(getGLShaderProgram(name));
+                
+                glDetachShader(getGLShaderProgram(name), GL_VERTEX_SHADER);
+                glDetachShader(getGLShaderProgram(name), GL_FRAGMENT_SHADER);
+                
+                glDeleteShader(GL_VERTEX_SHADER);
+                glDeleteShader(GL_FRAGMENT_SHADER);
     }
     
     
