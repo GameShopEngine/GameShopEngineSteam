@@ -50,7 +50,7 @@ public class App {
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
 		glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE); // the window will stay hidden after creation
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
-                //glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+                glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
 		// Create the window
 		window = glfwCreateWindow(1920, 1080, "Hello World!", NULL, NULL);
@@ -108,11 +108,7 @@ public class App {
 "    fragColor = vec4(0.0, 0.5, 0.5, 1.0);\n" +
 "}";
         
-        float[] vertices = new float[]{
-     0.0f,  0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f
-};
+        
 	private void loop() {
 		// This line is critical for LWJGL's interoperation with GLFW's
 		// OpenGL context, or any context that is managed externally.
@@ -128,6 +124,11 @@ public class App {
                 GameShopShaderHash.getInstance().compileShader("Hello GameShop");
                
 
+                GameShopPoly gsp = new GameShopPoly( new float[]{
+     0.0f,  0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f});
+                gsp.allocateBuffer();
                 //int j = 0;
                 // Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
@@ -140,20 +141,15 @@ public class App {
                 
                 
                 glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
-                
+                gsp.draw();
                 System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
-                FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
-verticesBuffer.put(vertices).flip();
-int i = glGenBuffers();
-                glBindBuffer(GL_ARRAY_BUFFER, i);
-int vaoId = glGenVertexArrays();
-glBindVertexArray(vaoId);
-
-glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
-memFree(verticesBuffer);
-glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
- glEnableVertexArrayAttrib(vaoId, 0);
-                        glDrawArrays(GL_TRIANGLES, 0, 3);
+                
+                
+                
+               
+//int i = glGenBuffers();
+                
+ 
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be

@@ -4,15 +4,38 @@
  */
 package GameShopEngine;
 
+import java.util.HashMap;
+import static org.lwjgl.opengl.GL46.*;
+
+
 /**
  *
  * @author gameshopengine
  */
 public class GameShopShapeHash {
   
+    private static GameShopShapeHash _instance;
     
-    public GameShopShapeHash getInstance(){
+    public HashMap<GameShopPoly, Integer> shapeHash;
     
-        return null;
+    private GameShopShapeHash(){
+    
+        shapeHash = new HashMap<GameShopPoly, Integer>();
+        
+    }
+    
+    public static GameShopShapeHash getInstance(){
+    
+        if (_instance == null){
+        
+            _instance = new GameShopShapeHash();
+        }
+        return _instance;
+    }
+    
+    public void addPoly(GameShopPoly gsp){
+    
+        shapeHash.put(gsp, glGenBuffers());
+ 
     }
 }
