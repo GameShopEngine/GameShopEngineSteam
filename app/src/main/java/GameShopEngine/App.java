@@ -134,8 +134,7 @@ public class App {
 
 //                        System.out.println(j);
 //                        j++;
-                         int i = glGenBuffers();
-                glBindBuffer(GL_ARRAY_BUFFER, i);
+                         
                 
                 glShaderSource(GL_VERTEX_SHADER, vertexShader);
                 glCompileShader(GL_VERTEX_SHADER);
@@ -159,10 +158,11 @@ public class App {
                 
                 glUseProgram(p);
                 
-                //System.out.println(p);
+                System.out.println(p);
                 FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
 verticesBuffer.put(vertices).flip();
-
+int i = glGenBuffers();
+                glBindBuffer(GL_ARRAY_BUFFER, i);
 int vaoId = glGenVertexArrays();
 glBindVertexArray(vaoId);
 
