@@ -5,6 +5,8 @@
 package GameShopEngine;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  *
@@ -13,13 +15,17 @@ import java.util.HashMap;
 public class GameShopShaderHash {
     
     
-    public HashMap<String, Integer> vertexShaders;
-    public HashMap<String, Integer> fragmentShaders;
+ 
+    /**
+     Name, GlProgram, VertexShader, FragmentShader
+     */
+    public HashMap<HashMap<String, Integer>, HashMap<String, String>> glShaderProgram;
     
     private static GameShopShaderHash _instance;
     
     private GameShopShaderHash(){
     
+        glShaderProgram = new HashMap<HashMap<String, Integer>, HashMap<String, String>>();
     }
     
     public static GameShopShaderHash getInstance(){
@@ -33,7 +39,33 @@ public class GameShopShaderHash {
         return _instance;
         
     }
+  
+    public void addShader(String name, String vertexShader, String fragmentShader) {
     
+        HashMap <String, Integer> shader = new HashMap<String, Integer>();
+        HashMap<String, String> vertexAndFragment = new HashMap<String, String>();
+        
+        shader.put(name, shader.size());
+        vertexAndFragment.put(fragmentShader, vertexShader);
+        glShaderProgram.put(shader, vertexAndFragment);
+        
+    }
+    
+    public int getGLShaderProgram(String name){
+    
+        for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
+        
+            return shader.get(name);
+            
+        }
+        
+        return 0;
+    }
+    
+    public void compileShader(){
+    
+        
+    }
     
     
     
