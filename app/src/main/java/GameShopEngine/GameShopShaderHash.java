@@ -47,10 +47,10 @@ public class GameShopShaderHash {
         HashMap <String, Integer> shader = new HashMap<String, Integer>();
         HashMap<String, String> vertexAndFragment = new HashMap<String, String>();
         
-        shader.put(name, shader.size());
+        shader.put(name, glCreateProgram());
         vertexAndFragment.put(fragmentShader, vertexShader);
         glShaderProgram.put(shader, vertexAndFragment);
-        assert(shader.get(name) == glCreateProgram());
+        //if (shader.get(name) == glCreateProgram());
         
     }
     
