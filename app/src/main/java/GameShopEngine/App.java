@@ -9,6 +9,7 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
+import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,16 +17,31 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL46.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
-
+ 
 public class App {
     
     // The window handle
 	private long window;
+        
+ 
+        
+        
+        GameShopPoly gsp = new GameShopPoly( new Vector3f(-.5f, -.5f, -1f), new Vector3f(-.5f,.5f,-1f), new Vector3f(.5f,.5f,-1f), new Vector3f(.5f,-.5f,-1f));
+//The System Resolution must be set before using.  Preferred 1920 x 1080
 
+//Need Element Arrays To Make Squares.  The Most Fundamental Object
+//Will Be A Square Based System.  If you want to make a Triangle
+//Conjoin Two Points on a Square.  This is so the Texturing will be Easier
+         
+ //One day there needs to be a way to account for resizing the screen.  For now its 
+ //a fullscreen app.  Look to GameShopCamera for more details
+        
+        
 	public void run() {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
 		init();
+                //initVulkan();
 		loop();
 
 		// Free the window callbacks and destroy the window
@@ -38,6 +54,8 @@ public class App {
 	}
 
 	private void init() {
+            
+            if(glfwPlatformSupported(GLFW_PLATFORM_WAYLAND)) glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
 		// Setup an error callback. The default implementation
 		// will print the error message in System.err.
 		GLFWErrorCallback.createPrint(System.err).set();
@@ -51,9 +69,11 @@ public class App {
 		glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE); // the window will stay hidden after creation
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
                 glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-
+             
+                
+                   
 		// Create the window
-		window = glfwCreateWindow(1920, 1080, "Hello World!", NULL, NULL);
+		window = glfwCreateWindow(1920, 1080, "Hello World!", glfwGetPrimaryMonitor(), NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
 
@@ -61,26 +81,59 @@ public class App {
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-		});
+		});   
 
-		// Get the thread stack and push a new frame
-		try ( MemoryStack stack = stackPush() ) {
-			IntBuffer pWidth = stack.mallocInt(1); // int*
-			IntBuffer pHeight = stack.mallocInt(1); // int*
+                // Get the resolution of the primary monitor	
+                GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-			// Get the window size passed to glfwCreateWindow
-			glfwGetWindowSize(window, pWidth, pHeight);
-
-			// Get the resolution of the primary monitor
-			GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-			// Center the window
-			glfwSetWindowPos(
-				window,
-				(vidmode.width() - pWidth.get(0)) / 2,
-				(vidmode.height() - pHeight.get(0)) / 2
-			);
-		} // the stack frame is popped automatically
+                System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
+                GameShopCursor.getInstance().screenSize.set(1920, 1080);
+                GameShopCursor.getInstance().vidModeSize.set(vidmode.width(), vidmode.height());
+                glfwSetCursorPosCallback(window, (window, xPos, yPos) -> {
+                
+                    //do click boolean to optimize this for once click
+                   // if (GameShopCursor.getInstance().clicked){
+                    
+                   // GameShopCursor.getInstance().clicked = false;
+                    GameShopCursor.getInstance().cursorPosition.set(xPos, yPos);
+                    GameShopCursor.getInstance().convertToGLPosition();
+                   // GameShopCursor.getInstance().clicked = false;
+                    //}
+                });
+                
+                glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
+                
+                    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+                
+                    
+                        GameShopCursor.getInstance().clicked = true;
+               
+                    } 
+//                    
+//                    else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE){
+//                    
+//                        GameShopCursor.getInstance().clicked = false;
+//                    }
+                    
+                    
+        
+                });
+//		// Get the thread stack and push a new frame
+//		try ( MemoryStack stack = stackPush() ) {
+//			IntBuffer pWidth = stack.mallocInt(1); // int*
+//			IntBuffer pHeight = stack.mallocInt(1); // int*
+//
+//			// Get the window size passed to glfwCreateWindow
+//			glfwGetWindowSize(window, pWidth, pHeight);
+//
+//			
+//			// Center the window
+//			glfwSetWindowPos(
+//				window,
+//				(vidmode.width() - pWidth.get(0)) / 2,
+//				(vidmode.height() - pHeight.get(0)) / 2
+//			);
+//		} // the stack frame is popped automatically
 
 		// Make the OpenGL context current
 		glfwMakeContextCurrent(window);
@@ -91,15 +144,17 @@ public class App {
 		glfwShowWindow(window);
 	}
 
-        public String vertexShader = "#version 460\n" +
+        public String vertexShader = "#version 330\n" +
 "\n" +
-"layout (location=0) in vec3 position;\n" +
+                "#extension GL_ARB_explicit_uniform_location : require\n"+
+"layout (location=0) in vec3 inputPosition;\n" +
+"layout (location=1) uniform mat4 projMatrix;\n" +
 "\n" +
 "void main()\n" +
 "{\n" +
-"    gl_Position = vec4(position, 1.0);\n" +
+"    gl_Position = projMatrix * vec4(inputPosition, 1.0);\n" +
 "}";
-        public String fragmentShader = "#version 460\n" +
+        public String fragmentShader = "#version 330\n" +
 "\n" +
 "out vec4 fragColor;\n" +
 "\n" +
@@ -108,46 +163,64 @@ public class App {
 "    fragColor = vec4(0.0, 0.5, 0.5, 1.0);\n" +
 "}";
         
-        
+ 
+
 	private void loop() {
+    
 		// This line is critical for LWJGL's interoperation with GLFW's
 		// OpenGL context, or any context that is managed externally.
 		// LWJGL detects the context that is current in the current thread,
 		// creates the GLCapabilities instance and makes the OpenGL
 		// bindings available for use.
 		GL.createCapabilities();
-
+//
+glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE); // before creating the window
+GLUtil.setupDebugMessageCallback();
+               
 		// Set the clear color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-                         
+//                         
                 GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
                 GameShopShaderHash.getInstance().compileShader("Hello GameShop");
-               
-
-                GameShopPoly gsp = new GameShopPoly( new float[]{
-     0.0f,  0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f});
                 gsp.allocateBuffer();
-                //int j = 0;
-                // Run the rendering loop until the user has attempted to close
+                  GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(1920, 1080));
+                GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
+               
+//                GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projectionMatrix");
+//               
+                System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("Hello GameShop"));
+               //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
+         
+//                System.out.println(GL46.glGetShaderSource(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
+//                int[] returnInt = new int[10];
+//                glGetProgramiv(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"), GL_ACTIVE_ATTRIBUTES, returnInt);
+//                
+//                for (int ints: returnInt){
+//                System.out.println(ints);
+//                }
+                  // Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
 		while ( !glfwWindowShouldClose(window) ) {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+                    
+                    if (GameShopCursor.getInstance().clicked){
+                    System.out.println("Cursor:" + GameShopCursor.getInstance().cursorPosition);
+                    System.out.println("GL Position: " + GameShopCursor.getInstance().glPosition);
+                    GameShopCursor.getInstance().clicked = false;
+                    }
+                    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
 //                        System.out.println(j);
 //                        j++;
 
                 
-                
+                //glUseProgram(0);
                 glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
+                
+              GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
+             
                 gsp.draw();
-                System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
                 
-                
-                
-               
-//int i = glGenBuffers();
                 
  
 			glfwSwapBuffers(window); // swap the color buffers
@@ -155,8 +228,19 @@ public class App {
 			// Poll for window events. The key callback above will only be
 			// invoked during this call.
 			glfwPollEvents();
+                       // GameShopCursor.getInstance().clicked = false;
 		}
+                free();
 	}
+        
+        public void free(){ 
+            glDeleteBuffers(GameShopShapeHash.getInstance().shapeHash.get(gsp));
+      
+            glDeleteVertexArrays(GameShopVertexHash.getInstance().vertexHash.get(gsp));
+        }
+         
+    
+
         
     public String getGreeting() {
         return "Hello World!";
@@ -167,4 +251,6 @@ public class App {
        
        new App().run();
     }
+
+    
 }

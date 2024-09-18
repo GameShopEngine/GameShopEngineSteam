@@ -10,7 +10,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
 }
-
+ 
 project.ext.lwjglVersion = "3.3.4"
 project.ext.jomlVersion = "1.10.7"
 project.ext.jomlprimitivesVersion = "1.10.0"
@@ -39,6 +39,7 @@ dependencies {
 	implementation "org.lwjgl:lwjgl-glfw"
 	implementation "org.lwjgl:lwjgl-openal"
 	implementation "org.lwjgl:lwjgl-opengl"
+        implementation "org.lwjgl:lwjgl-vulkan"
 	runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
@@ -57,8 +58,10 @@ java {
 }
 
 application {
+    
     // Define the main class for the application.
     mainClass = 'GameShopEngine.App'
+    
 }
 
 tasks.named('test') {
