@@ -29,8 +29,7 @@ public class App {
         public final float uiScaleZ = -.97f;
         public final float uiScaleY = .56f;
         
-        GameShopPoly gsp = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
-//The System Resolution must be set before using.  Preferred 1920 x 1080
+        GameShopPoly gsp;// = //The System Resolution must be set before using.  Preferred 1920 x 1080
 
 //Need Element Arrays To Make Squares.  The Most Fundamental Object
 //Will Be A Square Based System.  If you want to make a Triangle
@@ -88,6 +87,7 @@ public class App {
 
                 // Get the resolution of the primary monitor	
                 GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+//new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
 
                 System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
                 GameShopCursor.getInstance().screenSize.set(1920, 1080);
@@ -205,7 +205,9 @@ GLUtil.setupDebugMessageCallback();
                
 		// Set the clear color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-//                         
+//                        
+
+                gsp = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
                 GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
                 GameShopShaderHash.getInstance().compileShader("Hello GameShop");
                 gsp.allocateBuffer();
@@ -219,9 +221,9 @@ GLUtil.setupDebugMessageCallback();
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("txtSampler");
 
-         GameShopATMS atms = new GameShopATMS(100, 100);
-         atms.layer.drawCircle(50, 50, 25, new Vector4f(255,0,0,255));
-         atms.makeATMS();
+//         GameShopATMS atms = new GameShopATMS(100, 100);
+//         atms.layer.drawCircle(50, 50, 25, new Vector4f(255,0,0,255));
+//         atms.makeATMS();
 
 //                System.out.println(GL46.glGetShaderSource(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
 //                int[] returnInt = new int[10];

@@ -7,6 +7,7 @@ package GameShopEngine;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.GL_POINTS;
@@ -52,9 +53,15 @@ public class GameShopPoly {
     public Vector3f[] positions;
     public float[] texCoords;
     
+    public GameShopATMS atms;
+    
     public int vaoId;
     public GameShopPoly(float[] vertices){
     
+         atms = new GameShopATMS(100, 100);
+         atms.layer.drawCircle(50, 50, 25, new Vector4f(1,0,0,1));
+         atms.makeATMS();
+         
         this.vertices = vertices;
 //        FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
 //        verticesBuffer.put(vertices).flip();
@@ -63,7 +70,9 @@ public class GameShopPoly {
     //Should always be 4 vertices
     
     public GameShopPoly(Vector3f... vertices){
-    
+           atms = new GameShopATMS(100, 100);
+         atms.layer.drawCircle(50, 50, 25, new Vector4f(1,0,0,1));
+         atms.makeATMS();
       allocateVertices(vertices);
       this.indices = new int[]{
         0, 1, 3, 3, 1, 2,
@@ -160,7 +169,11 @@ memFree(verticesBuffer);
     }
     
     public void draw(){
+       // assert(GameShopATMSHash.getInstsance().atmsHash.get(atms) != null);
+       
+       System.out.println(atms);
        glActiveTexture(GL_TEXTURE0);
+       glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(atms));
         // Draw the mesh
     glBindVertexArray(GameShopVertexHash.getInstance().vertexHash.get(this));
  
