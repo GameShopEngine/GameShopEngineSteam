@@ -8,7 +8,9 @@ import java.nio.FloatBuffer;
 import java.util.HashMap;
 import org.joml.Matrix4f;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
+import static org.lwjgl.opengl.GL20.glUniform1i;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL46;
 import org.lwjgl.system.MemoryStack;
 
@@ -38,6 +40,19 @@ public class GameShopUniform {
         uniforms.put(uniformName, uniformLocation);
     }
     
+    private int getUniformLocation(String uniformName) {
+        Integer location = uniforms.get(uniformName);
+        if (location == null) {
+            throw new RuntimeException("Could not find uniform [" + uniformName + "]");
+        }
+        return location.intValue();
+    }
+    
+      public void setUniform(String uniformName, int value) {
+        glUniform1i(getUniformLocation(uniformName), value);
+       
+    }
+      
      public void setUniform(String uniformName, Matrix4f value) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             Integer location = uniforms.get(uniformName);

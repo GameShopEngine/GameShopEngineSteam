@@ -48,6 +48,11 @@ dependencies {
 	implementation "org.joml:joml-primitives:${jomlprimitivesVersion}"
 	implementation "com.code-disaster.steamworks4j:steamworks4j:${steamworks4jVersion}"
 	implementation "com.code-disaster.steamworks4j:steamworks4j-server:${steamworks4jserverVersion}"
+
+    //JME for FastMath
+    
+    implementation "org.jmonkeyengine:jme3-core:3.3.2-stable"
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

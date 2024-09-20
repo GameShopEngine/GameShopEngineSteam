@@ -10,6 +10,7 @@ import org.lwjgl.system.*;
 
 import java.nio.*;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -25,8 +26,10 @@ public class App {
         
  
         
+        public final float uiScaleZ = -.97f;
+        public final float uiScaleY = .56f;
         
-        GameShopPoly gsp = new GameShopPoly( new Vector3f(-.5f, -.5f, -1f), new Vector3f(-.5f,.5f,-1f), new Vector3f(.5f,.5f,-1f), new Vector3f(.5f,-.5f,-1f));
+        GameShopPoly gsp = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
 //The System Resolution must be set before using.  Preferred 1920 x 1080
 
 //Need Element Arrays To Make Squares.  The Most Fundamental Object
@@ -149,20 +152,43 @@ public class App {
                 "#extension GL_ARB_explicit_uniform_location : require\n"+
 "layout (location=0) in vec3 inputPosition;\n" +
 "layout (location=1) uniform mat4 projMatrix;\n" +
+ "layout (location=2) in vec2 texCoord;\n" +
+                "out vec2 outTextCoord;\n" +
 "\n" +
 "void main()\n" +
 "{\n" +
 "    gl_Position = projMatrix * vec4(inputPosition, 1.0);\n" +
+                "   outTextCoord = texCoord;\n" +
 "}";
         public String fragmentShader = "#version 330\n" +
 "\n" +
 "out vec4 fragColor;\n" +
+                "in vec2 outTextCoord;\n" +
+                "uniform sampler2D txtSampler;\n"+
 "\n" +
 "void main()\n" +
 "{\n" +
-"    fragColor = vec4(0.0, 0.5, 0.5, 1.0);\n" +
+"    fragColor = texture(txtSampler, outTextCoord);\n" +
 "}";
         
+//        public String vertexShader2D = "#version 330\n" +
+//"\n" +
+//             //   "#extension GL_ARB_explicit_uniform_location : require\n"+
+//"layout (location=0) in vec3 inputPosition;\n" +
+//"layout (location=1) uniform mat4 projMatrix;\n" +
+//"\n" +
+//"void main()\n" +
+//"{\n" +
+//"    gl_Position = projMatrix * vec4(inputPosition, 1.0);\n" +
+//"}";
+//        public String fragmentShader2D =  "#version 330\n" +
+//"\n" +
+//"out vec4 fragColor;\n" +
+//"\n" +
+//"void main()\n" +
+//"{\n" +
+//"    fragColor = vec4(0.0, 0.5, 0.5, 1.0);\n" +
+//"}";
  
 
 	private void loop() {
@@ -191,7 +217,12 @@ GLUtil.setupDebugMessageCallback();
                 System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("Hello GameShop"));
                //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
-         
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("txtSampler");
+
+         GameShopATMS atms = new GameShopATMS(100, 100);
+         atms.layer.drawCircle(50, 50, 25, new Vector4f(255,0,0,255));
+         atms.makeATMS();
+
 //                System.out.println(GL46.glGetShaderSource(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
 //                int[] returnInt = new int[10];
 //                glGetProgramiv(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"), GL_ACTIVE_ATTRIBUTES, returnInt);
@@ -218,7 +249,7 @@ GLUtil.setupDebugMessageCallback();
                 glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
                 
               GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
-             
+             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
                 gsp.draw();
                 
                 
