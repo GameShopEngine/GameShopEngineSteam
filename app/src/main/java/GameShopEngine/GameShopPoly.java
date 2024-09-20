@@ -56,22 +56,22 @@ public class GameShopPoly {
     public GameShopATMS atms;
     
     public int vaoId;
-    public GameShopPoly(float[] vertices){
-    
-         atms = new GameShopATMS(100, 100);
-         atms.layer.drawCircle(50, 50, 25, new Vector4f(1,0,0,1));
-         atms.makeATMS();
-         
-        this.vertices = vertices;
-//        FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
-//        verticesBuffer.put(vertices).flip();
-    }
+//    public GameShopPoly(float[] vertices){
+//    
+//         atms = new GameShopATMS(100, 100);
+//         atms.layer.drawCircle(50, 50, 25, new Vector4f(0,0,1,1));
+//         atms.makeATMS();
+//         
+//        this.vertices = vertices;
+////        FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
+////        verticesBuffer.put(vertices).flip();
+//    }
     
     //Should always be 4 vertices
     
     public GameShopPoly(Vector3f... vertices){
            atms = new GameShopATMS(100, 100);
-         atms.layer.drawCircle(50, 50, 25, new Vector4f(1,0,0,1));
+         atms.layer.drawCircle(50, 50, 25, new Vector4f(0,0,1,1));
          atms.makeATMS();
       allocateVertices(vertices);
       this.indices = new int[]{
