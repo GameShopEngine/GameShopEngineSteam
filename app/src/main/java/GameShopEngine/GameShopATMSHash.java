@@ -34,7 +34,7 @@ public class GameShopATMSHash {
     public void addATMS(GameShopATMS atms){
     
         atmsHash.put(atms, glGenTextures());
-        System.out.println(atmsHash.keySet().toString());
-        System.out.println(atmsHash.values().toString());
+        //System.out.println(atmsHash.keySet().toString());
+        //System.out.println(atmsHash.values().toString());
     }
 }

@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'java'
 }
  
 project.ext.lwjglVersion = "3.3.4"
@@ -62,11 +63,26 @@ java {
     }
 }
 
-application {
+//application {
     
     // Define the main class for the application.
-    mainClass = 'GameShopEngine.App'
-    
+    //mainClass = 'GameShopEngine.App'
+    //applicationDefaultJvmArgs = ["-Xms:1024M -Xmx:2048M -d64 -XX:+UseCompressedOops -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n"]
+
+  //  jvmArgs="-Xms:1024M -Xmx:2048M -d64 -XX:+UseCompressedOops -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n"
+//}
+
+task runApp(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  mainClass = 'GameShopEngine.App'
+
+   List<String> argumentList = new ArrayList<String>();
+    argumentList.add('-Xms10240m')
+    argumentList.add('-Xmx11280m')
+    allJvmArgs = argumentList
+  // arguments to pass to the application
+  args 'appArg1'
 }
 
 tasks.named('test') {

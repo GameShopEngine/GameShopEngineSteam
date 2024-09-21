@@ -171,7 +171,7 @@ memFree(verticesBuffer);
     public void draw(){
        // assert(GameShopATMSHash.getInstsance().atmsHash.get(atms) != null);
        
-       System.out.println(atms);
+      // System.out.println(atms);
        glActiveTexture(GL_TEXTURE0);
        glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(atms));
         // Draw the mesh

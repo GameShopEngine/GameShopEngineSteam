@@ -9,6 +9,7 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
+import java.util.ArrayList;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -21,6 +22,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  
 public class App {
     
+//      static {
+//      System.getProperties().setProperty("Xmx", "14g");//.set("javafx.embed.singleThread", "true");  
+//  }
+
     // The window handle
 	private long window;
         
@@ -29,6 +34,7 @@ public class App {
         public final float uiScaleZ = -.97f;
         public final float uiScaleY = .56f;
         
+        ArrayList<GameShopPoly> gsps = new ArrayList<GameShopPoly>();
         GameShopPoly gsp;// = //The System Resolution must be set before using.  Preferred 1920 x 1080
 
 //Need Element Arrays To Make Squares.  The Most Fundamental Object
@@ -41,7 +47,10 @@ public class App {
         
 	public void run() {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
-
+System.out.println(System.getProperty("java.vendor"));
+ System.out.println(System.getProperty("java.vendor.url"));
+ System.out.println(System.getProperty("java.version"));
+ System.out.println(System.getProperty("sun.arch.data.model"));
 		init();
                 //initVulkan();
 		loop();
@@ -205,12 +214,20 @@ GLUtil.setupDebugMessageCallback();
                
 		// Set the clear color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-//                        
+//                   
+for (int i = 0; i < 1; i++){
+
+    gsps.add(new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ)));
+}
 
                 gsp = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
                 GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
                 GameShopShaderHash.getInstance().compileShader("Hello GameShop");
                 gsp.allocateBuffer();
+                for (int i = 0; i < 1; i++){
+                
+                    gsps.get(i).allocateBuffer();
+                }
                   GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(1920, 1080));
                 GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
                
@@ -254,6 +271,10 @@ GLUtil.setupDebugMessageCallback();
              GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
                 gsp.draw();
                 
+                for (int i = 0; i < 1; i++){
+                
+                    gsps.get(i).draw();
+                }
                 
  
 			glfwSwapBuffers(window); // swap the color buffers
@@ -263,6 +284,14 @@ GLUtil.setupDebugMessageCallback();
 			glfwPollEvents();
                        // GameShopCursor.getInstance().clicked = false;
 		}
+                
+                long maxMemory = Runtime.getRuntime().maxMemory();
+                long allocatedMemory = Runtime.getRuntime().totalMemory();
+                long freeMemory = Runtime.getRuntime().freeMemory();
+                
+                System.out.println("max: " + maxMemory);
+                System.out.println("allocated: " + allocatedMemory);
+                System.out.println("free: " + freeMemory);
                 free();
 	}
         
