@@ -52,10 +52,11 @@ public class GameShopPolyMesh {
     public GameShopPolySurface[] gspSurfaces;
     
     public int[] surfacePeek;
+    public Vector2f[] textureSlices;
     //Groups Of 4. [group][4x]
    //public GameShopPolyLine[][] gspLines;
     
-    public GameShopPolyMesh(GameShopPolySurface[] gspSurfaces, Vector2f numTextureSlices, GameShopATMS atms){
+    public GameShopPolyMesh(GameShopPolySurface[] gspSurfaces, Vector2f[] textureSlices, GameShopATMS atms){
         
     this.gspSurfaces = new GameShopPolySurface[gspSurfaces.length];
     this.gspSurfaces = gspSurfaces;
@@ -64,6 +65,7 @@ public class GameShopPolyMesh {
     
     this.surfacePeek = new int[gspSurfaces.length];
     
+    this.textureSlices = new Vector2f[textureSlices.length];
        // this.gspLines = new GameShopPolyLine[gspLines.length][4];
       //  this.gspLines = gspLines;
         
@@ -74,11 +76,16 @@ public class GameShopPolyMesh {
 //      this.indices = new int[]{
 //        0, 1, 3, 3, 1, 2,
 //    };
-      this.texCoords = new float[]{
+
+      allocateVertices();
+      allocateIndices();
+      allocateTexCoords();
       
-          0,0, 0,1, 1,1, 1,0
-          
-      };
+//      this.texCoords = new float[]{
+//      
+//          0,0, 0,1, 1,1, 1,0
+//          
+//      };
     }
     
     public void allocateVertices(){
@@ -117,11 +124,6 @@ public class GameShopPolyMesh {
         //Find Poly Surface.  Determine Dimensions.  Go To Where In Array Start And End
         //Indices Seem To Be Half Of The Vertices.
         
-        int i1 = 0;
-        int i2 = 0;
-        int i3 = 0;
-        int i4 = 0;
-        
         this.indices = new int[(this.vertices.length * 1)/2];
         
         int i = 0;
@@ -158,6 +160,35 @@ public class GameShopPolyMesh {
     
     public void allocateTexCoords(){
     
+        //Run an algorithm over infinitesimal width and height
+//        this.texCoords = new float[]{
+////      
+////          0,0, 0,1, 1,1, 1,0
+////          
+////      };
+        this.texCoords = new float[(this.vertices.length * 2)/ 3];
+        
+        int i = 0;
+        int currentSurfacePeek = 0;
+        
+        for (GameShopPolySurface gsps: gspSurfaces){
+        
+            for (int j = 0; j < texCoords.length; j += 8){
+            
+                this.texCoords[j] = 0;
+                this.texCoords[j + 1] = 0;
+                this.texCoords[j + 2] = 0;
+                this.texCoords[j + 3] = 0;
+                this.texCoords[j + 4] = 0;
+                this.texCoords[j + 5] = 0;
+                this.texCoords[j + 6] = 0;
+                this.texCoords[j + 7] = 0;
+            }
+            
+            currentSurfacePeek += surfacePeek[i];
+            i++;
+        }
+        
     }
     
 //    public void allocateVertices(Vector3f[] vertices){
