@@ -50,6 +50,8 @@ public class GameShopPolyMesh {
     public GameShopObject gso;
     
     public GameShopPolySurface[] gspSurfaces;
+    
+    public int[] surfacePeek;
     //Groups Of 4. [group][4x]
    //public GameShopPolyLine[][] gspLines;
     
@@ -60,7 +62,7 @@ public class GameShopPolyMesh {
     
     this.atms = atms;
     
-    
+    this.surfacePeek = new int[gspSurfaces.length];
     
        // this.gspLines = new GameShopPolyLine[gspLines.length][4];
       //  this.gspLines = gspLines;
@@ -82,16 +84,13 @@ public class GameShopPolyMesh {
     public void allocateVertices(){
  
         int totalVertices = 0;
+        int j = 0;
         for (GameShopPolySurface gsps: this.gspSurfaces){
         
-           // totalVertices += gsps.vInfinitesimals[0].infinitesimals.length * 4;
         
            totalVertices += gsps.getTotalVertices();
-//           for (GameShopPolyLine vi: gsps.vInfinitesimals){
-//           
-//               totalVertices += vi.infinitesimals.length;
-//           }
-//        }
+           this.surfacePeek[j] = (int) (gsps.infWidth * gsps.infHeight);
+            j++;
         }
         
         vertices = new float[totalVertices];
@@ -125,6 +124,34 @@ public class GameShopPolyMesh {
         
         this.indices = new int[(this.vertices.length * 1)/2];
         
+        int i = 0;
+        int currentSurfacePeek = 0;
+        
+        for (GameShopPolySurface gsps: gspSurfaces){
+            
+             int indexNum = (surfacePeek[i] * 3) / 2;
+             
+             int k = 0;
+             
+             for (int j = 0; j < indexNum; j += 6){
+             
+                 this.indices[j] = (int) (currentSurfacePeek + k + gsps.infWidth);
+                 this.indices[j + 1] = currentSurfacePeek + k;
+                 this.indices[j + 2] = (int) (currentSurfacePeek + k + gsps.infWidth) + 1;
+                 this.indices[j + 3] = (int) (currentSurfacePeek + k + gsps.infWidth) + 1;
+                 this.indices[j + 4] = currentSurfacePeek + k;
+                 this.indices[j + 5] = currentSurfacePeek + k + 1;
+                 
+                 k++;
+             }
+             
+            
+            currentSurfacePeek += surfacePeek[i];
+            i++;
+            
+        
+        
+        }
         
         
     }

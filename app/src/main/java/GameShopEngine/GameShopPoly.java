@@ -42,7 +42,19 @@ import static org.lwjgl.system.MemoryUtil.memFree;
  *
  * @author gameshopengine
  */
-//public class GameShopPoly {
+
+public class GameShopPoly {
+    
+ 
+    public GameShopPoly(Vector3f... vertices){
+    
+        
+    }
+    
+    
+    
+ 
+    
 //    
 //    //This Should Always Be A Square
 //    
@@ -181,4 +193,4 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 //    
 //   
 //    }
-//}
+}
