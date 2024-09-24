@@ -39,7 +39,7 @@ boolean windowOpen = true;
 //        GameShopRuntime gsr = new GameShopRuntime();
 //        GameShopWindow gsw = new GameShopWindow();
         
-        int n = 100;
+        int n = 10000;
         
         GameShopPoly[] gsps = new GameShopPoly[n];
       //  GameShopPoly gsp;// = //The System Resolution must be set before using.  Preferred 1920 x 1080
@@ -305,7 +305,7 @@ GLUtil.setupDebugMessageCallback();
  
     gsps[i] = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
                 
-    gsps[i].allocateBuffer();  
+    //gsps[i].allocateBuffer();  
                 }
                   GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(1920, 1080));
                 GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
@@ -336,10 +336,10 @@ GLUtil.setupDebugMessageCallback();
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
              GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
 //           
-        for (int i = 0; i < n; i++){
-                
-                    gsps[i].draw();
-                }
+//        for (int i = 0; i < n; i++){
+//                
+//                    gsps[i].draw();
+//                }
         
  
 			glfwSwapBuffers(window); // swap the color buffers
@@ -364,12 +364,12 @@ GLUtil.setupDebugMessageCallback();
         
         public void free(){ 
             
-            for (int i = 0; i < n; i++){
-            
-            glDeleteBuffers(GameShopShapeHash.getInstance().shapeHash.get(gsps[i]));
-      
-            glDeleteVertexArrays(GameShopVertexHash.getInstance().vertexHash.get(gsps[i]));
-            }
+//            for (int i = 0; i < n; i++){
+//            
+//            glDeleteBuffers(GameShopShapeHash.getInstance().shapeHash.get(gsps[i]));
+//      
+//            glDeleteVertexArrays(GameShopVertexHash.getInstance().vertexHash.get(gsps[i]));
+//            }
 //            glDeleteBuffers(GameShopShapeHash.getInstance().shapeHash.get(gsp));
 //      
 //            glDeleteVertexArrays(GameShopVertexHash.getInstance().vertexHash.get(gsp));

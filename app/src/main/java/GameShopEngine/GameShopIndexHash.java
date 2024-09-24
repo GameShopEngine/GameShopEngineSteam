@@ -15,11 +15,11 @@ public class GameShopIndexHash {
     
     private static GameShopIndexHash _instance;
     
-    public HashMap<GameShopPoly, Integer> indexHash;
+    public HashMap<GameShopPolyMesh, Integer> indexHash;
     
     private GameShopIndexHash(){
     
-        indexHash = new HashMap<GameShopPoly, Integer>();
+        indexHash = new HashMap<GameShopPolyMesh, Integer>();
     }
     
     public static GameShopIndexHash getInstance(){
@@ -32,7 +32,7 @@ public class GameShopIndexHash {
     }
     
     
-    public void addIndex(GameShopPoly gsp){
+    public void addIndex(GameShopPolyMesh gsp){
     
         indexHash.put(gsp, glGenBuffers());
     }

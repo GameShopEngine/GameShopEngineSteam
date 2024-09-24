@@ -42,143 +42,143 @@ import static org.lwjgl.system.MemoryUtil.memFree;
  *
  * @author gameshopengine
  */
-public class GameShopPoly {
-    
-    //This Should Always Be A Square
-    
-    //Transitioning To Array Elements
-    
-    public float[] vertices;
-    public int[] indices;
-    public Vector3f[] positions;
-    public float[] texCoords;
-    
-    public GameShopATMS atms;
-    
-    public int vaoId;
-//    public GameShopPoly(float[] vertices){
+//public class GameShopPoly {
 //    
-//         atms = new GameShopATMS(100, 100);
+//    //This Should Always Be A Square
+//    
+//    //Transitioning To Array Elements
+//    
+//    public float[] vertices;
+//    public int[] indices;
+//    public Vector3f[] positions;
+//    public float[] texCoords;
+//    
+//    public GameShopATMS atms;
+//    
+//    public int vaoId;
+////    public GameShopPoly(float[] vertices){
+////    
+////         atms = new GameShopATMS(100, 100);
+////         atms.layer.drawCircle(50, 50, 25, new Vector4f(0,0,1,1));
+////         atms.makeATMS();
+////         
+////        this.vertices = vertices;
+//////        FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
+//////        verticesBuffer.put(vertices).flip();
+////    }
+//    
+//    //Should always be 4 vertices
+//    
+//    public GameShopPoly(Vector3f... vertices){
+//           atms = new GameShopATMS(100, 100);
 //         atms.layer.drawCircle(50, 50, 25, new Vector4f(0,0,1,1));
 //         atms.makeATMS();
-//         
-//        this.vertices = vertices;
-////        FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
-////        verticesBuffer.put(vertices).flip();
+//      allocateVertices(vertices);
+//      this.indices = new int[]{
+//        0, 1, 3, 3, 1, 2,
+//    };
+//      this.texCoords = new float[]{
+//      
+//          0,0, 0,1, 1,1, 1,0
+//          
+//      };
 //    }
-    
-    //Should always be 4 vertices
-    
-    public GameShopPoly(Vector3f... vertices){
-           atms = new GameShopATMS(100, 100);
-         atms.layer.drawCircle(50, 50, 25, new Vector4f(0,0,1,1));
-         atms.makeATMS();
-      allocateVertices(vertices);
-      this.indices = new int[]{
-        0, 1, 3, 3, 1, 2,
-    };
-      this.texCoords = new float[]{
-      
-          0,0, 0,1, 1,1, 1,0
-          
-      };
-    }
-    
-    public void allocateVertices(Vector3f[] vertices){
-        
-      this.positions = new Vector3f[vertices.length];
-      this.positions = vertices;
-        
-      this.vertices = new float[vertices.length * 3];
-         
-        int i = 0;
-        for (Vector3f vertex: vertices){
-        
-            this.vertices[i] = vertex.x;
-            this.vertices[i + 1] = vertex.y;
-            this.vertices[i + 2] = vertex.z;
-            
-            i += 3;
-        }
-    }
-    
-         FloatBuffer verticesBuffer;// = MemoryUtil.memAllocFloat(vertices.length);
-        IntBuffer indicesBuffer;// = MemoryUtil.memAllocInt(indices.length);
-        FloatBuffer textureCoordinatesBuffer;
-        
-    public void allocateBuffer(){
-        
-       bindVertexArrayObject();
-       bindVerticesBuffer();
-       bindIndicesBuffer();
-       bindTextureCoordinatesBuffer();
-       unbind();
-        
-    }
-    
-    public void unbind(){
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
-
-    }
-    
-    public void outputHashValues(){
-    
-      System.out.println(GameShopIndexHash.getInstance().indexHash.get(this));
-      System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
-      System.out.println(GameShopShapeHash.getInstance().shapeHash.get(this));
-      System.out.println(GameShopVertexHash.getInstance().vertexHash.get(this));
-    }
-    public void bindVertexArrayObject(){
-    
-       GameShopVertexHash.getInstance().addVertexArrayObject(this);
-     glBindVertexArray(GameShopVertexHash.getInstance().vertexHash.get(this));
-    }
-    
-    public void bindVerticesBuffer(){
-       verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
-        verticesBuffer.put(vertices).flip(); 
-GameShopShapeHash.getInstance().addPoly(this);
-glBindBuffer(GL_ARRAY_BUFFER, GameShopShapeHash.getInstance().shapeHash.get(this));
-glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-memFree(verticesBuffer);
-    }
-    
-    public void bindIndicesBuffer(){
-    indicesBuffer = MemoryUtil.memAllocInt(indices.length); 
-
-       indicesBuffer.put(indices).flip();
-     GameShopIndexHash.getInstance().addIndex(this);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GameShopIndexHash.getInstance().indexHash.get(this));
-     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL_STATIC_DRAW);
-     memFree(indicesBuffer);
-    }
-    
-    public void bindTextureCoordinatesBuffer(){
-    
-        textureCoordinatesBuffer = MemoryUtil.memAllocFloat(texCoords.length);
-        textureCoordinatesBuffer.put(texCoords).flip();
-        GameShopTextureCoordsHash.getInstance().addPoly(this);
-        glBindBuffer(GL_ARRAY_BUFFER, GameShopTextureCoordsHash.getInstance().textureCoordsHash.get(this));
-        glBufferData(GL_ARRAY_BUFFER, textureCoordinatesBuffer, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, 0);
-        memFree(textureCoordinatesBuffer);
-    }
-    
-    public void draw(){
-       // assert(GameShopATMSHash.getInstsance().atmsHash.get(atms) != null);
-       
-      // System.out.println(atms);
-       glActiveTexture(GL_TEXTURE0);
-       glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(atms));
-        // Draw the mesh
-    glBindVertexArray(GameShopVertexHash.getInstance().vertexHash.get(this));
- 
-        glDrawElements(GL_TRIANGLES, indices.length,GL_UNSIGNED_INT, 0);
-    
-   
-    }
-}
+//    
+//    public void allocateVertices(Vector3f[] vertices){
+//        
+//      this.positions = new Vector3f[vertices.length];
+//      this.positions = vertices;
+//        
+//      this.vertices = new float[vertices.length * 3];
+//         
+//        int i = 0;
+//        for (Vector3f vertex: vertices){
+//        
+//            this.vertices[i] = vertex.x;
+//            this.vertices[i + 1] = vertex.y;
+//            this.vertices[i + 2] = vertex.z;
+//            
+//            i += 3;
+//        }
+//    }
+//    
+//         FloatBuffer verticesBuffer;// = MemoryUtil.memAllocFloat(vertices.length);
+//        IntBuffer indicesBuffer;// = MemoryUtil.memAllocInt(indices.length);
+//        FloatBuffer textureCoordinatesBuffer;
+//        
+//    public void allocateBuffer(){
+//        
+//       bindVertexArrayObject();
+//       bindVerticesBuffer();
+//       bindIndicesBuffer();
+//       bindTextureCoordinatesBuffer();
+//       unbind();
+//        
+//    }
+//    
+//    public void unbind(){
+//    glBindBuffer(GL_ARRAY_BUFFER, 0);
+//            glBindVertexArray(0);
+//
+//    }
+//    
+//    public void outputHashValues(){
+//    
+//      System.out.println(GameShopIndexHash.getInstance().indexHash.get(this));
+//      System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
+//      System.out.println(GameShopShapeHash.getInstance().shapeHash.get(this));
+//      System.out.println(GameShopVertexHash.getInstance().vertexHash.get(this));
+//    }
+//    public void bindVertexArrayObject(){
+//    
+//       GameShopVertexHash.getInstance().addVertexArrayObject(this);
+//     glBindVertexArray(GameShopVertexHash.getInstance().vertexHash.get(this));
+//    }
+//    
+//    public void bindVerticesBuffer(){
+//       verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
+//        verticesBuffer.put(vertices).flip(); 
+//GameShopShapeHash.getInstance().addPoly(this);
+//glBindBuffer(GL_ARRAY_BUFFER, GameShopShapeHash.getInstance().shapeHash.get(this));
+//glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
+//  glEnableVertexAttribArray(0);
+//            glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+//memFree(verticesBuffer);
+//    }
+//    
+//    public void bindIndicesBuffer(){
+//    indicesBuffer = MemoryUtil.memAllocInt(indices.length); 
+//
+//       indicesBuffer.put(indices).flip();
+//     GameShopIndexHash.getInstance().addIndex(this);
+//     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GameShopIndexHash.getInstance().indexHash.get(this));
+//     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL_STATIC_DRAW);
+//     memFree(indicesBuffer);
+//    }
+//    
+//    public void bindTextureCoordinatesBuffer(){
+//    
+//        textureCoordinatesBuffer = MemoryUtil.memAllocFloat(texCoords.length);
+//        textureCoordinatesBuffer.put(texCoords).flip();
+//        GameShopTextureCoordsHash.getInstance().addPoly(this);
+//        glBindBuffer(GL_ARRAY_BUFFER, GameShopTextureCoordsHash.getInstance().textureCoordsHash.get(this));
+//        glBufferData(GL_ARRAY_BUFFER, textureCoordinatesBuffer, GL_STATIC_DRAW);
+//        glEnableVertexAttribArray(2);
+//        glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, 0);
+//        memFree(textureCoordinatesBuffer);
+//    }
+//    
+//    public void draw(){
+//       // assert(GameShopATMSHash.getInstsance().atmsHash.get(atms) != null);
+//       
+//      // System.out.println(atms);
+//       glActiveTexture(GL_TEXTURE0);
+//       glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(atms));
+//        // Draw the mesh
+//    glBindVertexArray(GameShopVertexHash.getInstance().vertexHash.get(this));
+// 
+//        glDrawElements(GL_TRIANGLES, indices.length,GL_UNSIGNED_INT, 0);
+//    
+//   
+//    }
+//}

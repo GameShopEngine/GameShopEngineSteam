@@ -16,11 +16,11 @@ public class GameShopShapeHash {
   
     private static GameShopShapeHash _instance;
     
-    public HashMap<GameShopPoly, Integer> shapeHash;
+    public HashMap<GameShopPolyMesh, Integer> shapeHash;
     
     private GameShopShapeHash(){
     
-        shapeHash = new HashMap<GameShopPoly, Integer>();
+        shapeHash = new HashMap<GameShopPolyMesh, Integer>();
         
     }
     
@@ -33,7 +33,7 @@ public class GameShopShapeHash {
         return _instance;
     }
     
-    public void addPoly(GameShopPoly gsp){
+    public void addPoly(GameShopPolyMesh gsp){
     
         shapeHash.put(gsp, glGenBuffers());
  

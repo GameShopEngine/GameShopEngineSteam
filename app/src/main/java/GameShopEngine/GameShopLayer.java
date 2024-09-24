@@ -111,7 +111,7 @@ public class GameShopLayer {
         return output;
     }
  
-    public void drawCurrencyLine(GameShopCurrencyLine cl, short radius, Vector4f color){
+    public void drawCurrencyLine(GameShopPolyLine cl, short radius, Vector4f color){
 
         //int i = 0;
         for (int i = 0; i < cl.infinitesimals.length - 1; i++){

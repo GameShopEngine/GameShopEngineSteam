@@ -15,10 +15,10 @@ public class GameShopTextureCoordsHash {
     
     private static GameShopTextureCoordsHash _instance;
     
-    public HashMap<GameShopPoly, Integer> textureCoordsHash;
+    public HashMap<GameShopPolyMesh, Integer> textureCoordsHash;
     private GameShopTextureCoordsHash(){
     
-        textureCoordsHash = new HashMap<GameShopPoly, Integer>();
+        textureCoordsHash = new HashMap<GameShopPolyMesh, Integer>();
     }
     
     public static GameShopTextureCoordsHash getInstance(){
@@ -31,7 +31,7 @@ public class GameShopTextureCoordsHash {
         return _instance;
     }
     
-    public void addPoly(GameShopPoly gsp){
+    public void addPoly(GameShopPolyMesh gsp){
     
         textureCoordsHash.put(gsp, glGenBuffers());
     }

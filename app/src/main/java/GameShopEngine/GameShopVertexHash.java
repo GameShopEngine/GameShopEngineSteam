@@ -15,11 +15,11 @@ public class GameShopVertexHash {
     
     private static GameShopVertexHash _instance;
     
-    public HashMap<GameShopPoly, Integer> vertexHash;
+    public HashMap<GameShopPolyMesh, Integer> vertexHash;
     
     private GameShopVertexHash(){
     
-        vertexHash = new HashMap<GameShopPoly, Integer>();
+        vertexHash = new HashMap<GameShopPolyMesh, Integer>();
     }
     
     public static GameShopVertexHash getInstance(){
@@ -32,7 +32,7 @@ public class GameShopVertexHash {
         return _instance;
     }
     
-    public void addVertexArrayObject(GameShopPoly gsp){
+    public void addVertexArrayObject(GameShopPolyMesh gsp){
     
         vertexHash.put(gsp, glGenVertexArrays());
     }

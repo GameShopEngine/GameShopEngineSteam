@@ -11,12 +11,12 @@ import com.jme3.math.Vector3f;
  *
  * @author gameshopengine
  */
-public class GameShopCurrencyLine {
+public class GameShopPolyLine {
      public Vector3f[] points;
     public Vector3f[] infinitesimals;
 
     int numPoints;
-    public GameShopCurrencyLine(Vector3f[] points, int numPoints){
+    public GameShopPolyLine(Vector3f[] points, int numPoints){
 
         this.numPoints = numPoints;
 
