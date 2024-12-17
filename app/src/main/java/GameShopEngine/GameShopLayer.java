@@ -33,6 +33,22 @@ public class GameShopLayer {
         //layer = new Vector4f[height][width];
     }
     
+    
+    public void drawRectangle(Vector2f start, Vector2f end, Vector4f color){
+    
+             for (int y = (int) start.y; y <= end.y; y++){
+
+            for (int x = (int) start.x; x <= end.x * 4; x+=4) {
+                layer[y][x] =  (byte)(color.x);
+                layer[y][(x) + 1]  = (byte) (color.y);
+                layer[y][(x) + 2] = (byte) (color.z);
+                layer[y][(x) + 3]  = (byte) (color.w);
+//
+            }
+        }
+        
+    }
+    
     /**
      color should be 0 to 255;
      */
@@ -90,24 +106,24 @@ public class GameShopLayer {
         }
     }
     
-        public float[] outputLayer(){
+        public byte[] outputLayer(){
 
-        float[] output = new float[width * height * 4];
+        byte[] output = new byte[width * height * 4];
         int i = 0;
         for (short y = 0; y < height; y++){
             for (short x = 0; x < width * 4; x +=4){
 
-                output[i] = layer[y][x];
-                output[i + 1] = layer[y][x + 1];
-                output[i + 2] = layer[y][x + 2];
-                output[i + 3] = layer[y][x + 3];
+                output[i] = (byte) ((layer[y][x]));
+                output[i + 1] = (byte) (layer[y][x + 1]);
+                output[i + 2] = (byte) ((layer[y][x + 2]));
+                output[i + 3] = (byte) (layer[y][x + 3]);
 
                 i += 4;
             }
 
         }
 
-      //  System.out.println(Arrays.toString(output));
+       System.out.println("OutPut" + output[2]);
         return output;
     }
  

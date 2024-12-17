@@ -78,7 +78,7 @@ GLUtil.setupDebugMessageCallback();
                 //ENTER GSPS THREAD HERE
                 
                 
-                  GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(1920, 1080));
+                  //GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(1920, 1080));
                 GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
                
 //                GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projectionMatrix");

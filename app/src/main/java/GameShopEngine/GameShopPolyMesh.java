@@ -6,6 +6,7 @@ package GameShopEngine;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.Arrays;
 import java.util.HashSet;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -41,7 +42,7 @@ public class GameShopPolyMesh {
     public float[] vertices;
     public int[] indices;
     //public Vector3f[] positions;
-    public float[] texCoords;
+    public float[] texCoord;
     
     public GameShopATMS atms;
     
@@ -52,11 +53,13 @@ public class GameShopPolyMesh {
     public GameShopPolySurface[] gspSurfaces;
     
     public int[] surfacePeek;
-    public Vector2f[] textureSlices;
+    
+    //(x,y) widthRange //(z,w) heightRange
+    //public Vector4f[] textureSlices;
     //Groups Of 4. [group][4x]
    //public GameShopPolyLine[][] gspLines;
     
-    public GameShopPolyMesh(GameShopPolySurface[] gspSurfaces, Vector2f[] textureSlices, GameShopATMS atms){
+    public GameShopPolyMesh(GameShopPolySurface[] gspSurfaces, GameShopATMS atms){
         
     this.gspSurfaces = new GameShopPolySurface[gspSurfaces.length];
     this.gspSurfaces = gspSurfaces;
@@ -65,7 +68,8 @@ public class GameShopPolyMesh {
     
     this.surfacePeek = new int[gspSurfaces.length];
     
-    this.textureSlices = new Vector2f[textureSlices.length];
+    //this.textureSlices = new Vector4f[textureSlices.length];
+    //this.textureSlices = textureSlices;
        // this.gspLines = new GameShopPolyLine[gspLines.length][4];
       //  this.gspLines = gspLines;
         
@@ -88,109 +92,473 @@ public class GameShopPolyMesh {
 //      };
     }
     
+     
     public void allocateVertices(){
  
         int totalVertices = 0;
-        int j = 0;
-        for (GameShopPolySurface gsps: this.gspSurfaces){
-        
-        
-           totalVertices += gsps.getTotalVertices();
-           this.surfacePeek[j] = (int) (gsps.infWidth * gsps.infHeight);
-            j++;
-        }
-        
-        vertices = new float[totalVertices];
-        int i = 0;
-        for (GameShopPolySurface gsps: this.gspSurfaces){
-         
-           for (GameShopPolyLine vi: gsps.vInfinitesimals){
-             
-              for (com.jme3.math.Vector3f v : vi.infinitesimals){
+          for (GameShopPolySurface gsps: this.gspSurfaces){
+          for (GameShopPolyLine gscl: gsps.vInfinitesimals){
+
+             // System.out.println(totalVertices);
+              totalVertices += gscl.infinitesimals.length * 3;
+          }
+          }
+          this.vertices = new float[totalVertices];
+          
+          int i = 0;
+          
+              for (GameShopPolySurface gsps: this.gspSurfaces){
+          for (GameShopPolyLine gscl: gsps.vInfinitesimals){
+
+              for (com.jme3.math.Vector3f v: gscl.infinitesimals){
               
-                  vertices[i] = v.x;
-                  vertices[i + 1] = v.y;
-                  vertices[i + 2] = v.z;
-              
-                  i += 3;
+                  this.vertices[i] = v.x;
+                  this.vertices[i + 1] = v.y;
+                  this.vertices[i + 2] = v.z;
+                  i+=3;
               }
-           }
-        }
-        
+             // System.out.println(totalVertices);
+              //totalVertices += gscl.infinitesimals.length;
+          }
+          }
+            
+              System.out.println(vertices.length);
+       System.out.println(Arrays.toString(vertices));
+//          for (GameShopCurrencyLine gscl: vInfinitesimals){
+//           
+//              for (com.jme3.math.Vector3f v: gscl.infinitesimals){
+//              
+//                  
+//                  i++;
+//              }
+//          }
+          
+         // System.out.println(vertices.length);
+         // System.out.println(Arrays.asList(vertices));
+//        int totalVertices = 0;
+//        int j = 0;
+//        for (GameShopPolySurface gsps: this.gspSurfaces){
+//        
+//          gsps.getTotalVertices();
+//          // totalVertices += gsps.getTotalVertices();
+//          System.out.println(gsps.infWidth);
+//          System.out.println(gsps.infHeight);
+//           this.surfacePeek[j] = (int) (gsps.infWidth * gsps.infHeight);
+//           totalVertices += this.surfacePeek[j];
+//            j++;
+//        }
+//        
+//        vertices = new float[totalVertices * 3];
+//        int i = 0;
+//        for (GameShopPolySurface gsps: this.gspSurfaces){
+//         
+//           for (GameShopPolyLine vi: gsps.vInfinitesimals){
+//             
+//              for (com.jme3.math.Vector3f v : vi.infinitesimals){
+//              
+//                  vertices[i] = v.x;
+//                  vertices[i + 1] = v.y;
+//                  vertices[i + 2] = v.z;
+//              
+//                  i += 3;
+//              }
+//           }
+//        }
+//        System.out.println(vertices.length);
+//        System.out.println(Arrays.toString(vertices));
     }
+    
+    int skips = 0;
     
     public void allocateIndices(){
     
         //Find Poly Surface.  Determine Dimensions.  Go To Where In Array Start And End
         //Indices Seem To Be Half Of The Vertices.
         
-        this.indices = new int[(this.vertices.length * 1)/2];
-        
-        int i = 0;
-        int currentSurfacePeek = 0;
-        
-        for (GameShopPolySurface gsps: gspSurfaces){
-            
-             int indexNum = (surfacePeek[i] * 3) / 2;
+         int totalIndices = 0;
+         
+         for (GameShopPolySurface gsps: this.gspSurfaces){
+         
+             for (GameShopPolyLine gspl: gsps.vInfinitesimals){
              
-             int k = 0;
-             
-             for (int j = 0; j < indexNum; j += 6){
-             
-                 this.indices[j] = (int) (currentSurfacePeek + k + gsps.infWidth);
-                 this.indices[j + 1] = currentSurfacePeek + k;
-                 this.indices[j + 2] = (int) (currentSurfacePeek + k + gsps.infWidth) + 1;
-                 this.indices[j + 3] = (int) (currentSurfacePeek + k + gsps.infWidth) + 1;
-                 this.indices[j + 4] = currentSurfacePeek + k;
-                 this.indices[j + 5] = currentSurfacePeek + k + 1;
+                 for (com.jme3.math.Vector3f v: gspl.infinitesimals){
+                 totalIndices += 6;
                  
-                 k++;
+                 }
              }
-             
-            
-            currentSurfacePeek += surfacePeek[i];
-            i++;
-            
+         }
+         
+       //  totalIndices = (totalIndices/4) * 6;
         
+       // System.out.println("totalIndices: " + totalIndices);
+        indices = new int[totalIndices];
         
+        int index = 0;
+         int i = 0;
+        int line = 0;
+        int l = 0;
+        for (GameShopPolySurface gsps: this.gspSurfaces){
+         
+             for (GameShopPolyLine gspl: gsps.vInfinitesimals){
+       
+                 for (com.jme3.math.Vector3f v: gspl.infinitesimals){
+       
+//        
+//            if (l > 0 && l % (gspl.numPoints) == 0) {
+// 
+//           
+//            indices[index] =  0;
+//            indices[index + 1] = 0;
+//            indices[index + 2] = 0;
+//            indices[index + 3] = 0;
+//            indices[index + 4] = 0;
+//            indices[index + 5] = 0;
+//            l = 0;
+//            continue;
+//            } else {
+//               
+//                if ((int)(i + gspl.numPoints + 2) < (int)((gspl.infinitesimals.length))) {
+                    //System.out.println((int)(i));
+                    
+                    if (index == 0 || index % gspl.infinitesimals.length != 0){
+                    
+                    indices[index] = (short) (i + gspl.numPoints + 1);
+                    indices[index + 1] = (short) i;
+                    indices[index + 2] = (short) (i + 1);
+                    indices[index + 3] = (short) (i + 1);
+                    indices[index + 4] = (short) (i + gspl.numPoints + 2);
+                    indices[index + 5] = (short) (i + gspl.numPoints + 1);
+               
+                    } else {
+                    
+                        skips++;
+                    }
+                     //skips++;
+              //  }
+//                 
+//                 else {
+//                    indices[index] =  0;
+//                    indices[index + 1] = 0;
+//                    indices[index + 2] = 0;
+//                    indices[index + 3] = 0;
+//                    indices[index + 4] = 0;
+//                    indices[index + 5] = 0;
+//                   skips++;
+//                }
+            
+            
+             i++;
+            l++;
+           
+        index += 6;
+            //i++;
+            }
+            
+           
+            
+        if (i % (gspl.infinitesimals.length * gspl.infinitesimals.length) == 0) {
+
+            line++;
         }
         
         
+             }
+        }
+        
+          System.out.println(indices.length);
+          System.out.println( Arrays.toString(indices));
+        
+        ////////////////////////////////
+//        this.indices = new int[(this.vertices.length * 1)/2];
+//        
+//        int i = 0;
+//        int currentSurfacePeek = 0;
+//        
+//        for (GameShopPolySurface gsps: gspSurfaces){
+//            
+//             int indexNum = (surfacePeek[i] * 1) / 2;
+//             
+//             int k = 0;
+//             
+//             for (int j = 0; j < indexNum; j += 6){
+//             
+//                 this.indices[j] = (int) (k + gsps.infWidth);
+//                 this.indices[j + 1] = k;
+//                 this.indices[j + 2] = (int) (k + gsps.infWidth) + 1;
+//                 this.indices[j + 3] = (int) (k + gsps.infWidth) + 1;
+//                 this.indices[j + 4] = k;
+//                 this.indices[j + 5] = k + 1;
+//                 
+//                 k++;
+//             }
+//             
+//            
+//            currentSurfacePeek += surfacePeek[i];
+//            i++;
+//            
+//        
+//        
+//        }
+//        
+//        System.out.println(indices.length);
+//        System.out.println(Arrays.toString(indices));
+//        
+        //////////////////////////////////////
+        /**
+         *  int totalIndices = 0;
+ 
+        for (GameShopCurrencyLine gscl : vInfinitesimals){
+        
+            for (Vector3f v: gscl.infinitesimals){
+ 
+            
+                totalIndices += 6;
+              
+            }
+        }
+
+        totalIndices += this.vertices.length/4;
+        
+       // System.out.println("totalIndices: " + totalIndices);
+        indices = new Short[totalIndices];
+        
+        int i = 0;
+        int line = 0;
+        int l = 0;
+        for (int index = 0; index < indices.length; index += 6){
+        
+            if (l > 0 && l % (vInfinitesimals[line].numPoints) == 0) {
+ 
+           
+            indices[index] =  0;
+            indices[index + 1] = 0;
+            indices[index + 2] = 0;
+            indices[index + 3] = 0;
+            indices[index + 4] = 0;
+            indices[index + 5] = 0;
+            l = 0;
+            continue;
+            } else {
+                if ((int)(i + vInfinitesimals[line].numPoints + 2) < (int)(vertices.length)) {
+                    indices[index] = (short) (i + vInfinitesimals[line].numPoints + 1);
+                    indices[index + 1] = (short) i;
+                    indices[index + 2] = (short) (i + 1);
+                    indices[index + 3] = (short) (i + 1);
+                    indices[index + 4] = (short) (i + vInfinitesimals[line].numPoints + 2);
+                    indices[index + 5] = (short) (i + vInfinitesimals[line].numPoints + 1);
+                } else {
+                    indices[index] =  0;
+                    indices[index + 1] = 0;
+                    indices[index + 2] = 0;
+                    indices[index + 3] = 0;
+                    indices[index + 4] = 0;
+                    indices[index + 5] = 0;
+                }
+            
+            
+            
+            //i++;
+            }
+            
+            i++;
+            l++;
+           
+            
+        if (i % (vInfinitesimals[line].infinitesimals.length * vInfinitesimals[line].infinitesimals.length) == 0) {
+
+            line++;
+        }
+        }
+   
+          System.out.println(indices.length);
+          System.out.println(Arrays.asList(indices));
+        **/
     }
     
     public void allocateTexCoords(){
     
+        // this.texCoord = new com.jme3.math.Vector2f[(this.vertices.length/6) - (skips * 2) - 4];
+
+         //this.texCoord = new com.jme3.math.Vector2f[this.vertices.length];
+        this.texCoord = new float [(this.vertices.length/3) * 2];
+
+            int i = 0;
+        float x = 0;
+        float y = 0;
+        int slice = 0;
+        int v = 0;
+         for (GameShopPolySurface gsps: this.gspSurfaces){
+        if (gsps.polyLines.length / 4 != atms.textureSamples.length){
+
+            System.out.println("You Need 4 CurrencyLines for every 1 Texture Sample");
+            for (float tc: this.texCoord){
+
+                tc = 0f;
+            }
+            return;
+        }
+
+        int maxLines = gsps.vInfinitesimals.length;
+        int lines = 0;
+        
+        System.out.println("currencyLines " + gsps.polyLines.length);
+        System.out.println("vInfinitesimals " + gsps.vInfinitesimals.length);
+         
+         }
+     
+
+        while ( v < texCoord.length){
+
+            if (v == 0){
+                x = atms.textureSamples[slice].x;
+                y  = atms.textureSamples[slice].z;
+            }
+            if (slice == atms.textureSamples.length){
+
+                break;
+            }
+
+            //texCoord[v] = new com.jme3.math.Vector2f((atms.textureSamples[slice].x + (x)) , (atms.textureSamples[slice].z + (y)));
+
+            texCoord[v] = atms.textureSamples[slice].x + (x);
+            texCoord[v + 1] = atms.textureSamples[slice].z + (y);
+
+            this.gspSurfaces[slice].getTotalVertices();
+            //y += (((float) 1 /(((float) this.gspSurfaces[slice].vInfinitesimals[0].infinitesimals.length /atms.textureSamples.length))));
+//y += (((float) 1 /(((float) this.gspSurfaces[slice].vInfinitesimals[0].infinitesimals.length /atms.textureSamples.length))));
+
+            y += (float)(1/ ( this.gspSurfaces[slice].infWidth - 1));
+            
+            if (y > atms.textureSamples[slice].w){
+                y  = atms.textureSamples[slice].z;
+                x += (float)(1/ ( this.gspSurfaces[slice].infHeight - 1));
+                
+                //x += (((float) 1 /(((float) this.gspSurfaces[slice].vInfinitesimals.length /atms.textureSamples.length))));
+            }
+
+
+
+
+//            if (x > atms.textureSamples[slice].y) {
+//
+//                x = atms.textureSamples[slice].x;
+//                slice++;
+//            }
+
+
+/*
+            if (i > vInfinitesimals[lines].numPoints) {
+
+                i = 0;
+                y += .5f;
+            }
+            texCoord[v] = new Vector2f((((float)y)), ((float)i/(float)vInfinitesimals[lines].numPoints));
+
+           // texCoord[v] = new Vector2f();
+
+           // texCoord[v] = new Vector2f();
+
+            i++;
+            
+            */
+         v+=2;
+        }
+        i++;
+        slice++;
+         
+//        for (int v = 0; v < texCoord.length; v++){
+//
+//             if (i > vInfinitesimals[lines].numPoints) {
+//
+//                i = 0;
+//                y += .5f;
+//            }
+//            texCoord[v] = new Vector2f((float)(((float)y)), ((float)i/(float)vInfinitesimals[lines].numPoints));
+//            i++;
+//
+//
+//
+//        }
+        
+          System.out.println(texCoord.length);
+          System.out.println(Arrays.toString(texCoord));
+          
+          System.out.println(this.gspSurfaces[0].height);
+          System.out.println(this.gspSurfaces[0].width);
+          System.out.println(this.gspSurfaces[0].infHeight);
+          System.out.println(this.gspSurfaces[0].infWidth);
+        /**
         //Run an algorithm over infinitesimal width and height
 //        this.texCoords = new float[]{
 ////      
 ////          0,0, 0,1, 1,1, 1,0
 ////          
 ////      };
-        this.texCoords = new float[(this.vertices.length * 2)/ 3];
+        this.texCoords = new float[(this.vertices.length * 2)];
         
         int i = 0;
         int currentSurfacePeek = 0;
-        
+       // System.out.println(this.vertices.length);
         for (GameShopPolySurface gsps: gspSurfaces){
         
-            for (int j = 0; j < texCoords.length; j += 8){
+         //   System.out.println(texCoords.length);
+            //int texturePeek = surfacePeek[i];
+            int w = 0;
+            int h = 0;
+            for (int j = 0; j < texCoords.length/gspSurfaces.length; j += 8){
             
-                this.texCoords[j] = 0;
-                this.texCoords[j + 1] = 0;
-                this.texCoords[j + 2] = 0;
-                this.texCoords[j + 3] = 0;
-                this.texCoords[j + 4] = 0;
-                this.texCoords[j + 5] = 0;
-                this.texCoords[j + 6] = 0;
-                this.texCoords[j + 7] = 0;
+                this.texCoords[j] =  (w/gsps.infWidth) * ((textureSlices[i].x + textureSlices[i].y))/this.atms.width ;
+                this.texCoords[j + 1] = (h/gsps.infHeight) * (((textureSlices[i].z + textureSlices[i].w))/this.atms.height);
+               
+                if (j + 2 < this.texCoords.length){
+                this.texCoords[j + 2] = (w/gsps.infWidth) * (((textureSlices[i].x + textureSlices[i].y))/this.atms.width);
+                this.texCoords[j + 3] = ((h + 1)/gsps.infHeight) *(((textureSlices[i].z + textureSlices[i].w))/this.atms.height);
+                }
+               
+                if (j+4 < this.texCoords.length){
+                this.texCoords[j + 4] = ((w + 1) /gsps.infWidth) * (((textureSlices[i].x + textureSlices[i].y))/this.atms.width);
+                this.texCoords[j + 5] = ((h + 1)/gsps.infHeight) *(((textureSlices[i].z + textureSlices[i].w))/this.atms.height);
+                }
+                if (j + 6 < this.texCoords.length){
+                this.texCoords[j + 6] = ((w + 1)/gsps.infWidth) * (((textureSlices[i].x + textureSlices[i].y))/this.atms.width);
+                this.texCoords[j + 7] =  (h/gsps.infHeight) *(((textureSlices[i].z + textureSlices[i].w))/this.atms.height);
+                }
+                
+                w++;
+                if (w == gsps.infWidth){
+                
+                    h++;
+                    w = 0;
+                          
+                }
             }
             
-            currentSurfacePeek += surfacePeek[i];
+            //currentSurfacePeek += surfacePeek[i];
             i++;
         }
         
+        System.out.println(texCoords.length);
+        
+        System.out.println(Arrays.toString(texCoords));
+        
+        **/
     }
     
+    public float[] convertVector2ToFloat(com.jme3.math.Vector2f[] v){
+    
+        float[] convert = new float[(int)v.length * 2];
+        
+        int i = 0;
+        int j = 0;
+        for (com.jme3.math.Vector2f cv: v){
+        
+            convert[i] = cv.x;
+            convert[i + 1] = cv.y;
+            i+=2;
+            //j++;
+        }
+        return convert;
+    }
 //    public void allocateVertices(Vector3f[] vertices){
 //        
 //      this.positions = new Vector3f[vertices.length];
@@ -265,8 +633,8 @@ memFree(verticesBuffer);
     
     public void bindTextureCoordinatesBuffer(){
     
-        textureCoordinatesBuffer = MemoryUtil.memAllocFloat(texCoords.length);
-        textureCoordinatesBuffer.put(texCoords).flip();
+        textureCoordinatesBuffer = MemoryUtil.memAllocFloat(texCoord.length * 2);
+        textureCoordinatesBuffer.put((texCoord)).flip();
         GameShopTextureCoordsHash.getInstance().addPoly(this);
         glBindBuffer(GL_ARRAY_BUFFER, GameShopTextureCoordsHash.getInstance().textureCoordsHash.get(this));
         glBufferData(GL_ARRAY_BUFFER, textureCoordinatesBuffer, GL_STATIC_DRAW);

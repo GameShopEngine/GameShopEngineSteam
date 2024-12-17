@@ -16,13 +16,15 @@ public class GameShopObject {
     public Vector3f position;
     public Quaternionf rotation;
     public float scale;
+    GameShopPolyMesh polyMesh;
     
-    
-    public GameShopObject(){
+    public GameShopObject(GameShopPolyMesh polys){
         modelMatrix = new Matrix4f();
         position = new Vector3f();
         rotation = new Quaternionf();
         scale = 1;
+        this.polyMesh = polys;
+        updateModelMatrix();
     }
     
     public Matrix4f getModelMatrix() {

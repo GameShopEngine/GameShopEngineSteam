@@ -15,7 +15,7 @@ public class GameShopPolyLine {
      public Vector3f[] points;
     public Vector3f[] infinitesimals;
 
-    int numPoints;
+    public int numPoints;
     public GameShopPolyLine(Vector3f[] points, int numPoints){
 
         this.numPoints = numPoints;
