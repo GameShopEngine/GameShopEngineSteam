@@ -14,3 +14,8 @@ Making A Custom UI/UX For The Engine:
 
 ![image](https://github.com/user-attachments/assets/d3d5e9e5-84e6-4309-b48c-4316173d8265)
 
+Prior Prototype:
+
+This Kind Of Thing Can Be Made With The Engines Core Techniques:
+
+![WhiteMan](https://github.com/user-attachments/assets/6641cf39-3f21-42ca-9dde-f2ee0235dec1)
