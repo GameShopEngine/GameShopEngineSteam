@@ -562,7 +562,7 @@ GLUtil.setupDebugMessageCallback();
     
           GameShopUIComponent[] gsuiComponents = new GameShopUIComponent[1];
           gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, 117), new Vector2f(15, 10), ui.uiPolyMesh.uiATMS);
-          gsuiComponents[0].backgroundColor = new Vector4f(0,0,64,64);
+          gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
           
           ui.uiPolyMesh.uiATMS.addGameShopComponents(0, gsuiComponents );
           ui.uiPolyMesh.uiATMS.render();
