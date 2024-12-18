@@ -6,6 +6,7 @@ package GameShopEngine.UI;
 
 import GameShopEngine.GameShopATMS;
 import GameShopEngine.GameShopATMSHash;
+import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import com.jme3.math.Vector4f;
 import java.nio.ByteBuffer;
@@ -137,6 +138,7 @@ public class GameShopUIATMS extends GameShopATMS {
     }
     
     
+    @Override
        public void makeATMS(){
      //textureId = glGenTextures();
 
@@ -172,4 +174,19 @@ public class GameShopUIATMS extends GameShopATMS {
         }
     }
     
+    @Override
+    public void process(){
+       
+           for (GameShopLanguageProcessor gs: this.gslp){
+           
+               gs.process();
+               if (gs.methodName.equals("drawCircle")){
+               
+                   String[] color = gs.parseArg(gs.args[3]);
+                   this.uiLayer.drawCircle(Integer.parseInt(gs.args[0].trim()), Integer.parseInt(gs.args[1].trim()), Integer.parseInt(gs.args[2].trim()),  (new org.joml.Vector4f(Float.parseFloat(color[0].trim()), Float.parseFloat(color[1].trim()), Float.parseFloat(color[2].trim()), Float.parseFloat(color[3].trim()))));
+               }
+           }
+           
+           makeATMS();
+       }
 }

@@ -3,6 +3,7 @@
  */
 package GameShopEngine;
 
+import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import GameShopEngine.UI.GameShopUI;
 import GameShopEngine.UI.GameShopUIATMS;
@@ -517,7 +518,8 @@ GLUtil.setupDebugMessageCallback();
 		}
     
 //       
-                
+                //GameShopLanguageProcessor gslp = new GameShopLanguageProcessor("testMethod(Hi, My, Name, Is, LyndenJayEvans)");
+                //gslp.process();
                 long maxMemory = Runtime.getRuntime().maxMemory();
                 long allocatedMemory = Runtime.getRuntime().totalMemory();
                 long freeMemory = Runtime.getRuntime().freeMemory();
@@ -565,8 +567,13 @@ GLUtil.setupDebugMessageCallback();
           gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
           
           ui.uiPolyMesh.uiATMS.addGameShopComponents(0, gsuiComponents );
-          ui.uiPolyMesh.uiATMS.render();
-          ui.uiPolyMesh.uiATMS.makeATMS();
+           ui.uiPolyMesh.uiATMS.render();
+          //ui.uiPolyMesh.uiATMS.makeATMS();
+          System.out.println("HI");
+          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawCircle(64, 64, 30, (127, 127, 127, 127))")});
+          
+          ui.uiPolyMesh.uiATMS.process();
+         
           //ui.uiPolyMesh.uiATMS.
     }
 
