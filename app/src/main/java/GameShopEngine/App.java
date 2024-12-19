@@ -310,14 +310,14 @@ GLUtil.setupDebugMessageCallback();
                 
                 uiLines[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
                     new com.jme3.math.Vector3f(-xAxis * 1,-.33f,zAxis),
-                    new com.jme3.math.Vector3f(-xAxis * .33f, -.33f, zAxis + 2.5f ),
-                    new com.jme3.math.Vector3f(-xAxis * -.33f, -.33f, zAxis + 2.5f ),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, -.33f, zAxis ),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, -.33f, zAxis ),
                     new com.jme3.math.Vector3f(-xAxis * -1, -.33f, zAxis)}, numPoints);
                 
                 uiLines[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
                     new com.jme3.math.Vector3f(-xAxis * 1,.33f,zAxis),
-                    new com.jme3.math.Vector3f(-xAxis * .33f, .33f, zAxis  + 2.5f),
-                    new com.jme3.math.Vector3f(-xAxis * -.33f, .33f, zAxis + 2.5f),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, .33f, zAxis ),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, .33f, zAxis),
                     new com.jme3.math.Vector3f(-xAxis * -1, .33f, zAxis)}, numPoints);
                 
                 uiLines[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
@@ -444,7 +444,7 @@ GLUtil.setupDebugMessageCallback();
          System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
     //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     
-   gsui.setPosition(0, 0, -7);
+   gsui.setPosition(0, 0, -1.6f);
    // this.gso.setRotation(0, 1, 0, 180f);
     gsui.updateModelMatrix();
     
