@@ -42,6 +42,7 @@ public class GameShopUIATMS extends GameShopATMS {
         
         components = new GameShopUIComponent[1];
         uiLayer = new GameShopUILayer(width, height);
+      //  this.
     }
     
     public void addGameShopComponents(int index, GameShopUIComponent[] components){
@@ -146,8 +147,8 @@ public class GameShopUIATMS extends GameShopATMS {
      ByteBuffer pixels = BufferUtils.createByteBuffer(uiLayer.outputLayer().length);
      pixels.put(uiLayer.outputLayer());
      pixels.flip();
-     GameShopATMSHash.getInstsance().addATMS(this);
-        glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(this));
+     GameShopATMSHash.getInstance().addATMS(this);
+        glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstance().atmsHash.get(this));
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -156,7 +157,7 @@ public class GameShopUIATMS extends GameShopATMS {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
                 GL_RGBA, GL_BYTE, pixels );
         glGenerateMipmap(GL_TEXTURE_2D);
-        //assert (GameShopATMSHash.getInstsance().atmsHash.get(this) != null);
+        //assert (GameShopATMSHash.getInstance().atmsHash.get(this) != null);
     }
     
     public void onClick (Vector2f clickPos){

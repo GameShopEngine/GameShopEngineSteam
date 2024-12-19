@@ -22,7 +22,7 @@ public class GameShopATMSHash {
         atmsHash = new HashMap<GameShopATMS, Integer>();
     }
     
-    public static GameShopATMSHash getInstsance(){
+    public static GameShopATMSHash getInstance(){
     
         if (_instance == null){
         

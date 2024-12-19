@@ -266,14 +266,16 @@ glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE); // before creating the windo
 GLUtil.setupDebugMessageCallback();
                
 		// Set the clear color
-		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
                 
  
                glEnable(GL_BLEND);
  
                glEnable(GL_DEPTH_TEST);
-  
+               //glDepthFunc(GL_LESS);
                
+//               glEnable(GL_PRIMITIVE_RESTART);
+//               glPrimitiveRestartIndex(-1);
  
                 GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
                 GameShopShaderHash.getInstance().compileShader("Hello GameShop");
@@ -296,7 +298,7 @@ GLUtil.setupDebugMessageCallback();
                 
                 
                 int numPoints = 4;
-                float zAxis = -1.6f;
+                float zAxis = 0;//-4.6f; //-1.6
                 float zAxis1 = -1.6f;
                 float xAxis = 1.65f;
                 
@@ -308,14 +310,14 @@ GLUtil.setupDebugMessageCallback();
                 
                 uiLines[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
                     new com.jme3.math.Vector3f(-xAxis * 1,-.33f,zAxis),
-                    new com.jme3.math.Vector3f(-xAxis * .33f, -.33f, zAxis),
-                    new com.jme3.math.Vector3f(-xAxis * -.33f, -.33f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, -.33f, zAxis + 2.5f ),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, -.33f, zAxis + 2.5f ),
                     new com.jme3.math.Vector3f(-xAxis * -1, -.33f, zAxis)}, numPoints);
                 
                 uiLines[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
                     new com.jme3.math.Vector3f(-xAxis * 1,.33f,zAxis),
-                    new com.jme3.math.Vector3f(-xAxis * .33f, .33f, zAxis),
-                    new com.jme3.math.Vector3f(-xAxis * -.33f, .33f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, .33f, zAxis  + 2.5f),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, .33f, zAxis + 2.5f),
                     new com.jme3.math.Vector3f(-xAxis * -1, .33f, zAxis)}, numPoints);
                 
                 uiLines[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
@@ -396,10 +398,10 @@ GLUtil.setupDebugMessageCallback();
                 atms.layer.drawCircle(64, 64, 32, new Vector4f(0,0, 127,127));
                 atms.makeATMS();
                 
-                GameShopPolyMesh gspm = new GameShopPolyMesh(new GameShopPolySurface[]{gsps1}, atms);
+                GameShopPolyMesh gspm = new GameShopPolyMesh(new GameShopPolySurface[]{uiSurface}, atms);
                 
                 //GameShopPolyMesh gspm1 = new GameShopPolyMesh(new GameShopPolySurface[] {gsps1})
-                this.gso = new GameShopObject(gspm);
+                //this.gso = new GameShopObject(gspm);
                 
                 GameShopATMS atms1 = new GameShopATMS(128, 128, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
 //                atms.layer.drawCircle(50, 50, 100, new Vector4f(0,0,0,1f));
@@ -407,7 +409,7 @@ GLUtil.setupDebugMessageCallback();
                 atms1.layer.drawCircle(64, 64, 128, new Vector4f(0,0,0,1f));
                 atms1.makeATMS();
                 
-                GameShopPolyMesh skyBox =  new GameShopPolyMesh(new GameShopPolySurface[]{gsps}, atms1);
+                //GameShopPolyMesh skyBox =  new GameShopPolyMesh(new GameShopPolySurface[]{gsps}, atms1);
                  
                 //ENTER GSPS THREAD HERE
                 
@@ -417,9 +419,9 @@ GLUtil.setupDebugMessageCallback();
  
                 uiGSPMesh.allocateBuffer();
                 
-                gspm.allocateBuffer();
+               // gspm.allocateBuffer();
                 
-                skyBox.allocateBuffer();
+                //skyBox.allocateBuffer();
     //gsps[i] = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
                 
     //gsps[i].allocateBuffer();  
@@ -442,6 +444,14 @@ GLUtil.setupDebugMessageCallback();
          System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
     //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     
+   gsui.setPosition(0, 0, -7);
+   // this.gso.setRotation(0, 1, 0, 180f);
+    gsui.updateModelMatrix();
+    
+  //this.gso.setPosition(0, 0, -7);
+  //this.gso.updateModelMatrix();
+    
+   // glFrontFace(GL_CW);
         // Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
 		while ( !glfwWindowShouldClose(window) ) {
@@ -460,7 +470,7 @@ GLUtil.setupDebugMessageCallback();
                     //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,.1f));
                      //                  GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080); 
                      position = position.add(0, 0, 0.1f);
-                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), 1920, 1080));
+                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));// new GameShopCamera(position, new Vector3f(), 1920, 1080));
                                System.out.println("BACKWARD");
                                System.out.println(position);
                      moveForward = false;
@@ -476,7 +486,7 @@ GLUtil.setupDebugMessageCallback();
                   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
-                  GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", gso.getModelMatrix());
+                  GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", gsui.getModelMatrix());
              GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
  
@@ -489,10 +499,19 @@ GLUtil.setupDebugMessageCallback();
       // GL46.glBlendFunc(GL46.GL_SRC_ALPHA, GL46.GL_ONE);
       // gspm.draw();
        // skyBox.draw();
+       
+//       uiGSPMesh.uiATMS.render();
+//      // uiGSPMesh.uiATMS.process();
+//       uiGSPMesh.uiATMS.makeATMS();
+//        uiGSPMesh.draw();
         
-        uiGSPMesh.draw();
-        
-        
+glEnable(GL_CULL_FACE);
+  glCullFace(GL_FRONT);
+ gsui.uiPolyMesh.draw();
+
+//this.gso.polyMesh.draw();
+         
+//glDisable(GL_CULL)
         //glBlendFuncSeparate(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
         // GL46.glBlendFunc(GL46.GL_SRC_ALPHA, GL46.GL_ZERO);
         
@@ -567,10 +586,10 @@ GLUtil.setupDebugMessageCallback();
           gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
           
           ui.uiPolyMesh.uiATMS.addGameShopComponents(0, gsuiComponents );
-           ui.uiPolyMesh.uiATMS.render();
+          ui.uiPolyMesh.uiATMS.render();
           //ui.uiPolyMesh.uiATMS.makeATMS();
           System.out.println("HI");
-          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawCircle(64, 64, 30, (127, 127, 127, 127))")});
+          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawCircle(64, 64, 30, (127, 127, 127, 54))")});
           
           ui.uiPolyMesh.uiATMS.process();
          

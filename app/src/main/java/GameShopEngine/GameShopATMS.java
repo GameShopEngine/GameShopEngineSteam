@@ -46,8 +46,8 @@ public class GameShopATMS {
       ByteBuffer pixels = BufferUtils.createByteBuffer(layer.outputLayer().length);
      pixels.put(layer.outputLayer());
      pixels.flip();
-     GameShopATMSHash.getInstsance().addATMS(this);
-        glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(this));
+     GameShopATMSHash.getInstance().addATMS(this);
+        glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstance().atmsHash.get(this));
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -56,7 +56,7 @@ public class GameShopATMS {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
                 GL_RGBA, GL_BYTE, pixels);
         glGenerateMipmap(GL_TEXTURE_2D);
-        //assert (GameShopATMSHash.getInstsance().atmsHash.get(this) != null);
+        //assert (GameShopATMSHash.getInstance().atmsHash.get(this) != null);
     }
        
        public void addGameShopLanguageProcessors(int index, GameShopLanguageProcessor[] gslp){
@@ -156,10 +156,29 @@ public class GameShopATMS {
        
            for (GameShopLanguageProcessor gs: this.gslp){
            
+               gs.process();
+               
                if (gs.methodName.equals("drawCircle")){
                
                    String[] color = gs.parseArg(gs.args[3]);
                    this.layer.drawCircle(Integer.parseInt(gs.args[0]), Integer.parseInt(gs.args[1]), Integer.parseInt(gs.args[2]),  (new org.joml.Vector4f(Float.parseFloat(color[0]), Float.parseFloat(color[1]), Float.parseFloat(color[2]), Float.parseFloat(color[3]))));
+               }
+               
+               else if (gs.methodName.equals("drawSquare")){
+               
+                   
+               }
+               
+               else if (gs.methodName.equals("drawRectangle")){
+               
+               }
+               
+               else if (gs.methodName.equals("drawLine")){
+               
+               } 
+               
+               else if (gs.methodName.equals("drawPolyLine")) {
+               
                }
            }
            

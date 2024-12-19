@@ -123,11 +123,11 @@ public class GameShopLayer {
 
         }
 
-       System.out.println("OutPut" + output[2]);
+       //System.out.println("OutPut" + output[2]);
         return output;
     }
  
-    public void drawCurrencyLine(GameShopPolyLine cl, short radius, Vector4f color){
+    public void drawPolyLine(GameShopPolyLine cl, short radius, Vector4f color){
 
         //int i = 0;
         for (int i = 0; i < cl.infinitesimals.length - 1; i++){

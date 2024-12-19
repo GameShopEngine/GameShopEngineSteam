@@ -6,6 +6,7 @@ package GameShopEngine;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 import java.util.Arrays;
 import java.util.HashSet;
 import org.joml.Vector2f;
@@ -14,7 +15,9 @@ import org.joml.Vector4f;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_SHORT;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glDrawElements;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
@@ -115,6 +118,19 @@ public class GameShopPolyMesh {
                   this.vertices[i] = v.x;
                   this.vertices[i + 1] = v.y;
                   this.vertices[i + 2] = v.z;
+//                  if (this.vertices[i ]  ==  0.8234531f){
+//                  
+//                      System.out.println("ROUNDED: " + (i));
+//                  }
+                if (this.vertices[i + 2]  ==  0f){
+                  
+                      System.out.println("ROUNDED: " + (i + 2));
+                      if ((i + 3) % 3 == 0){
+                      
+                          
+                      System.out.println("Z CORD: " + (i + 2));
+                      } 
+                  }
                   i+=3;
               }
              // System.out.println(totalVertices);
@@ -123,7 +139,31 @@ public class GameShopPolyMesh {
           }
             
               System.out.println(vertices.length);
-       System.out.println(Arrays.toString(vertices));
+      // System.out.println(Arrays.toString(vertices));
+      
+      int j = 0;
+      for (float v: vertices){
+      
+          if (j == 0){
+          
+              System.out.print(" x " + v);
+              j++;
+              
+          } else if (j == 1){
+          
+              
+              System.out.print(" y " + v);
+              j++;
+              
+          } else if (j == 2){
+          
+              
+              System.out.print(" z " + v);
+              System.out.println("");
+              j = 0;
+          }
+          
+      }
 //          for (GameShopCurrencyLine gscl: vInfinitesimals){
 //           
 //              for (com.jme3.math.Vector3f v: gscl.infinitesimals){
@@ -177,17 +217,20 @@ public class GameShopPolyMesh {
         
          int totalIndices = 0;
          
-         for (GameShopPolySurface gsps: this.gspSurfaces){
+//         for (GameShopPolySurface gsps: this.gspSurfaces){
+//         
+//             for (GameShopPolyLine gspl: gsps.vInfinitesimals){
+//             
+//                 for (com.jme3.math.Vector3f v: gspl.infinitesimals){
+//                 totalIndices += 6;
+//                 //totalIndices += 12;
+//                 }
+//             }
+//         }
          
-             for (GameShopPolyLine gspl: gsps.vInfinitesimals){
-             
-                 for (com.jme3.math.Vector3f v: gspl.infinitesimals){
-                 totalIndices += 6;
-                 
-                 }
-             }
-         }
-         
+        totalIndices = (this.vertices.length / 3) * 6;
+        
+        // totalIndices -= 150;
        //  totalIndices = (totalIndices/4) * 6;
         
        // System.out.println("totalIndices: " + totalIndices);
@@ -197,12 +240,39 @@ public class GameShopPolyMesh {
          int i = 0;
         int line = 0;
         int l = 0;
+        boolean isBreak = false;
+        
         for (GameShopPolySurface gsps: this.gspSurfaces){
          
+            if (isBreak){
+            
+                break;
+            }
+//            if (index + 6 >= totalIndices){
+//        
+//            break;
+//        }
              for (GameShopPolyLine gspl: gsps.vInfinitesimals){
        
+//                 if (index + 6 >= totalIndices){
+//        
+//            break;
+//        }
+                if (isBreak){
+                
+                    break;
+                }
                  for (com.jme3.math.Vector3f v: gspl.infinitesimals){
        
+//                     if (index + 6 >= totalIndices){
+//        
+//            break;
+//        }
+                     if (isBreak){
+                     
+                         break;
+                         
+                     }
 //        
 //            if (l > 0 && l % (gspl.numPoints) == 0) {
 // 
@@ -220,8 +290,14 @@ public class GameShopPolyMesh {
 //                if ((int)(i + gspl.numPoints + 2) < (int)((gspl.infinitesimals.length))) {
                     //System.out.println((int)(i));
                     
-                    if (index == 0 || index % gspl.infinitesimals.length != 0){
+                    //if (index == 0 || index % gspl.infinitesimals.length != 0){
                     
+                    if ((short) (i + gspl.numPoints + 1) == (short)(vertices.length/3) - 1){
+                    
+                        System.out.println("BREAK");
+                        isBreak = true;
+                        break;
+                    }
                     indices[index] = (short) (i + gspl.numPoints + 1);
                     indices[index + 1] = (short) i;
                     indices[index + 2] = (short) (i + 1);
@@ -229,10 +305,20 @@ public class GameShopPolyMesh {
                     indices[index + 4] = (short) (i + gspl.numPoints + 2);
                     indices[index + 5] = (short) (i + gspl.numPoints + 1);
                
-                    } else {
                     
-                        skips++;
-                    }
+                   // }
+                 
+//                 else {
+//                    
+//                        indices[index] = (short) -1;
+//                    indices[index + 1] = (short) -1;
+//                    indices[index + 2] = (short) -1;
+//                    indices[index + 3] = (short) -1;
+//                    indices[index + 4] = (short) -1;
+//                    indices[index + 5] = (short) -1;
+//               
+//                       // skips++;
+//                    }
                      //skips++;
               //  }
 //                 
@@ -251,6 +337,8 @@ public class GameShopPolyMesh {
             l++;
            
         index += 6;
+        
+        
             //i++;
             }
             
@@ -644,11 +732,11 @@ memFree(verticesBuffer);
     }
     
     public void draw(){
-       // assert(GameShopATMSHash.getInstsance().atmsHash.get(atms) != null);
+       // assert(GameShopATMSHash.getInstance().atmsHash.get(atms) != null);
        
       // System.out.println(atms);
        glActiveTexture(GL_TEXTURE0);
-       glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstsance().atmsHash.get(atms));
+       glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstance().atmsHash.get(atms));
         // Draw the mesh
     glBindVertexArray(GameShopVertexHash.getInstance().vertexHash.get(this));
  
