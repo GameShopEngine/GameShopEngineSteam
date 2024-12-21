@@ -4,6 +4,8 @@
 package GameShopEngine;
 
 import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
+import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
+import GameShopEngine.UI.Characters.GameShopCharacterCursor;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import GameShopEngine.UI.GameShopUI;
 import GameShopEngine.UI.GameShopUIATMS;
@@ -382,8 +384,8 @@ GLUtil.setupDebugMessageCallback();
                 GameShopPolySurface gsps = new GameShopPolySurface(gspl);
                 GameShopPolySurface gsps1 = new GameShopPolySurface(gspl1);
                 
-                GameShopUIATMS uiATMS = new GameShopUIATMS(128, 128, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
-                uiATMS.uiLayer.drawCircle(64, 64, 128, new Vector4f(0,0,127,127));
+                GameShopUIATMS uiATMS = new GameShopUIATMS(1366, 768, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+                uiATMS.uiLayer.drawCircle(683, 384, 800, new Vector4f(0,0,127,127));
                 uiATMS.makeATMS();
                 
                 GameShopUIPolyMesh uiGSPMesh = new GameShopUIPolyMesh(new GameShopPolySurface[]{uiSurface}, uiATMS);
@@ -444,7 +446,7 @@ GLUtil.setupDebugMessageCallback();
          System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
     //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     
-   gsui.setPosition(0, 0, -1.6f);
+   gsui.setPosition(0, 0, -1.75f);
    // this.gso.setRotation(0, 1, 0, 180f);
     gsui.updateModelMatrix();
     
@@ -582,16 +584,33 @@ glEnable(GL_CULL_FACE);
     public void makeUI(GameShopUI ui){
     
           GameShopUIComponent[] gsuiComponents = new GameShopUIComponent[1];
-          gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, 117), new Vector2f(15, 10), ui.uiPolyMesh.uiATMS);
+          gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, ui.uiPolyMesh.uiATMS.height - 26), new Vector2f(50, 25), ui.uiPolyMesh.uiATMS, new GameShopCharacterCursor(gsuiComponents[0]));
           gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
+          gsuiComponents[0].textColor = new Vector4f(0,0,0,127);
           
           ui.uiPolyMesh.uiATMS.addGameShopComponents(0, gsuiComponents );
           ui.uiPolyMesh.uiATMS.render();
           //ui.uiPolyMesh.uiATMS.makeATMS();
           System.out.println("HI");
-          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawCircle(64, 64, 30, (127, 127, 127, 54))")});
+          //ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawSquare(64, 64, 30, (127, 127, 127, 54))")});
+          //ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawRectangle((15, 15), (30, 30), (127, 127, 127, 54))")});
+          //ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawLine((30, 30), (45, 15), 1, (127, 127, 127, 54))")});
+          //ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawPolyLine((45, 30, 0), (30, 30, 0), (30, 45, 0), (45,45,0), 3, (127, 127, 127, 54))")});
+          ui.uiPolyMesh.uiATMS.components[0].gscc = new GameShopCharacterCursor(ui.uiPolyMesh.uiATMS.components[0]);
+          GameShopCharacterUpperCaseA gscua = new GameShopCharacterUpperCaseA("", 10f, 'A', ui.uiPolyMesh.uiATMS.components[0].gscc);
+ 
+          ui.uiPolyMesh.uiATMS.components[0].gscc.setStartPosition(gscua);
+          gscua.drawCharacter();
+          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
           
-          ui.uiPolyMesh.uiATMS.process();
+//          if (ui.uiPolyMesh.uiATMS.gslp == null){
+//          
+//              System.out.println("NULL");
+//          }
+//          
+//          System.out.println(ui.uiPolyMesh.uiATMS.gslp.length);
+//         
+ui.uiPolyMesh.uiATMS.process();
          
           //ui.uiPolyMesh.uiATMS.
     }

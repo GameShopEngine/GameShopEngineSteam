@@ -38,11 +38,11 @@ public class GameShopLayer {
     
              for (int y = (int) start.y; y <= end.y; y++){
 
-            for (int x = (int) start.x; x <= end.x * 4; x+=4) {
-                layer[y][x] =  (byte)(color.x);
-                layer[y][(x) + 1]  = (byte) (color.y);
-                layer[y][(x) + 2] = (byte) (color.z);
-                layer[y][(x) + 3]  = (byte) (color.w);
+            for (int x = (int) start.x; x <= end.x; x++) {
+                layer[y][x * 4] =  (byte)(color.x);
+                layer[y][(x * 4) + 1]  = (byte) (color.y);
+                layer[y][(x * 4) + 2] = (byte) (color.z);
+                layer[y][(x * 4) + 3]  = (byte) (color.w);
 //
             }
         }
@@ -97,10 +97,10 @@ public class GameShopLayer {
         for (int y = startY; y < endY; y++){
 
             for (int x = startX; x < endX; x++) {
-                layer[y][x] =  (byte)(color.x);
-                layer[y][(x) + 1]  = (byte) (color.y);
-                layer[y][(x) + 2] = (byte) (color.z);
-                layer[y][(x) + 3]  = (byte) (color.w);
+                layer[y][x * 4] =  (byte)(color.x);
+                layer[y][(x * 4) + 1]  = (byte) (color.y);
+                layer[y][(x * 4) + 2] = (byte) (color.z);
+                layer[y][(x * 4) + 3]  = (byte) (color.w);
 //
             }
         }
@@ -133,6 +133,7 @@ public class GameShopLayer {
         for (int i = 0; i < cl.infinitesimals.length - 1; i++){
 
             //if (i < cl.infinitesimals.length - 1) {
+           
             drawLine(new Vector2f(cl.infinitesimals[i].x,cl.infinitesimals[i].y), new Vector2f(cl.infinitesimals[i + 1].x,cl.infinitesimals[i + 1].y), radius, color);
             // i++;
             //}
@@ -147,6 +148,24 @@ public class GameShopLayer {
 //
 //        int i = (int) (dist/radius);
 //
+
+//        Vector2f tempA = null;
+//        Vector2f tempB = null;
+//        
+//        if (pointA.x <= pointB.x){
+//        
+//            tempA = pointA;
+//            tempB = pointB;
+//        } else {
+//        
+//            //System.out.println("ELSE");
+//            tempA = pointB;
+//            tempB = pointA;
+//        }
+//        
+//        pointA = tempA;
+//        pointB = tempB;
+
         float x =  pointA.x;
         float y =  pointA.y;
 //
@@ -182,7 +201,7 @@ public class GameShopLayer {
             if (distX >= 1) {
                 //System.out.println("x+ " + x);
                 float addX = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(radius/distX)));
-
+                addX /= 4;
                 if (Float.isNaN(x)){
                     continue;
                 }
@@ -192,6 +211,7 @@ public class GameShopLayer {
             else if (distX <= -1) {
               //  System.out.println("x- " + x);
                 float addX = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(FastMath.abs(radius/distX))));
+                addX /= 4;
                 if (Float.isNaN(x)){
                     continue;
                 }
@@ -201,6 +221,7 @@ public class GameShopLayer {
             if (distY >= 1) {
                 //System.out.println("y+ " + y);
                 float addY = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(radius/distY)));
+                addY /= 4;
                 if (Float.isNaN(y)){
                     continue;
                 }
@@ -210,6 +231,7 @@ public class GameShopLayer {
             else if (distY <= -1) {
                // System.out.println("y- " + y);
                 float addY = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(FastMath.abs(radius/distY))));
+                addY /= 4;
                 if (Float.isNaN(y)){
                     continue;
                 }

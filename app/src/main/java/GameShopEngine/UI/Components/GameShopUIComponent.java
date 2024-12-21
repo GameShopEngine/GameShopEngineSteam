@@ -4,6 +4,7 @@
  */
 package GameShopEngine.UI.Components;
 
+import GameShopEngine.UI.Characters.GameShopCharacterCursor;
 import GameShopEngine.UI.GameShopUIATMS;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -22,7 +23,9 @@ public class GameShopUIComponent {
     public Vector4f backgroundColor;
     public Vector4f textColor;
     
-    public GameShopUIComponent(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS){
+    public GameShopCharacterCursor gscc;
+    
+    public GameShopUIComponent(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS, GameShopCharacterCursor gscc){
     
         this.position = position;
         this.size = size;
@@ -30,6 +33,8 @@ public class GameShopUIComponent {
         this.uiATMS = uiATMS;
         this.backgroundColor = new Vector4f();
         this.textColor = new Vector4f();
+        
+        this.gscc = gscc;
     }
     
     public void onClick(Vector2f clickPos){
