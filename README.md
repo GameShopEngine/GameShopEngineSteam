@@ -2,6 +2,8 @@
 
 I Am Making The Greatest Of All Time Game Engine.  Using Java This Will Be Able To Make Games For SteamOS
 
+GameShop Engine is only for Personal Use.  Distribution and Sales is Prohibited.  Copyright Lynden Jay Evans Jr of Charlotte North Carolina
+
 ## Devlog Document
 
 Please Read The DevLog Document
