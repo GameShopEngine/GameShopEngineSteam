@@ -200,8 +200,8 @@ public class GameShopLayer {
             drawCircle((short)x, (short)y, radius, color);
             if (distX >= 1) {
                 //System.out.println("x+ " + x);
-                float addX = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(radius/distX)));
-                addX /= 4;
+                float addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(radius)));
+                addX /= 8;
                 if (Float.isNaN(x)){
                     continue;
                 }
@@ -210,8 +210,8 @@ public class GameShopLayer {
 
             else if (distX <= -1) {
               //  System.out.println("x- " + x);
-                float addX = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(FastMath.abs(radius/distX))));
-                addX /= 4;
+                float addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(FastMath.abs(radius))));
+                addX /= 8;
                 if (Float.isNaN(x)){
                     continue;
                 }
@@ -220,8 +220,8 @@ public class GameShopLayer {
             }
             if (distY >= 1) {
                 //System.out.println("y+ " + y);
-                float addY = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(radius/distY)));
-                addY /= 4;
+                float addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(radius)));
+                addY /= 8;
                 if (Float.isNaN(y)){
                     continue;
                 }
@@ -230,8 +230,8 @@ public class GameShopLayer {
 
             else if (distY <= -1) {
                // System.out.println("y- " + y);
-                float addY = (FastMath.sqrt(FastMath.sqr(radius) - FastMath.sqr(FastMath.abs(radius/distY))));
-                addY /= 4;
+                float addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
+                addY /= 8;
                 if (Float.isNaN(y)){
                     continue;
                 }
