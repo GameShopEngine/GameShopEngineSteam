@@ -14,10 +14,10 @@ Prior Prototype:
 
 This Kind Of Thing Can Be Made With The Engines Core Techniques:
 
-(https://drive.google.com/file/d/134fFVeEGZrBfFEFTc5Fb9OCQgtnCwZ07/view?usp=sharing)
+(https://drive.google.com/file/d/134fFVeEGZrBfFEFTc5Fb9OCQgtnCwZ07/uc?export=view&id=?usp=sharing)
 
 Current Progress:
 
 Making A Custom UI/UX For The Engine:
 
-(https://drive.google.com/file/d/13RgLX9ng9fXwMf-R6mkvwN1go6FhbJKO/view?usp=sharing)
+(https://drive.google.com/file/d/13RgLX9ng9fXwMf-R6mkvwN1go6FhbJKO/uc?export=view&id=?usp=sharing)
