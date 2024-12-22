@@ -14,10 +14,10 @@ Prior Prototype:
 
 This Kind Of Thing Can Be Made With The Engines Core Techniques:
 
-![WhiteMan](https://github.com/user-attachments/assets/04be6924-7dd6-4b3a-9885-10cdaa205a14)
+(https://drive.google.com/file/d/134fFVeEGZrBfFEFTc5Fb9OCQgtnCwZ07/view?usp=sharing)
 
 Current Progress:
 
 Making A Custom UI/UX For The Engine:
 
-![Screenshot from 2024-12-17 16-00-33](https://github.com/user-attachments/assets/9e61562d-8342-4f1d-a2f6-9a101037fd44)
+(https://drive.google.com/file/d/13RgLX9ng9fXwMf-R6mkvwN1go6FhbJKO/view?usp=sharing)
