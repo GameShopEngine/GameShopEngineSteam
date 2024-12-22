@@ -14,7 +14,7 @@ Prior Prototype:
 
 This Kind Of Thing Can Be Made With The Engines Core Techniques:
 
-(https://drive.google.com/file/d/134fFVeEGZrBfFEFTc5Fb9OCQgtnCwZ07/uc?export=view&id=?usp=sharing)
+(https://drive.google.com/file/d/134fFVeEGZrBfFEFTc5Fb9OCQgtnCwZ07/uc?export=view&id=usp=sharing)
 
 Current Progress:
 
