@@ -6,6 +6,7 @@ package GameShopEngine.UI.Components;
 
 import GameShopEngine.UI.Characters.GameShopCharacterCursor;
 import GameShopEngine.UI.GameShopUIATMS;
+import GameShopEngine.UI.WordProcessor.GameShopWordProcessor;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -25,6 +26,8 @@ public class GameShopUIComponent {
     
     public GameShopCharacterCursor gscc;
     
+    public GameShopWordProcessor gswp;
+    
     public GameShopUIComponent(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS, GameShopCharacterCursor gscc){
     
         this.position = position;
@@ -35,6 +38,8 @@ public class GameShopUIComponent {
         this.textColor = new Vector4f();
         
         this.gscc = gscc;
+        
+        
     }
     
     public void onClick(Vector2f clickPos){
@@ -54,5 +59,10 @@ public class GameShopUIComponent {
         this.uiATMS.uiLayer.drawRectangle(position, new Vector2f(position.x + size.x, position.y + size.y), backgroundColor);
      //this.uiATMS.uiLayer.drawSquare(5, 5, 5, backgroundColor);
     
+    }
+    
+    public void setText(String text){
+    
+        this.gswp = new GameShopWordProcessor(text, this);
     }
 }

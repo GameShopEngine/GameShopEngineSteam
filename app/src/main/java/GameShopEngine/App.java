@@ -5,6 +5,7 @@ package GameShopEngine;
 
 import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
 import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
+import GameShopEngine.UI.Characters.GameShopCharacter;
 import GameShopEngine.UI.Characters.GameShopCharacterCursor;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import GameShopEngine.UI.GameShopUI;
@@ -597,12 +598,19 @@ glEnable(GL_CULL_FACE);
           //ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawLine((30, 30), (45, 15), 1, (127, 127, 127, 54))")});
           //ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, new GameShopLanguageProcessor[] {new GameShopLanguageProcessor("drawPolyLine((45, 30, 0), (30, 30, 0), (30, 45, 0), (45,45,0), 3, (127, 127, 127, 54))")});
           ui.uiPolyMesh.uiATMS.components[0].gscc = new GameShopCharacterCursor(ui.uiPolyMesh.uiATMS.components[0]);
-          GameShopCharacterUpperCaseA gscua = new GameShopCharacterUpperCaseA("", 10f, 'A', ui.uiPolyMesh.uiATMS.components[0].gscc);
- 
-          ui.uiPolyMesh.uiATMS.components[0].gscc.setStartPosition(gscua);
-          gscua.drawCharacter();
-          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
+//          GameShopCharacterUpperCaseA gscua = new GameShopCharacterUpperCaseA("", 10f, 'A', ui.uiPolyMesh.uiATMS.components[0].gscc);
+// 
+//          ui.uiPolyMesh.uiATMS.components[0].gscc.setStartPosition(gscua);
+//          gscua.drawCharacter();
+//          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
           
+        ui.uiPolyMesh.uiATMS.components[0].setText("AAA");
+        ui.uiPolyMesh.uiATMS.components[0].gswp.process();
+        for (GameShopCharacter gsc: ui.uiPolyMesh.uiATMS.components[0].gswp.gsc){
+        
+            ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(gsc.gslp.length - 1,  gsc.gslp);
+        }
+       
 //          if (ui.uiPolyMesh.uiATMS.gslp == null){
 //          
 //              System.out.println("NULL");
