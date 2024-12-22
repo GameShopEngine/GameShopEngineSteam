@@ -6,6 +6,7 @@ package GameShopEngine.UI.WordProcessor;
 
 import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
 import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
+import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseB;
 import GameShopEngine.UI.Characters.GameShopCharacter;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import java.util.ArrayList;
@@ -20,35 +21,63 @@ public class GameShopWordProcessor {
     public String word;
     public GameShopUIComponent uic;
     public GameShopCharacter[] gsc;
+    public float fontSize;
     
-    public GameShopWordProcessor(String word, GameShopUIComponent uic){
+    
+    public GameShopWordProcessor(String word, float fontSize, GameShopUIComponent uic){
     
         this.word = word;
         this.uic = uic;
         this.gsc = new GameShopCharacter[1];
+        this.fontSize = fontSize;
     }
     
     public void process(){
     
-        int i = 0;
-        this.gsc = new GameShopCharacter[this.word.length()];
-        for (char c : this.word.toCharArray()){
+        ArrayList<GameShopCharacter> gsch = new ArrayList<GameShopCharacter>();
         
-            System.out.println("Hiii");
-            if (c == 'A'){
+        //int i = 0;
+        //this.gsc = new GameShopCharacter[this.word.toCharArray().length];
+        for (int c = 0; c < this.word.length(); c++){
+        
+            System.out.println(this.word.charAt(c));
+           
+            if (this.word.charAt(c) == 'A'){
             
-                
-                this.addGameShopCharacters(gsc.length - 1, new GameShopCharacterUpperCaseA[]{ new GameShopCharacterUpperCaseA("", 10f, 'A', uic.gscc)});
-            }
-            
-            if (i == 0){
+                if (c == 0){
             System.out.println("IN");
-                this.uic.gscc.setStartPosition(this.gsc[i]);
+                this.uic.gscc.setStartPosition(new GameShopCharacterUpperCaseA("", fontSize, 'A', uic.gscc));
             }
-            this.gsc[i].drawCharacter();
-            i++;
+                gsch.add(new GameShopCharacterUpperCaseA("", fontSize, 'A', uic.gscc));
+               // this.addGameShopCharacters(gsc.length - 1, new GameShopCharacterUpperCaseA[]{ new GameShopCharacterUpperCaseA("", fontSize, 'A', uic.gscc)});
+            } 
+            else if (this.word.charAt(c) == 'B') {
+             
+                if (c == 0){
+            System.out.println("IN");
+                this.uic.gscc.setStartPosition(new GameShopCharacterUpperCaseB("", fontSize, 'B', uic.gscc));
+            }
+                gsch.add(new GameShopCharacterUpperCaseB("", fontSize, 'B', uic.gscc));
+               // this.addGameShopCharacters(gsc.length - 1, new GameShopCharacterUpperCaseB[]{ new GameShopCharacterUpperCaseB("", fontSize, 'B', uic.gscc)});
+           
+            }
+            
+            
+//            c++;
             System.out.println("DONE");
         }
+        
+         
+            this.addGameShopCharacters(gsc.length - 1, (gsch.toArray((GameShopCharacter[]) new GameShopCharacter[0])));
+           
+        
+        for (GameShopCharacter c: this.gsc){
+        
+            c.drawCharacter();
+        }
+//          for (int c = 0; c < this.word.length(); c++){
+//         
+//          }
     }
     
     public void addGameShopCharacters(int index, GameShopCharacter[] gsc){

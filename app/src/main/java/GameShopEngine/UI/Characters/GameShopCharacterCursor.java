@@ -26,6 +26,6 @@ public class GameShopCharacterCursor {
     public void setStartPosition(GameShopCharacter gsc){
     
         this.position = new Vector2f(uic.position.x, (uic.position.y + uic.size.y) - gsc.fontSize);
-        
+        this.position = new Vector2f(this.position.x, this.position.y - 5f);
     }
 }

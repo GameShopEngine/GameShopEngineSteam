@@ -124,11 +124,11 @@ public class GameShopPolyMesh {
 //                  }
                 if (this.vertices[i + 2]  ==  0f){
                   
-                      System.out.println("ROUNDED: " + (i + 2));
+                      //System.out.println("ROUNDED: " + (i + 2));
                       if ((i + 3) % 3 == 0){
                       
                           
-                      System.out.println("Z CORD: " + (i + 2));
+                    //  System.out.println("Z CORD: " + (i + 2));
                       } 
                   }
                   i+=3;
@@ -138,7 +138,7 @@ public class GameShopPolyMesh {
           }
           }
             
-              System.out.println(vertices.length);
+           //   System.out.println(vertices.length);
       // System.out.println(Arrays.toString(vertices));
       
       int j = 0;
@@ -146,20 +146,20 @@ public class GameShopPolyMesh {
       
           if (j == 0){
           
-              System.out.print(" x " + v);
+           //   System.out.print(" x " + v);
               j++;
               
           } else if (j == 1){
           
               
-              System.out.print(" y " + v);
+             // System.out.print(" y " + v);
               j++;
               
           } else if (j == 2){
           
               
-              System.out.print(" z " + v);
-              System.out.println("");
+             // System.out.print(" z " + v);
+             // System.out.println("");
               j = 0;
           }
           
@@ -294,7 +294,7 @@ public class GameShopPolyMesh {
                     
                     if ((short) (i + gspl.numPoints + 1) == (short)(vertices.length/3) - 1){
                     
-                        System.out.println("BREAK");
+                       // System.out.println("BREAK");
                         isBreak = true;
                         break;
                     }
@@ -353,8 +353,8 @@ public class GameShopPolyMesh {
              }
         }
         
-          System.out.println(indices.length);
-          System.out.println( Arrays.toString(indices));
+          //System.out.println(indices.length);
+          //System.out.println( Arrays.toString(indices));
         
         ////////////////////////////////
 //        this.indices = new int[(this.vertices.length * 1)/2];
@@ -489,8 +489,8 @@ public class GameShopPolyMesh {
         int maxLines = gsps.vInfinitesimals.length;
         int lines = 0;
         
-        System.out.println("currencyLines " + gsps.polyLines.length);
-        System.out.println("vInfinitesimals " + gsps.vInfinitesimals.length);
+        //System.out.println("currencyLines " + gsps.polyLines.length);
+        //System.out.println("vInfinitesimals " + gsps.vInfinitesimals.length);
          
          }
      
@@ -568,13 +568,13 @@ public class GameShopPolyMesh {
 //
 //        }
         
-          System.out.println(texCoord.length);
-          System.out.println(Arrays.toString(texCoord));
-          
-          System.out.println(this.gspSurfaces[0].height);
-          System.out.println(this.gspSurfaces[0].width);
-          System.out.println(this.gspSurfaces[0].infHeight);
-          System.out.println(this.gspSurfaces[0].infWidth);
+//          System.out.println(texCoord.length);
+//          System.out.println(Arrays.toString(texCoord));
+//          
+//          System.out.println(this.gspSurfaces[0].height);
+//          System.out.println(this.gspSurfaces[0].width);
+//          System.out.println(this.gspSurfaces[0].infHeight);
+//          System.out.println(this.gspSurfaces[0].infWidth);
         /**
         //Run an algorithm over infinitesimal width and height
 //        this.texCoords = new float[]{
@@ -687,10 +687,10 @@ public class GameShopPolyMesh {
     
     public void outputHashValues(){
     
-      System.out.println(GameShopIndexHash.getInstance().indexHash.get(this));
-      System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
-      System.out.println(GameShopShapeHash.getInstance().shapeHash.get(this));
-      System.out.println(GameShopVertexHash.getInstance().vertexHash.get(this));
+//      System.out.println(GameShopIndexHash.getInstance().indexHash.get(this));
+//      System.out.println(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
+//      System.out.println(GameShopShapeHash.getInstance().shapeHash.get(this));
+//      System.out.println(GameShopVertexHash.getInstance().vertexHash.get(this));
     }
     public void bindVertexArrayObject(){
     

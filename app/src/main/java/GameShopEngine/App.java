@@ -585,7 +585,7 @@ glEnable(GL_CULL_FACE);
     public void makeUI(GameShopUI ui){
     
           GameShopUIComponent[] gsuiComponents = new GameShopUIComponent[1];
-          gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, ui.uiPolyMesh.uiATMS.height - 26), new Vector2f(50, 25), ui.uiPolyMesh.uiATMS, new GameShopCharacterCursor(gsuiComponents[0]));
+          gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, ui.uiPolyMesh.uiATMS.height - 86), new Vector2f(150, 85), ui.uiPolyMesh.uiATMS, new GameShopCharacterCursor(gsuiComponents[0]));
           gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
           gsuiComponents[0].textColor = new Vector4f(0,0,0,127);
           
@@ -604,7 +604,7 @@ glEnable(GL_CULL_FACE);
 //          gscua.drawCharacter();
 //          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
           
-        ui.uiPolyMesh.uiATMS.components[0].setText("AAA");
+        ui.uiPolyMesh.uiATMS.components[0].setText("ABAB");
         ui.uiPolyMesh.uiATMS.components[0].gswp.process();
         for (GameShopCharacter gsc: ui.uiPolyMesh.uiATMS.components[0].gswp.gsc){
         

@@ -63,6 +63,6 @@ public class GameShopUIComponent {
     
     public void setText(String text){
     
-        this.gswp = new GameShopWordProcessor(text, this);
+        this.gswp = new GameShopWordProcessor(text,40f, this);
     }
 }

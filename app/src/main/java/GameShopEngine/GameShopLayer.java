@@ -130,11 +130,12 @@ public class GameShopLayer {
     public void drawPolyLine(GameShopPolyLine cl, short radius, Vector4f color){
 
         //int i = 0;
+        System.out.println(Arrays.asList(cl.infinitesimals));
         for (int i = 0; i < cl.infinitesimals.length - 1; i++){
 
             //if (i < cl.infinitesimals.length - 1) {
            
-            drawLine(new Vector2f(cl.infinitesimals[i].x,cl.infinitesimals[i].y), new Vector2f(cl.infinitesimals[i + 1].x,cl.infinitesimals[i + 1].y), radius, color);
+            drawLine(new Vector2f((int)cl.infinitesimals[i].x,(int)cl.infinitesimals[i].y), new Vector2f((int)cl.infinitesimals[i + 1].x,(int)cl.infinitesimals[i + 1].y), radius, color);
             // i++;
             //}
 
@@ -177,8 +178,12 @@ public class GameShopLayer {
 
         float lastX = x;
         float lastY = y;
+        float addX =0f;
+        float addY = 0f;
         while (true){
 
+              lastX = x;
+              lastY = y;
             if ((distX > 0 && x > pointB.x) || (distY > 0 && y > pointB.y)) {
                 break;
             }
@@ -197,48 +202,108 @@ public class GameShopLayer {
                 break;
             }
 //
+            System.out.println(distX + " " + distY);
             drawCircle((short)x, (short)y, radius, color);
+            if (distX != 0){
             if (distX >= 1) {
-                //System.out.println("x+ " + x);
-                float addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(radius)));
-                addX /= 8;
+                System.out.println("x+ " + x);
+                addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(radius)));
+                addX /= (FastMath.abs(distY * 2));
+                
+                if (addX == 0 || Float.isNaN(addX) || Float.isInfinite(addX)){
+                 
+                     System.out.println("NAN");
+                    //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
+                 addX = 1; 
+                 }
+                
                 if (Float.isNaN(x)){
                     continue;
                 }
                 x += addX;
+                 if (lastX == x) {
+                
+                    x = increment(lastX, x, 1);
+                    //lastX = x;
+                }
             }
 
             else if (distX <= -1) {
-              //  System.out.println("x- " + x);
-                float addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(FastMath.abs(radius))));
-                addX /= 8;
+                System.out.println("x- " + x);
+                 addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(FastMath.abs(radius))));
+                addX /= (FastMath.abs(distY * 2));
+                if (addX == 0 || Float.isNaN(addX) || Float.isInfinite(addX)){
+                 
+                     System.out.println("NAN");
+                    //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
+                 addX = 1; 
+                 }
                 if (Float.isNaN(x)){
                     continue;
                 }
                 x -= addX;
 
+                 if (lastX == x) {
+                
+                    x = increment(lastX, x, -1);
+                    //lastX = x;
+                }
             }
+            }
+            if (distY != 0){
             if (distY >= 1) {
-                //System.out.println("y+ " + y);
-                float addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(radius)));
-                addY /= 8;
+                System.out.println("y+ " + y);
+                 addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(radius)));
+                addY /= (FastMath.abs(distX * 2));
+             if (addY == 0 || Float.isNaN(addY) || Float.isInfinite(addY)){
+                 
+                     System.out.println("NAN");
+                    //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
+                 addY = 1; 
+                 }
                 if (Float.isNaN(y)){
+                    
                     continue;
                 }
                 y += addY;
+                 if (lastY == y) {
+                
+                    y = increment(lastY, y, 1);
+                    //lastY = y;
+                }
             }
 
             else if (distY <= -1) {
-               // System.out.println("y- " + y);
-                float addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
-                addY /= 8;
-                if (Float.isNaN(y)){
-                    continue;
-                }
+                System.out.println("y- " + y);
+                 addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
+                 addY /= FastMath.abs(distX * 2);
+                 System.out.println("addY" + addY);
+                 if (addY == 0 || Float.isNaN(addY) || Float.isInfinite(addY)){
+                 
+                     System.out.println("NAN");
+                    //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
+                 addY = 1; 
+                 }
+                 if (Float.isNaN(y)){
+                 
+                     continue;
+                 }
                 y -= addY;
+                if (lastY == y) {
+                
+                    y = increment(lastY, y, -1);
+                   // lastY = y;
+                }
+                 //System.out.println("newY- " + y);
 
             }
-
+            }
+            
+           
+            if (distX == 0 && distY == 0){
+            
+                return;
+            }
 
         }
 
@@ -261,6 +326,37 @@ public class GameShopLayer {
 
     }
 
+    public float increment(float last, float current, float factor){
+    
+        float inc = current;
+        
+         if (last == current){
+                
+                if (factor >= 0){
+                inc++;
+                } else if (factor < 0){
+                
+                    inc--;
+                }
+                System.out.println(inc);
+                
+               // lastX = x;
+                //break;
+            }
+//            System.out.println(lastY + " " + y);
+//            if (lastY == y){
+//             if (addY >= 0){
+//                y++;
+//                } else if (addY < 0){
+//                
+//                    y--;
+//                }
+//                lastY = y;
+//                break;
+//            }
+//            }
+return  inc;
+    }
     //0x0 center
     public void drawCircle(int pointX, int pointY, int radius, Vector4f color){
 

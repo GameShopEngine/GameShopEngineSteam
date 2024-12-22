@@ -17,14 +17,14 @@ import java.util.Arrays;
 public class GameShopCharacter {
     
     public String font;
-    public Character character;
+    public char character;
     public float fontSize;
     //public GameShopCharacterContainer cc;
     //public GameShopUIComponent uic;
     public GameShopLanguageProcessor[] gslp;
     public GameShopCharacterCursor gsc;
     
-    public GameShopCharacter(String font, float fontSize, Character character, GameShopCharacterCursor gscc){//GameShopUIComponent uic){
+    public GameShopCharacter(String font, float fontSize, char character, GameShopCharacterCursor gscc){//GameShopUIComponent uic){
     
         this.font = font;
         this.character = character;
