@@ -9,6 +9,7 @@ import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
@@ -21,6 +22,10 @@ public class GameShopCharacter {
     public float fontSize;
     //public GameShopCharacterContainer cc;
     //public GameShopUIComponent uic;
+    //HashMap<FONT, HashMap<CHARACTER, GAMESHOPLANGUAGEPROCESSOR[]>
+    
+    HashMap<String, HashMap<Character, GameShopLanguageProcessor[]>> drawCalls;
+    
     public GameShopLanguageProcessor[] gslp;
     public GameShopCharacterCursor gsc;
     

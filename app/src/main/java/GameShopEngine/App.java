@@ -111,7 +111,9 @@ System.out.println(System.getProperty("java.vendor"));
 
                 System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
                 
-                   
+                  //
+                  //System.out.println("LAST " + "ababab".lastIndexOf("ab", 4));
+                  //
 		// Create the window
 		window = glfwCreateWindow(vidmode.width(), vidmode.height(), "Hello World!", glfwGetPrimaryMonitor(), NULL);
 		if ( window == NULL )

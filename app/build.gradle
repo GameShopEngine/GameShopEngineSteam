@@ -95,7 +95,7 @@ task runApp(type: JavaExec) {
   mainClass = 'GameShopEngine.App'
 
    List<String> argumentList = new ArrayList<String>();
-    argumentList.add('-Xms12288m')
+    argumentList.add('-Xms13824m')
     argumentList.add('-Xmx14336m')
     allJvmArgs = argumentList
   // arguments to pass to the application

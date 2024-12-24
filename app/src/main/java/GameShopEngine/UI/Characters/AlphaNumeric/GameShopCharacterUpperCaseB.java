@@ -41,7 +41,7 @@ public class GameShopCharacterUpperCaseB extends GameShopCharacter {
        drawGSLP[2] = new GameShopLanguageProcessor("drawPolyLine((" + String.valueOf(coords[1].x).replace(".0", "") + ","  + String.valueOf(coords[1].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[4].x).replace(".0", "") + ","  + String.valueOf(coords[4].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[5].x).replace(".0", "") + ","  + String.valueOf(coords[5].y).replace(".0", "") + ",0)"  + ",(" + String.valueOf(coords[0].x ).replace(".0", "") + ","  + String.valueOf(coords[0].y).replace(".0", "") + ",0)" + "," + String.valueOf((float)this.fontSize/8).replace(".0", "") + "," + "(" + String.valueOf(this.gsc.uic.textColor.x).replace(".0", "") + "," +  String.valueOf(this.gsc.uic.textColor.y).replace(".0", "") + ","+ String.valueOf(this.gsc.uic.textColor.z).replace(".0", "") + "," + String.valueOf(this.gsc.uic.textColor.w).replace(".0", "") + ")" + ")");
        this.addGameShopLanguageProcessors(0, drawGSLP);
        
-       this.gsc.position = new Vector2f(this.gsc.position.x + this.fontSize, this.gsc.position.y);
+       this.gsc.position = new Vector2f(this.gsc.position.x + this.fontSize/2, this.gsc.position.y);
        
     
     }
