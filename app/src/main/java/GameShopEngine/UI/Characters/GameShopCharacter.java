@@ -24,7 +24,7 @@ public class GameShopCharacter {
     //public GameShopUIComponent uic;
     //HashMap<FONT, HashMap<CHARACTER, GAMESHOPLANGUAGEPROCESSOR[]>
     
-    HashMap<String, HashMap<Character, GameShopLanguageProcessor[]>> drawCalls;
+    //
     
     public GameShopLanguageProcessor[] gslp;
     public GameShopCharacterCursor gsc;
@@ -34,9 +34,10 @@ public class GameShopCharacter {
         this.font = font;
         this.character = character;
         this.fontSize = fontSize;
+        //this.drawCalls = new HashMap<>();
         //this.uic = uic;
         this.gsc = gscc;
-        
+//        
         this.gslp = new GameShopLanguageProcessor[1];
     }
     
@@ -139,4 +140,5 @@ public class GameShopCharacter {
    System.out.println("CONFIRMED");
     }
         
+     
 }

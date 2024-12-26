@@ -4,9 +4,10 @@
 package GameShopEngine;
 
 import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
-import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
+//import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
 import GameShopEngine.UI.Characters.GameShopCharacter;
 import GameShopEngine.UI.Characters.GameShopCharacterCursor;
+import GameShopEngine.UI.Characters.GameShopCharacterFontHash;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import GameShopEngine.UI.GameShopUI;
 import GameShopEngine.UI.GameShopUIATMS;
@@ -586,6 +587,8 @@ glEnable(GL_CULL_FACE);
 
     public void makeUI(GameShopUI ui){
     
+          GameShopCharacterFontHash.getInstance().createFontStandard();
+          
           GameShopUIComponent[] gsuiComponents = new GameShopUIComponent[1];
           gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, ui.uiPolyMesh.uiATMS.height - 86), new Vector2f(150, 85), ui.uiPolyMesh.uiATMS, new GameShopCharacterCursor(gsuiComponents[0]));
           gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
@@ -606,24 +609,44 @@ glEnable(GL_CULL_FACE);
 //          gscua.drawCharacter();
 //          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
           
-        ui.uiPolyMesh.uiATMS.components[0].setText("ABAB");
+
+        ui.uiPolyMesh.uiATMS.components[0].setText("AAAA");
+        //ui.uiPolyMesh.uiATMS.components[0].gscc.setStartPosition(ui.uiPolyMesh.uiATMS.components[0].gswp);
         ui.uiPolyMesh.uiATMS.components[0].gswp.process();
+        
+        //ui.uiPolyMesh.uiATMS.components[0].gswp.process();
         for (GameShopCharacter gsc: ui.uiPolyMesh.uiATMS.components[0].gswp.gsc){
         
             ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(gsc.gslp.length - 1,  gsc.gslp);
         }
-       
-//          if (ui.uiPolyMesh.uiATMS.gslp == null){
-//          
-//              System.out.println("NULL");
-//          }
-//          
-//          System.out.println(ui.uiPolyMesh.uiATMS.gslp.length);
-//         
+        
+        
+//       
+//       
+
+        
+
+
 ui.uiPolyMesh.uiATMS.process();
-         
-          //ui.uiPolyMesh.uiATMS.
-    }
+ for (GameShopCharacter gsc: ui.uiPolyMesh.uiATMS.components[0].gswp.gsc){
+        
+     System.out.println("CHARACTER " + gsc.character);
+            for (GameShopLanguageProcessor gslp: gsc.gslp){
+            
+                
+                System.out.println("GSLP " + gslp);
+            }
+            
+            for (Vector2f position: gsc.gsc.position){
+            
+                System.out.println("POSITION " + position);
+            }
+        }
+//
+//
+//
+//          //ui.uiPolyMesh.uiATMS.
+   }
 
 //    @Override
 //    public void process() {

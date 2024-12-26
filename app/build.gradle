@@ -53,7 +53,11 @@ dependencies {
 	implementation "org.lwjgl:lwjgl-opengl"
         implementation "org.lwjgl:lwjgl-vulkan"
         implementation "org.lwjgl:lwjgl"
-        
+    
+    // https://mvnrepository.com/artifact/net.objecthunter/exp4j
+implementation group: 'net.objecthunter', name: 'exp4j', version: '0.4.5'
+
+    
 	implementation "org.lwjgl:lwjgl-jemalloc"
 	runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-jemalloc::$lwjglNatives"

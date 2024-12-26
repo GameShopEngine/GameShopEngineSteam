@@ -182,7 +182,7 @@ public class GameShopUIATMS extends GameShopATMS {
        
            for (GameShopLanguageProcessor gs: this.gslp){
            
-               gs.process();
+               //gs.process();
                if (gs.methodName.equals("drawCircle")){
                
                    String[] color = gs.parseArg(gs.args[3]);
@@ -209,6 +209,33 @@ public class GameShopUIATMS extends GameShopATMS {
                    String radius = gs.args[2];
                    String[] color = gs.parseArg(gs.args[3]);
                    
+                   pointA[0] = pointA[0].replace("[", "");
+                   pointA[1] = pointA[1].replace("]", "");
+                   pointB[0] = pointB[0].replace("[", "");
+                   pointB[1] = pointB[1].replace("]", "");
+                   radius = radius.replace("[", "");
+                   radius = radius.replace("]", "");
+                       
+                   color[0] = color[0].replace("[", "");
+                   color[0] = color[0].replace("]", "");
+                   color[1] = color[1].replace("[", "");
+                   color[1] = color[1].replace("]", "");
+                   color[2] = color[2].replace("[", "");
+                   color[2] = color[2].replace("]", "");
+                   color[3] = color[3].replace("[", "");
+                   color[3] = color[3].replace("]", "");
+                  // radius[1] = radius[1].replace("]", "");
+//                   pointA[0] =  (pointA[0]);
+//                   pointA[1] = gs.evaluate(pointA[1]);
+//                   pointB[0] = gs.evaluate(pointB[0]);
+//                   pointB[1] = gs.evaluate(pointB[1]);
+//                   radius = gs.evaluate(radius);
+//                   color[0] = gs.evaluate(color[0]);
+//                   color[1] = gs.evaluate(color[1]);
+//                  color[2] = gs.evaluate(color[2]);
+//                  color[3] = gs.evaluate(color[3]);
+                  
+                    
                    this.uiLayer.drawLine(new Vector2f(Integer.parseInt(pointA[0].trim()), Integer.parseInt(pointA[1].trim())), new Vector2f(Integer.parseInt(pointB[0].trim()), Integer.parseInt(pointB[1].trim())), (short)Short.parseShort(radius.trim()), new org.joml.Vector4f(Float.parseFloat(color[0].trim()), Float.parseFloat(color[1].trim()), Float.parseFloat(color[2].trim()), Float.parseFloat(color[3].trim())));
                } 
                
@@ -220,6 +247,27 @@ public class GameShopUIATMS extends GameShopATMS {
                    String[] line3 = gs.parseArg(gs.args[3]);
                    String radius = gs.args[4];
                    String[] color = gs.parseArg(gs.args[5]);
+                   
+                   line[0] = gs.evaluate(line[0]);
+                   line[1] = gs.evaluate(line[1]);
+                   line[2] = gs.evaluate(line[2]);
+                   line1[0] = gs.evaluate(line1[0]);
+                   line1[1] = gs.evaluate(line1[1]);
+                   line1[2] = gs.evaluate(line1[2]);
+                   line2[0] = gs.evaluate(line2[0]);
+                   line2[1] = gs.evaluate(line2[1]);
+                   line2[2] = gs.evaluate(line2[2]);
+                   line3[0] = gs.evaluate(line3[0]);
+                   line3[1] = gs.evaluate(line3[1]);
+                   line3[2] = gs.evaluate(line3[2]);
+                   radius = gs.evaluate(radius);
+                   color[0] = gs.evaluate(color[0]);
+                   color[1] = gs.evaluate(color[1]);
+                   color[2] = gs.evaluate(color[2]);
+                   color[3] = gs.evaluate(color[3]);
+                    //line[0] = gs.evaluate(line[0]);
+                    
+                   
                    
                    GameShopPolyLine cl = new GameShopPolyLine(new com.jme3.math.Vector3f[] {
                    

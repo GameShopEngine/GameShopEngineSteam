@@ -5,12 +5,17 @@
 package GameShopEngine.UI.WordProcessor;
 
 import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
-import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
-import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseB;
+//import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
+//import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseB;
 import GameShopEngine.UI.Characters.GameShopCharacter;
+import GameShopEngine.UI.Characters.GameShopCharacterCursor;
+import GameShopEngine.UI.Characters.GameShopCharacterFontHash;
 import GameShopEngine.UI.Components.GameShopUIComponent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.joml.Vector2f;
 
 /**
  *
@@ -23,15 +28,140 @@ public class GameShopWordProcessor {
     public GameShopCharacter[] gsc;
     public float fontSize;
     
+    public String font;
     
-    public GameShopWordProcessor(String word, float fontSize, GameShopUIComponent uic){
+    public GameShopWordProcessor(String word, String font, float fontSize, GameShopUIComponent uic){
     
         this.word = word;
         this.uic = uic;
         this.gsc = new GameShopCharacter[1];
         this.fontSize = fontSize;
+        this.font = font;
     }
     
+    public void process(){
+         
+        
+
+                    //System.out.print("NOTADDED");
+
+                int i = 0;
+                
+             
+                
+            GameShopCharacterCursor gscc = new GameShopCharacterCursor(this.uic);
+               gscc.setStartPosition(this);
+               Vector2f[] chars = new Vector2f[this.word.length()];
+               
+                 int l =  gscc.position.length - 1;
+                float x =  gscc.position[l].x;
+                float y =  gscc.position[l].y;
+                int cc = 0;
+                
+                float lastX = 0;
+                float lastY = 0;
+                
+               for (char c: this.word.toCharArray()){
+               
+                   if (cc == 0){
+                   chars[cc] = new Vector2f(x , y);
+                   } else {
+                   
+                       chars[cc] = new Vector2f(chars[cc - 1].x + fontSize, chars[cc - 1].y);
+                   }
+                
+                   cc++;
+                    
+//                     System.out.println("L " + l);
+//                     System.out.println("X " + x);
+//                     System.out.println(fontSize);
+                }
+            
+                gscc.addPosition(l, chars);
+               
+               
+                GameShopCharacter[] gsChars = new GameShopCharacter[this.word.length()];
+        for (char c: this.word.toCharArray()){
+         
+            if (GameShopCharacterFontHash.getInstance().drawCalls.containsKey(this.font)){
+            
+                gsChars[i] = new GameShopCharacter(this.font, this.fontSize, c, gscc);
+//                GameShopCharacter gsChar = new GameShopCharacter(this.font, this.fontSize, c, gscc);
+                GameShopLanguageProcessor[] gslp1 = new GameShopLanguageProcessor[GameShopCharacterFontHash.getInstance().retGSLP(this.font, c).length];
+                       
+                int m = 0;
+                for (GameShopLanguageProcessor gs: GameShopCharacterFontHash.getInstance().retGSLP(this.font, c)){
+                
+                    gslp1[m] = new GameShopLanguageProcessor(gs);
+                    m++;
+                }
+                gsChars[i].addGameShopLanguageProcessors(gsChars[i].gslp.length - 1, gslp1);
+                
+                
+                int j = 0;
+                while (j < gsChars[i].gslp.length){
+                
+                    int size = GameShopCharacterFontHash.getInstance().drawCalls.get(this.font).get(c).length;
+                    
+                    System.out.println("J " + size);
+                    for (int s = j; s < j + size; s++){
+                    
+                        gsChars[i].gslp[s].process();
+                        gsChars[i].gslp[s].processArgs(gscc, (int)this.fontSize, i);
+                       // gsChar.gslp[s].lock = true;
+                        System.out.println("FINAL " + gsChars[i].gslp[s]);
+                         
+                    }
+                    
+                    for (int s = j; s < j + size; s++){
+                    
+//                        gsChar.gslp[s].process();
+//                        gsChar.gslp[s].processArgs(gscc, (int)this.fontSize, i);
+                        gsChars[i].gslp[s].lock = true;
+                        //System.out.println("FINAL " + gsChar.gslp[s]);
+                         
+                    }
+                    
+                                  
+                    //try {
+                    //GameShopCharacterCursor clone =  new GameShopCharacterCursor(uic);
+                    //clone.position = new Vector2f(gsChar.gsc.position);
+                   System.out.println("I " + i);
+//                    gslp.process();
+//                    gslp.processArgs(gscc, (int)this.fontSize, i);
+                    
+                //System.out.println("FINAL " + gslp);
+              
+                    j += size;
+                }
+  
+           
+//                GameShopCharacter[] gssc = new GameShopCharacter[1];
+//                gssc[0] = gsChar;
+               
+                
+                //System.out.println("ADDED" + Arrays.asList(gsChar.gslp));
+                
+            }
+            
+            //uic.gscc.
+           i++;
+             //uic.gscc.position = new Vector2f(uic.gscc.position.x + fontSize, uic.gscc.position.y); 
+        }
+        
+        this.addGameShopCharacters(this.gsc.length - 1, gsChars);
+            
+        
+//        for (GameShopCharacter c: this.gsc){
+//        
+//            for (GameShopLanguageProcessor gslp: c.gslp){
+//            System.out.println("GAMESHOPLP " + gslp);
+//            }
+//        }
+         
+    }
+    
+    /*
     public void process(){
     
         ArrayList<GameShopCharacter> gsch = new ArrayList<GameShopCharacter>();
@@ -79,6 +209,9 @@ public class GameShopWordProcessor {
 //         
 //          }
     }
+    
+    */
+    
     
     public void addGameShopCharacters(int index, GameShopCharacter[] gsc){
     
@@ -172,4 +305,5 @@ public class GameShopWordProcessor {
 
    // }
     }
+    
 }

@@ -1,0 +1,81 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package GameShopEngine.UI.Characters;
+
+import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
+import java.util.HashMap;
+import org.joml.Vector2f;
+
+/**
+ *
+ * @author lynden
+ */
+public class GameShopCharacterFontHash {
+    
+    private static GameShopCharacterFontHash _instance;
+    
+    public HashMap<String, HashMap<Character, GameShopLanguageProcessor[]>> drawCalls;
+    
+    private GameShopCharacterFontHash(){
+    
+        drawCalls = new HashMap<>();
+    }
+    
+    public static GameShopCharacterFontHash getInstance(){
+    
+        if (_instance == null){
+        
+            _instance = new GameShopCharacterFontHash();
+        }
+        
+        return _instance;
+        
+    }
+    
+    public void addGameShopCharacterFont(String font, char c, GameShopLanguageProcessor[] gslp){
+    
+        HashMap <Character, GameShopLanguageProcessor[]> characterValue = new HashMap<>();
+        characterValue.put(c, gslp);
+
+        if (drawCalls.isEmpty()){
+            System.out.println("EMPTY");
+             drawCalls.put(font, characterValue);
+             
+        } else if(!(drawCalls.get(font).containsKey(c))) {
+        
+        
+        drawCalls.put(font, characterValue);
+        
+        }
+        
+//        else if (!drawCalls.get(font).containsKey(c)){
+//        characterValue.put(c, gslp);
+//        
+//       // characterValue.putAll(drawCalls.get(font));
+//         
+//      
+//        drawCalls.put(font, characterValue);
+//        }
+        
+    }
+    
+    public GameShopLanguageProcessor[] retGSLP(String font, char c){
+    
+        return drawCalls.get(font).get(c);
+    }
+    public void createFontStandard(){
+    
+       GameShopLanguageProcessor[] drawGSLP = new GameShopLanguageProcessor[3];
+       drawGSLP[0] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}"+ ","  + "${gsc.position.y}"+")" + "," + "("+ "${gsc.position.x + ((fontSize/2) + 5)}"+ "," + "${gsc.position.y + fontSize}"+ ")" + "," + "${fontSize/8}"+ "," + "(" +"${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}"+ ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP[1] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + (((fontSize)/2) - 5)}"+ ","  + "${gsc.position.y + fontSize}"+")" + "," + "("+ "${gsc.position.x + ((fontSize))}"+ "," + "${gsc.position.y}"+ ")" + "," + "${fontSize/8}"+ "," + "(" +"${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}"+ ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + (((fontSize)/4) + 1)}" + ","  + "${gsc.position.y + ((fontSize * 2)/5)}" + ")" + "," + "(" + "${gsc.position.x + ((fontSize * 3)/5)}" + "," + "${gsc.position.y + ((fontSize * 2)/5)}" + ")" + ","+ "${fontSize/8}"+ "," + "(" +"${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}"+ ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       //this.gslp = new GameShopLanguageProcessor[3];
+       //this.addGameShopLanguageProcessors(0, drawGSLP);
+       addGameShopCharacterFont("Standard", 'A', drawGSLP);
+       //this.gsc.position = new Vector2f(this.gsc.position.x + this.fontSize, this.gsc.position.y);
+       
+         
+    }
+}
