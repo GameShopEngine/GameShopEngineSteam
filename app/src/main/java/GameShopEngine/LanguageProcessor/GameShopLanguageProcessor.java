@@ -160,6 +160,7 @@ public class GameShopLanguageProcessor {
         //this.args.
         //System.out.println(this.methodName + Arrays.toString(args));
        // return new String[1];
+    System.out.println("toString " + this);
     }
     
     public String[] parseArg(String arg){
@@ -265,6 +266,10 @@ public class GameShopLanguageProcessor {
                    // System.out.println("INTEGER " + new ExpressionBuilder(eval).build().evaluate());
                 
                     eval = "" +(int)new ExpressionBuilder(eval).build().evaluate();
+//                    if (eval.equals("")){
+//                    
+//                        eval = "0";
+//                    }
                     break;
                     //evaluate = false;
                 }

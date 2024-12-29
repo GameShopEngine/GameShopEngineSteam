@@ -41,7 +41,7 @@ public class GameShopWordProcessor {
     
     public void process(){
          
-        
+           
 
                     //System.out.print("NOTADDED");
 
@@ -83,8 +83,8 @@ public class GameShopWordProcessor {
                 GameShopCharacter[] gsChars = new GameShopCharacter[this.word.length()];
         for (char c: this.word.toCharArray()){
          
-            if (GameShopCharacterFontHash.getInstance().drawCalls.containsKey(this.font)){
-            
+            if (GameShopCharacterFontHash.getInstance().drawCalls.containsKey(this.font) && GameShopCharacterFontHash.getInstance().drawCalls.get(this.font).containsKey(c)){
+            System.out.println(c);
                 gsChars[i] = new GameShopCharacter(this.font, this.fontSize, c, gscc);
 //                GameShopCharacter gsChar = new GameShopCharacter(this.font, this.fontSize, c, gscc);
                 GameShopLanguageProcessor[] gslp1 = new GameShopLanguageProcessor[GameShopCharacterFontHash.getInstance().retGSLP(this.font, c).length];

@@ -590,7 +590,7 @@ glEnable(GL_CULL_FACE);
           GameShopCharacterFontHash.getInstance().createFontStandard();
           
           GameShopUIComponent[] gsuiComponents = new GameShopUIComponent[1];
-          gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, ui.uiPolyMesh.uiATMS.height - 86), new Vector2f(150, 85), ui.uiPolyMesh.uiATMS, new GameShopCharacterCursor(gsuiComponents[0]));
+          gsuiComponents[0] = new GameShopUIComponent("Button", new Vector2f(0, ui.uiPolyMesh.uiATMS.height - 86), new Vector2f(175, 85), ui.uiPolyMesh.uiATMS, new GameShopCharacterCursor(gsuiComponents[0]));
           gsuiComponents[0].backgroundColor = new Vector4f(127,127,127,127);
           gsuiComponents[0].textColor = new Vector4f(0,0,0,127);
           
@@ -610,7 +610,7 @@ glEnable(GL_CULL_FACE);
 //          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
           
 
-        ui.uiPolyMesh.uiATMS.components[0].setText("AAAA");
+        ui.uiPolyMesh.uiATMS.components[0].setText("AABA");
         //ui.uiPolyMesh.uiATMS.components[0].gscc.setStartPosition(ui.uiPolyMesh.uiATMS.components[0].gswp);
         ui.uiPolyMesh.uiATMS.components[0].gswp.process();
         

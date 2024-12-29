@@ -248,23 +248,73 @@ public class GameShopUIATMS extends GameShopATMS {
                    String radius = gs.args[4];
                    String[] color = gs.parseArg(gs.args[5]);
                    
-                   line[0] = gs.evaluate(line[0]);
-                   line[1] = gs.evaluate(line[1]);
-                   line[2] = gs.evaluate(line[2]);
-                   line1[0] = gs.evaluate(line1[0]);
-                   line1[1] = gs.evaluate(line1[1]);
-                   line1[2] = gs.evaluate(line1[2]);
-                   line2[0] = gs.evaluate(line2[0]);
-                   line2[1] = gs.evaluate(line2[1]);
-                   line2[2] = gs.evaluate(line2[2]);
-                   line3[0] = gs.evaluate(line3[0]);
-                   line3[1] = gs.evaluate(line3[1]);
-                   line3[2] = gs.evaluate(line3[2]);
-                   radius = gs.evaluate(radius);
-                   color[0] = gs.evaluate(color[0]);
-                   color[1] = gs.evaluate(color[1]);
-                   color[2] = gs.evaluate(color[2]);
-                   color[3] = gs.evaluate(color[3]);
+                   line[0] = line[0].replace("[", "");
+                   line[0] = line[0].replace("]", "");
+                                      
+                   line[1] = line[1].replace("[", "");
+                   line[1] = line[1].replace("]", "");
+                                      
+                   line[2] = line[2].replace("[", "");
+                   line[2] = line[2].replace("]", "");
+                                      
+                   line1[0] = line1[0].replace("[", "");
+                   line1[0] = line1[0].replace("]", "");
+                                      
+                   line1[1] = line1[1].replace("[", "");
+                   line1[1] = line1[1].replace("]", "");
+                                      
+                   line1[2] = line1[2].replace("[", "");
+                   line1[2] = line1[2].replace("]", "");
+                                   
+                   line2[0] = line2[0].replace("[", "");
+                   line2[0] = line2[0].replace("]", "");
+                        
+                   line2[1] = line2[1].replace("[", "");
+                   line2[1] = line2[1].replace("]", "");
+                                     
+                   line2[2] = line2[2].replace("[", "");
+                   line2[2] = line2[2].replace("]", "");
+                          
+                   line3[0] = line3[0].replace("[", "");
+                   line3[0] = line3[0].replace("]", "");
+                        
+                   line3[1] = line3[1].replace("[", "");
+                   line3[1] = line3[1].replace("]", "");
+                                     
+                   line3[2] = line3[2].replace("[", "");
+                   line3[2] = line3[2].replace("]", "");
+                   
+                   radius = radius.replace("[", "");
+                   radius = radius.replace("]", "");
+                   
+                   color[0] = color[0].replace("[", "");
+                   color[0] = color[0].replace("]", "");
+                   
+                   color[1] = color[1].replace("[", "");
+                   color[1] = color[1].replace("]", "");
+                   
+                   color[2] = color[2].replace("[", "");
+                   color[2] = color[2].replace("]", "");
+                   
+                   color[3] = color[3].replace("[", "");
+                   color[3] = color[3].replace("]", "");
+//                   line[0] = gs.evaluate(line[0]);
+//                   line[1] = gs.evaluate(line[1]);
+//                   line[2] = gs.evaluate(line[2]);
+//                   line1[0] = gs.evaluate(line1[0]);
+//                   line1[1] = gs.evaluate(line1[1]);
+//                   line1[2] = gs.evaluate(line1[2]);
+//                   line2[0] = gs.evaluate(line2[0]);
+//                   line2[1] = gs.evaluate(line2[1]);
+//                   line2[2] = gs.evaluate(line2[2]);
+//                   line3[0] = gs.evaluate(line3[0]);
+//                   line3[1] = gs.evaluate(line3[1]);
+//                   line3[2] = gs.evaluate(line3[2]);
+//                   radius = gs.evaluate(radius);
+//                   color[0] = gs.evaluate(color[0]);
+//                   color[1] = gs.evaluate(color[1]);
+//                   color[2] = gs.evaluate(color[2]);
+//                   color[3] = gs.evaluate(color[3]);
                     //line[0] = gs.evaluate(line[0]);
                     
                    
