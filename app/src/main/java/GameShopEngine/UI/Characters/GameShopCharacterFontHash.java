@@ -80,19 +80,9 @@ public class GameShopCharacterFontHash {
        drawGSLP[0] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}"+ ","  + "${gsc.position.y}"+")" + "," + "("+ "${gsc.position.x + ((fontSize/2) + 5)}"+ "," + "${gsc.position.y + fontSize}"+ ")" + "," + "${fontSize/8}"+ "," + "(" +"${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}"+ ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
        drawGSLP[1] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + (((fontSize)/2) - 5)}"+ ","  + "${gsc.position.y + fontSize}"+")" + "," + "("+ "${gsc.position.x + ((fontSize))}"+ "," + "${gsc.position.y}"+ ")" + "," + "${fontSize/8}"+ "," + "(" +"${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}"+ ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
        drawGSLP[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + (((fontSize)/4) + 1)}" + ","  + "${gsc.position.y + ((fontSize * 2)/5)}" + ")" + "," + "(" + "${gsc.position.x + ((fontSize * 3)/5)}" + "," + "${gsc.position.y + ((fontSize * 2)/5)}" + ")" + ","+ "${fontSize/8}"+ "," + "(" +"${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}"+ ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
-       //this.gslp = new GameShopLanguageProcessor[3];
-       //this.addGameShopLanguageProcessors(0, drawGSLP);
+        
        addGameShopCharacterFont("Standard", 'A', drawGSLP);
-       //this.gsc.position = new Vector2f(this.gsc.position.x + this.fontSize, this.gsc.position.y);
-       
-       //       coords[0] = new Vector2f(this.gsc.position);
-//       coords[1] = new Vector2f(this.gsc.position.x, this.gsc.position.y + fontSize/2);
-//       coords[2] = new Vector2f(this.gsc.position.x, this.gsc.position.y + fontSize);
-//       coords[3] = new Vector2f(this.gsc.position.x + fontSize/2, this.gsc.position.y + fontSize);
-//       coords[4] = new Vector2f(this.gsc.position.x + fontSize/2, this.gsc.position.y + fontSize/2);
-//       coords[5] = new Vector2f(this.gsc.position.x + fontSize/2, this.gsc.position.y);
-//     
-
+     
         
        GameShopLanguageProcessor[] drawGSLP_B = new GameShopLanguageProcessor[3];
 
@@ -102,14 +92,11 @@ public class GameShopCharacterFontHash {
 
        addGameShopCharacterFont("Standard", 'B', drawGSLP_B);
        
-//      drawGSLP[0] = new GameShopLanguageProcessor("drawLine((" + String.valueOf(coords[2].x).replace(".0", "") + ","  + String.valueOf(coords[2].y).replace(".0", "") + ")" + "," + "(" + String.valueOf(coords[0].x).replace(".0", "") + "," + String.valueOf(coords[0].y).replace(".0", "") + ")" + "," + String.valueOf((float)this.fontSize/8).replace(".0", "") + "," + "(" + String.valueOf(this.gsc.uic.textColor.x).replace(".0", "") + "," +  String.valueOf(this.gsc.uic.textColor.y).replace(".0", "") + ","+ String.valueOf(this.gsc.uic.textColor.z).replace(".0", "") + "," + String.valueOf(this.gsc.uic.textColor.w).replace(".0", "") + ")" + ")");
-//       drawGSLP[1] = new GameShopLanguageProcessor("drawPolyLine((" + String.valueOf(coords[2].x).replace(".0", "") + ","  + String.valueOf(coords[2].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[3].x).replace(".0", "") + ","  + String.valueOf(coords[3].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[4].x).replace(".0", "") + ","  + String.valueOf(coords[4].y).replace(".0", "") + ",0)"  + ",(" + String.valueOf(coords[1].x ).replace(".0", "") + ","  + String.valueOf(coords[1].y).replace(".0", "") + ",0)" + "," + String.valueOf((float)this.fontSize/8).replace(".0", "") + "," + "(" + String.valueOf(this.gsc.uic.textColor.x).replace(".0", "") + "," +  String.valueOf(this.gsc.uic.textColor.y).replace(".0", "") + ","+ String.valueOf(this.gsc.uic.textColor.z).replace(".0", "") + "," + String.valueOf(this.gsc.uic.textColor.w).replace(".0", "") + ")" + ")");
-//       // drawGSLP[2] = new GameShopLanguageProcessor("drawPolyLine((" + String.valueOf(coords[2].x).replace(".0", "") + ","  + String.valueOf(coords[2].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[3].x).replace(".0", "") + ","  + String.valueOf(coords[3].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[4].x).replace(".0", "") + ","  + String.valueOf(coords[4].y).replace(".0", "") + ",0)"  + ",(" + String.valueOf(coords[1].x ).replace(".0", "") + ","  + String.valueOf(coords[1].y).replace(".0", "") + ",0)" + "," + String.valueOf((float)this.fontSize/5).replace(".0", "") + "," + "(" + String.valueOf(this.gsc.uic.textColor.x).replace(".0", "") + "," +  String.valueOf(this.gsc.uic.textColor.y).replace(".0", "") + ","+ String.valueOf(this.gsc.uic.textColor.z).replace(".0", "") + "," + String.valueOf(this.gsc.uic.textColor.w).replace(".0", "") + ")" + ")");
-//       //drawGSLP[2] = new GameShopLanguageProcessor("drawLine((" + String.valueOf(coords[0].x).replace(".0", "") + ","  + String.valueOf(coords[0].y).replace(".0", "") + ")" + "," + "(" + String.valueOf(coords[2].x).replace(".0", "") + "," + String.valueOf(coords[2].y).replace(".0", "") + ")" + "," + String.valueOf((float)this.fontSize/5).replace(".0", "") + "," + "(" + String.valueOf(this.gsc.uic.textColor.x).replace(".0", "") + "," +  String.valueOf(this.gsc.uic.textColor.y).replace(".0", "") + ","+ String.valueOf(this.gsc.uic.textColor.z).replace(".0", "") + "," + String.valueOf(this.gsc.uic.textColor.w).replace(".0", "") + ")" + ")");
-// 
-//       drawGSLP[2] = new GameShopLanguageProcessor("drawPolyLine((" + String.valueOf(coords[1].x).replace(".0", "") + ","  + String.valueOf(coords[1].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[4].x).replace(".0", "") + ","  + String.valueOf(coords[4].y).replace(".0", "") + ",0)" + ",(" + String.valueOf(coords[5].x).replace(".0", "") + ","  + String.valueOf(coords[5].y).replace(".0", "") + ",0)"  + ",(" + String.valueOf(coords[0].x ).replace(".0", "") + ","  + String.valueOf(coords[0].y).replace(".0", "") + ",0)" + "," + String.valueOf((float)this.fontSize/8).replace(".0", "") + "," + "(" + String.valueOf(this.gsc.uic.textColor.x).replace(".0", "") + "," +  String.valueOf(this.gsc.uic.textColor.y).replace(".0", "") + ","+ String.valueOf(this.gsc.uic.textColor.z).replace(".0", "") + "," + String.valueOf(this.gsc.uic.textColor.w).replace(".0", "") + ")" + ")");
-////       this.addGameShopLanguageProcessors(0, drawGSLP);
-//       
+       GameShopLanguageProcessor[] drawGSLP_C = new GameShopLanguageProcessor[1];
+       
+       drawGSLP_C[0] = new GameShopLanguageProcessor("drawPolyLine((" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ",${0})" + ",(" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ",${0})" + ",(" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + ",(" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + "," + "${fontSize/8}"  + "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       
+       addGameShopCharacterFont("Standard", 'C', drawGSLP_C);
          
     }
 }
