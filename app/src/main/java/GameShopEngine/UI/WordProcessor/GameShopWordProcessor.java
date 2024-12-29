@@ -67,8 +67,12 @@ public class GameShopWordProcessor {
                    chars[cc] = new Vector2f(x , y);
                    } else {
                    
-                       chars[cc] = new Vector2f(chars[cc - 1].x + fontSize, chars[cc - 1].y);
-                   }
+                       if (c == 'A' || c == 'B'){
+                       chars[cc] = new Vector2f(chars[cc - 1].x +fontSize, chars[cc - 1].y);
+                       } else {
+                       chars[cc] = new Vector2f(chars[cc - 1].x + (fontSize/2), chars[cc - 1].y);
+                      }
+                      }
                 
                    cc++;
                     

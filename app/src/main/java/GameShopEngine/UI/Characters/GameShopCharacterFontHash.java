@@ -97,6 +97,8 @@ public class GameShopCharacterFontHash {
        drawGSLP_C[0] = new GameShopLanguageProcessor("drawPolyLine((" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ",${0})" + ",(" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ",${0})" + ",(" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + ",(" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + "," + "${fontSize/8}"  + "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
        
        addGameShopCharacterFont("Standard", 'C', drawGSLP_C);
+       
+       
          
     }
 }
