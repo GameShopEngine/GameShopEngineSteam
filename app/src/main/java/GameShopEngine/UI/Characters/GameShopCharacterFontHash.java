@@ -98,7 +98,38 @@ public class GameShopCharacterFontHash {
        
        addGameShopCharacterFont("Standard", 'C', drawGSLP_C);
        
+       GameShopLanguageProcessor[] drawGSLP_D = new GameShopLanguageProcessor[2];
        
+       drawGSLP_D[0] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ")" + ",(" +  "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_D[1] = new GameShopLanguageProcessor("drawPolyLine((" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ",${0})" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ",${0})," + "(" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + ",(" +  "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ",${0})," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       
+       addGameShopCharacterFont("Standard", 'D', drawGSLP_D);
          
+       GameShopLanguageProcessor[] drawGSLP_E = new GameShopLanguageProcessor[4];
+       drawGSLP_E[0] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ")" + ",(" +  "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_E[1] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_E[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize/2}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize/2}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_E[3] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+     
+       addGameShopCharacterFont("Standard", 'E', drawGSLP_E);
+       
+       GameShopLanguageProcessor[] drawGSLP_F = new GameShopLanguageProcessor[3];
+     
+       drawGSLP_F[0] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ")" + ",(" +  "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       //drawGSLP_E[1] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_F[1] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize/2}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize/2}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_F[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+     
+       addGameShopCharacterFont("Standard", 'F', drawGSLP_F);
+      
+       GameShopLanguageProcessor[] drawGSLP_G = new GameShopLanguageProcessor[3];
+       
+       drawGSLP_G[0] = new GameShopLanguageProcessor("drawPolyLine((" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ",${0})" + ",(" + "${gsc.position.x}" + "," + "${gsc.position.y}" + ",${0})" + ",(" + "${gsc.position.x}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + ",(" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ",${0})" + "," + "${fontSize/8}"  + "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_G[1] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ")" + ",(" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize/2}" + ")" + "," + "${fontSize/8}"  + "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       drawGSLP_G[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize/2}" + ")" + ",(" + "${gsc.position.x + fontSize/4}" + "," + "${gsc.position.y + fontSize/2}" + ")" +  "," + "${fontSize/8}"  + "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
+       
+       addGameShopCharacterFont("Standard", 'G', drawGSLP_G);
+       
+       
     }
 }

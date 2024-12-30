@@ -80,11 +80,15 @@ public class GameShopATMS {
 
         if (start) {
             for (int i = 0; i < index; i++) {
+                if (i < oldGSRs.size()){
                 lowerGSRs.add(oldGSRs.get(i));
+                }
             }
 
             for (int i = index; i < oldGSRs.size(); i++) {
+                if (i < oldGSRs.size()){
                 higherGSRs.add(oldGSRs.get(i));
+                }
             }
             this.gslp = new GameShopLanguageProcessor[(oldGSRs.size()) + (newGSRs.size())];
 
