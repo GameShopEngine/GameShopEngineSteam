@@ -610,7 +610,7 @@ glEnable(GL_CULL_FACE);
 //          ui.uiPolyMesh.uiATMS.addGameShopLanguageProcessors(0, gscua.gslp);
           
 
-        ui.uiPolyMesh.uiATMS.components[0].setText("LLL");
+        ui.uiPolyMesh.uiATMS.components[0].setText("Z");
         //ui.uiPolyMesh.uiATMS.components[0].gscc.setStartPosition(ui.uiPolyMesh.uiATMS.components[0].gswp);
         ui.uiPolyMesh.uiATMS.components[0].gswp.process();
         

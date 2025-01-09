@@ -210,7 +210,7 @@ public class GameShopLayer {
             if (distX >= 1) {
                 //System.out.println("x+ " + x);
                 addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(radius)));
-                addX /= (FastMath.abs(distY * 2));
+                addX /= (FastMath.abs(distY * 4));
                 
                 if (addX == 0 || Float.isNaN(addX) || Float.isInfinite(addX)){
                  
@@ -233,7 +233,7 @@ public class GameShopLayer {
             else if (distX <= -1) {
                // System.out.println("x- " + x);
                  addX = (FastMath.sqrt(FastMath.sqr(radius * distX) - FastMath.sqr(FastMath.abs(radius))));
-                addX /= (FastMath.abs(distY * 2));
+                addX /= (FastMath.abs(distY * 4));
                 if (addX == 0 || Float.isNaN(addX) || Float.isInfinite(addX)){
                  
                      System.out.println("NAN");
@@ -256,7 +256,7 @@ public class GameShopLayer {
             if (distY >= 1) {
                // System.out.println("y+ " + y);
                  addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(radius)));
-                addY /= (FastMath.abs(distX * 2));
+                addY /= (FastMath.abs(distX * 4));
              if (addY == 0 || Float.isNaN(addY) || Float.isInfinite(addY)){
                  
                      System.out.println("NAN");
@@ -278,7 +278,7 @@ public class GameShopLayer {
             else if (distY <= -1) {
               //  System.out.println("y- " + y);
                  addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
-                 addY /= FastMath.abs(distX * 2);
+                 addY /= FastMath.abs(distX * 4);
                 // System.out.println("addY" + addY);
                  if (addY == 0 || Float.isNaN(addY) || Float.isInfinite(addY)){
                  
