@@ -325,5 +325,7 @@ public class GameShopCharacterFontHash {
 //drawGSLP_N[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + ((fontSize/4))}" + "," + "${gsc.position.y}" + ")" + ",(" +  "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ")," + "${fontSize/8}" +  "," + "(" + "${gsc.uic.textColor.x}" + "," +  "${gsc.uic.textColor.y}" + ","+ "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
         // drawGSLP_X[2] = new GameShopLanguageProcessor("drawLine((" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y + fontSize}" + ")" + ",(" + "${gsc.position.x + fontSize/2}" + "," + "${gsc.position.y}" + ")," + "${fontSize/8}" + "," + "(" + "${gsc.uic.textColor.x}" + "," + "${gsc.uic.textColor.y}" + "," + "${gsc.uic.textColor.z}" + "," + "${gsc.uic.textColor.w}" + ")" + ")");
         addGameShopCharacterFont("Standard", 'Z', drawGSLP_Z);
+        
+        
     }
 }
