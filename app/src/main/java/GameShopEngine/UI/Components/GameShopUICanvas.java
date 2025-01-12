@@ -18,4 +18,5 @@ public class GameShopUICanvas extends GameShopUIComponent {
         super(name, position, size, uiATMS, gscc);
     }
     
+    
 }
