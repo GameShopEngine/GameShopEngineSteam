@@ -36,9 +36,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class App  {
     
-//      static {
-//      System.getProperties().setProperty("Xmx", "14g");//.set("javafx.embed.singleThread", "true");  
-//  }
+ 
 
     // The window handle
 	private long window;
@@ -71,12 +69,27 @@ boolean windowOpen = true;
         public boolean moveBackward = false;
         
         
+        public void printEnvironmentVariables(){
+            System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+            System.out.println(System.getProperty("java.vendor"));
+            System.out.println(System.getProperty("java.vendor.url"));
+            System.out.println(System.getProperty("java.version"));
+            System.out.println(System.getProperty("sun.arch.data.model"));
+        }
+        
+        public void configureOpenGLHints(){
+        
+            // Configure GLFW
+		glfwDefaultWindowHints(); // optional, the current window hints are already the default
+		glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE); // the window will stay hidden after creation
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+                glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+             
+        }
 	public void run() {
-		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
-System.out.println(System.getProperty("java.vendor"));
- System.out.println(System.getProperty("java.vendor.url"));
- System.out.println(System.getProperty("java.version"));
- System.out.println(System.getProperty("sun.arch.data.model"));
+		
+                printEnvironmentVariables();
+                
 		init();
                 //initVulkan();
 		loop();
@@ -101,20 +114,16 @@ System.out.println(System.getProperty("java.vendor"));
 		if ( !glfwInit() )
 			throw new IllegalStateException("Unable to initialize GLFW");
 
-		// Configure GLFW
-		glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
-                glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-             
-                              GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-//new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
-
+		configureOpenGLHints();
+                
+                GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+ 
                 System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
                 
-                  //
-                  //System.out.println("LAST " + "ababab".lastIndexOf("ab", 4));
-                  //
+                   
+                //I NEED A METHOD TO PERFECTLY MAP KEYS
+                //PROBABLY A SINGLETON
+                
 		// Create the window
 		window = glfwCreateWindow(vidmode.width(), vidmode.height(), "Hello World!", glfwGetPrimaryMonitor(), NULL);
 		if ( window == NULL )
@@ -224,38 +233,85 @@ System.out.println(System.getProperty("java.vendor"));
 "{\n" +
 "    fragColor = texture(txtSampler, outTextCoord);\n" +
 "}";
-        
-// 
-//        public String vertexShader2D = "#version 330\n" +
-//"\n" +
-//                "#extension GL_ARB_explicit_uniform_location : require\n"+
-//"layout (location=0) in vec3 inputPosition;\n" +
-////"layout (location=1) uniform mat4 projMatrix;\n" +
-////"layout (location=2) uniform mat4 modelMatrix;\n" +
-////"layout (location=3) uniform mat4 viewMatrix;\n" +
-// "layout (location=1) in vec2 texCoord;\n" +
-//                "out vec2 outTextCoord;\n" +
-//"\n" +
-//"void main()\n" +
-//"{\n" +
-//"    gl_Position = vec4(inputPosition.x, inputPosition.y, 0.0, 1.0);\n" +
-//                "   outTextCoord = texCoord;\n" +
-//"}";
-//        public String fragmentShader2D = "#version 330\n" +
-//"\n" +
-//"out vec4 fragColor;\n" +
-//                "in vec2 outTextCoord;\n" +
-//                "uniform sampler2D txtSampler;\n"+
-//"\n" +
-//"void main()\n" +
-//"{\n" +
-//"    fragColor = texture(txtSampler, outTextCoord);\n" +
-//"}";
 
         GameShopObject gso;
         Vector3f position = new Vector3f(0,0, 0);
         
         GameShopUI gsui;
+        
+        public void createShaders(){
+        
+             GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
+             GameShopShaderHash.getInstance().compileShader("Hello GameShop");
+
+        }
+        
+        public void allocateShaderValues(){
+        
+                 GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x, (int)GameShopCursor.getInstance().vidModeSize.y));
+              
+                GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
+               
+//                GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projectionMatrix");
+//               
+                System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("Hello GameShop"));
+               //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("modelMatrix");
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("viewMatrix");
+
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("txtSampler");
+
+         System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
+    //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+        }
+        
+        public void initGLEnable(){
+        
+            glEnable(GL_BLEND);
+ 
+            glEnable(GL_DEPTH_TEST);
+            
+        }
+        
+        public void useShaderValues(){
+        
+            glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
+                  GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", gsui.getModelMatrix());
+             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
+         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
+ 
+        }
+        
+        public void updateMovement(){
+        
+              if (moveForward){
+                     //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,-.1f));
+                     //GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080);//.../.position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,-.1f));
+                     position = position.add(0, 0, -0.1f);
+                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));
+                  
+                     moveForward = false;
+                     moveBackward = false;
+                     System.out.println("FORWARD");
+                    } else if (moveBackward){
+                    //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,.1f));
+                     //                  GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080); 
+                     position = position.add(0, 0, 0.1f);
+                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));// new GameShopCamera(position, new Vector3f(), 1920, 1080));
+                               System.out.println("BACKWARD");
+                               System.out.println(position);
+                     moveForward = false;
+                     moveBackward = false;
+                    }
+                    if (GameShopCursor.getInstance().clicked){
+                    System.out.println("Cursor:" + GameShopCursor.getInstance().cursorPosition);
+                    System.out.println("GL Position: " + GameShopCursor.getInstance().glPosition);
+                    GameShopCursor.getInstance().clicked = false;
+                    }
+        }
         
 	private void loop() {
             
@@ -268,34 +324,20 @@ System.out.println(System.getProperty("java.vendor"));
 		GL.createCapabilities();
                 
                 //
-glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE); // before creating the window
-GLUtil.setupDebugMessageCallback();
+                glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE); // before creating the window
+                GLUtil.setupDebugMessageCallback();
                
 		// Set the clear color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
                 
  
-               glEnable(GL_BLEND);
- 
-               glEnable(GL_DEPTH_TEST);
+               initGLEnable();
                //glDepthFunc(GL_LESS);
                
 //               glEnable(GL_PRIMITIVE_RESTART);
 //               glPrimitiveRestartIndex(-1);
  
-                GameShopShaderHash.getInstance().addShader("Hello GameShop", vertexShader, fragmentShader);
-                GameShopShaderHash.getInstance().compileShader("Hello GameShop");
-                
-                
-//                GameShopShaderHash.getInstance().addShader("Hello 2D UI", vertexShader2D, fragmentShader2D);
-//                GameShopShaderHash.getInstance().compileShader("Hello 2D UI");
-//       
-//                gsp.allocateBuffer();
-//                for (int i = 0; i < n; i++){
-//                
-//                    gsps[i].allocateBuffer();
-//                }
-
+               createShaders();
                  
                 GameShopPolyLine[] gspl = new GameShopPolyLine[4];
                 GameShopPolyLine[] gspl1 = new GameShopPolyLine[4];
@@ -396,7 +438,7 @@ GLUtil.setupDebugMessageCallback();
                 
                 this.gsui = new GameShopUI(uiGSPMesh);
                 
-                makeUI(this.gsui);
+               // makeUI(this.gsui);
                 
                 GameShopATMS atms = new GameShopATMS(128, 128, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
 //                atms.layer.drawCircle(50, 50, 100, new Vector4f(0,0,0,1f));
@@ -405,51 +447,18 @@ GLUtil.setupDebugMessageCallback();
                 atms.makeATMS();
                 
                 GameShopPolyMesh gspm = new GameShopPolyMesh(new GameShopPolySurface[]{uiSurface}, atms);
-                
-                //GameShopPolyMesh gspm1 = new GameShopPolyMesh(new GameShopPolySurface[] {gsps1})
-                //this.gso = new GameShopObject(gspm);
-                
+            
                 GameShopATMS atms1 = new GameShopATMS(128, 128, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
 //                atms.layer.drawCircle(50, 50, 100, new Vector4f(0,0,0,1f));
                
                 atms1.layer.drawCircle(64, 64, 128, new Vector4f(0,0,0,1f));
                 atms1.makeATMS();
-                
-                //GameShopPolyMesh skyBox =  new GameShopPolyMesh(new GameShopPolySurface[]{gsps}, atms1);
-                 
-                //ENTER GSPS THREAD HERE
-                
-                //for (int i = 0; i < n; i++){
-      
-        
- 
-                uiGSPMesh.allocateBuffer();
-                
-               // gspm.allocateBuffer();
-                
-                //skyBox.allocateBuffer();
-    //gsps[i] = new GameShopPoly( new Vector3f(-1f, -uiScaleY, uiScaleZ), new Vector3f(-1f,uiScaleY,uiScaleZ), new Vector3f(1f,uiScaleY,uiScaleZ), new Vector3f(1f,-uiScaleY,uiScaleZ));
-                
-    //gsps[i].allocateBuffer();  
-             
-                //}
-                  GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x, (int)GameShopCursor.getInstance().vidModeSize.y));
               
-                GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
-               
-//                GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projectionMatrix");
-//               
-                System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("Hello GameShop"));
-               //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
-         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
-         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("modelMatrix");
-         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("viewMatrix");
-
-         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("txtSampler");
-
-         System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
-    //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    
+              uiGSPMesh.allocateBuffer();
+                
+              
+           allocateShaderValues();
+           
    gsui.setPosition(0, 0, -1.75f);
    // this.gso.setRotation(0, 1, 0, 180f);
     gsui.updateModelMatrix();
@@ -463,39 +472,12 @@ GLUtil.setupDebugMessageCallback();
 		while ( !glfwWindowShouldClose(window) ) {
                 //  while (windowOpen){  
                     //System.out.println("Draw Call");
-                    if (moveForward){
-                     //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,-.1f));
-                     //GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080);//.../.position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,-.1f));
-                     position = position.add(0, 0, -0.1f);
-                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));
-                  
-                     moveForward = false;
-                     moveBackward = false;
-                     System.out.println("FORWARD");
-                    } else if (moveBackward){
-                    //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,.1f));
-                     //                  GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080); 
-                     position = position.add(0, 0, 0.1f);
-                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));// new GameShopCamera(position, new Vector3f(), 1920, 1080));
-                               System.out.println("BACKWARD");
-                               System.out.println(position);
-                     moveForward = false;
-                     moveBackward = false;
-                    }
-                    if (GameShopCursor.getInstance().clicked){
-                    System.out.println("Cursor:" + GameShopCursor.getInstance().cursorPosition);
-                    System.out.println("GL Position: " + GameShopCursor.getInstance().glPosition);
-                    GameShopCursor.getInstance().clicked = false;
-                    }
+                  updateMovement();
                     
                  
                   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
-         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
-                  GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", gsui.getModelMatrix());
-             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
-         GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
- 
+        
+                  useShaderValues();
          //glDepthMask(false);
         
         
@@ -545,6 +527,12 @@ glEnable(GL_CULL_FACE);
 //       
                 //GameShopLanguageProcessor gslp = new GameShopLanguageProcessor("testMethod(Hi, My, Name, Is, LyndenJayEvans)");
                 //gslp.process();
+                reportMemory();
+                free();
+	}
+        
+        public void reportMemory(){
+        
                 long maxMemory = Runtime.getRuntime().maxMemory();
                 long allocatedMemory = Runtime.getRuntime().totalMemory();
                 long freeMemory = Runtime.getRuntime().freeMemory();
@@ -552,9 +540,7 @@ glEnable(GL_CULL_FACE);
                 System.out.println("max: " + maxMemory);
                 System.out.println("allocated: " + allocatedMemory);
                 System.out.println("free: " + freeMemory);
-                free();
-	}
-        
+        }
         
         public void free(){ 
             
