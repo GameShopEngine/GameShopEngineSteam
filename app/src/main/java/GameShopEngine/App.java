@@ -37,6 +37,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class App  {
     
  
+    
+    GLFWVidMode vidmode;
 
     // The window handle
 	private long window;
@@ -86,50 +88,10 @@ boolean windowOpen = true;
                 glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
              
         }
-	public void run() {
-		
-                printEnvironmentVariables();
-                
-		init();
-                //initVulkan();
-		loop();
-
-		// Free the window callbacks and destroy the window
-		glfwFreeCallbacks(window);
-		glfwDestroyWindow(window);
-
-		// Terminate GLFW and free the error callback
-		glfwTerminate();
-		glfwSetErrorCallback(null).free();
-	}
-
-	private void init() {
-            
-            if(glfwPlatformSupported(GLFW_PLATFORM_X11)) glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
-		// Setup an error callback. The default implementation
-		// will print the error message in System.err.
-		GLFWErrorCallback.createPrint(System.err).set();
-
-		// Initialize GLFW. Most GLFW functions will not work before doing this.
-		if ( !glfwInit() )
-			throw new IllegalStateException("Unable to initialize GLFW");
-
-		configureOpenGLHints();
-                
-                GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
- 
-                System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
-                
-                   
-                //I NEED A METHOD TO PERFECTLY MAP KEYS
-                //PROBABLY A SINGLETON
-                
-		// Create the window
-		window = glfwCreateWindow(vidmode.width(), vidmode.height(), "Hello World!", glfwGetPrimaryMonitor(), NULL);
-		if ( window == NULL )
-			throw new RuntimeException("Failed to create the GLFW window");
-
-		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
+        
+        public void performKeyMappings(){
+        
+            // Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
@@ -180,6 +142,53 @@ boolean windowOpen = true;
                     
         
                 });
+        }
+        
+        
+	public void run() {
+		
+                printEnvironmentVariables();
+                
+		init();
+                //initVulkan();
+		loop();
+
+		// Free the window callbacks and destroy the window
+		glfwFreeCallbacks(window);
+		glfwDestroyWindow(window);
+
+		// Terminate GLFW and free the error callback
+		glfwTerminate();
+		glfwSetErrorCallback(null).free();
+	}
+
+	private void init() {
+            
+            if(glfwPlatformSupported(GLFW_PLATFORM_X11)) glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+		// Setup an error callback. The default implementation
+		// will print the error message in System.err.
+		GLFWErrorCallback.createPrint(System.err).set();
+
+		// Initialize GLFW. Most GLFW functions will not work before doing this.
+		if ( !glfwInit() )
+			throw new IllegalStateException("Unable to initialize GLFW");
+
+		configureOpenGLHints();
+                
+                vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+ 
+                System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
+                
+                   
+                //I NEED A METHOD TO PERFECTLY MAP KEYS
+                //PROBABLY A SINGLETON
+                
+		// Create the window
+		window = glfwCreateWindow(vidmode.width(), vidmode.height(), "Hello World!", glfwGetPrimaryMonitor(), NULL);
+		if ( window == NULL )
+			throw new RuntimeException("Failed to create the GLFW window");
+
+		performKeyMappings();
 //		// Get the thread stack and push a new frame
 //		try ( MemoryStack stack = stackPush() ) {
 //			IntBuffer pWidth = stack.mallocInt(1); // int*
