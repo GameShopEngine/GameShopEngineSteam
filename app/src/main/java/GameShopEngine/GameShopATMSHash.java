@@ -16,10 +16,11 @@ public class GameShopATMSHash {
     private static GameShopATMSHash _instance;
     
     public HashMap<GameShopATMS, Integer> atmsHash;
-    
+    public HashMap<String, GameShopATMS> dictionary;
     private GameShopATMSHash(){
     
         atmsHash = new HashMap<GameShopATMS, Integer>();
+        dictionary = new HashMap<String, GameShopATMS>();
     }
     
     public static GameShopATMSHash getInstance(){
@@ -31,9 +32,12 @@ public class GameShopATMSHash {
         return _instance;
     }
     
-    public void addATMS(GameShopATMS atms){
+    public void addATMS(String name, GameShopATMS atms){
     
+        //String retVal = Integer.toString(glGenTextures());
         atmsHash.put(atms, glGenTextures());
+        dictionary.put(name, atms);
+        //return retVal;
         //System.out.println(atmsHash.keySet().toString());
         //System.out.println(atmsHash.values().toString());
     }
