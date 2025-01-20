@@ -15,6 +15,8 @@ public class GameShopObject {
     public Matrix4f modelMatrix;
     public Vector3f position;
     public Quaternionf rotation;
+   // public Vector3f angle;
+    
     public float scale;
     GameShopPolyMesh polyMesh;
     
@@ -53,6 +55,11 @@ public class GameShopObject {
         this.rotation.fromAxisAngleRad(x, y, z, angle);
     }
 
+    public void rotate(float x, float y, float z){
+        
+        this.rotation.rotateXYZ(x, y, z);
+    
+    }
     public void setScale(float scale) {
         this.scale = scale;
     }

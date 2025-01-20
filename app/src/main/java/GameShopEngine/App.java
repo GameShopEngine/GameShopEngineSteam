@@ -8,6 +8,7 @@ import GameShopEngine.PolyHash.GameShopObjectHash;
 import GameShopEngine.PolyHash.GameShopPolyLineHash;
 import GameShopEngine.PolyHash.GameShopPolyMeshHash;
 import GameShopEngine.PolyHash.GameShopPolySurfaceHash;
+import com.jme3.math.FastMath;
 //import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
 //import GameShopEngine.UI.Characters.GameShopCharacter;
 //import GameShopEngine.UI.Characters.GameShopCharacterCursor;
@@ -539,7 +540,11 @@ boolean windowOpen = true;
            
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(0, 0, -1.75f);
             
-                //GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setRotation(0, 0, 1, 0);
+                //GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setRotation(0, 1 , .5f, FastMath.DEG_TO_RAD * 60f);
+                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 45f);
+                
+               // GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);
+            
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").updateModelMatrix();
                 
                 System.out.println(GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation);
@@ -562,6 +567,18 @@ boolean windowOpen = true;
                  glCullFace(GL_FRONT);
                  //gsui.uiPolyMesh.draw();
 
+                if (GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z > FastMath.DEG_TO_RAD * 360f){
+                
+                    GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z = FastMath.DEG_TO_RAD * 0f;
+                    
+                }
+                System.out.println(    GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z * FastMath.RAD_TO_DEG);
+                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 1f);
+
+                    // GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);
+                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").updateModelMatrix();
+
+                
                 for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
                 
                     gspm.draw();
