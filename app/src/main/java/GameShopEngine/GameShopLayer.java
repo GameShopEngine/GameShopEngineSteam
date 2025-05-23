@@ -60,7 +60,7 @@ public class GameShopLayer {
         int endX = -1;
         int endY = -1;
         
-        //start with pointX and pointY, subtract radius to get the satartPoint
+        //start with pointX and pointY, subtract radius to get the startPoint
         //compare width and height bounds to edge
         //check if width and height is in radius bounds
         
