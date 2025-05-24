@@ -1,3 +1,5 @@
+package GameShopEngine.deprecated.UI.Components;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -12,17 +14,17 @@
 // *
 // * @author lynden
 // */
-//public class GameShopUITextField extends GameShopUIComponent {
+//public class GameShopUIListBox extends GameShopUIComponent {
 //    
-////    public GameShopUITextField(String name, Vector2f position, Vector2f size,  GameShopUIATMS uiATMS) {
+////    public GameShopUIListBox(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS) {
 ////        super(name, position, size, uiATMS);
 ////    }
 //
-//    public GameShopUITextField(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS, GameShopCharacterCursor gscc) {
+//    public GameShopUIListBox(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS, GameShopCharacterCursor gscc) {
 //        super(name, position, size, uiATMS, gscc);
 //    }
 //    
-////    public GameShopUITextField(String name, Vector2f position, Vector2f size,  GameShopUIATMS uiATMS) {
+////    public GameShopUIListBox(String name, Vector2f position, Vector2f size, GameShopUIATMS uiATMS) {
 ////        super(name, position, size, uiATMS);
 ////    }
 //    
