@@ -4,10 +4,16 @@
 package GameShopEngine;
 
 //import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
+import GameShopEngine.Format.ATMS.GameShopATMSArray;
+import GameShopEngine.Format.ATMS.GameShopATMSCanvas;
+import GameShopEngine.Format.ATMS.GameShopATMSFrame;
+import GameShopEngine.Format.ATMS.GameShopATMSLayer;
+import GameShopEngine.Format.ATMS.GameShopATMSMap;
 import GameShopEngine.PolyHash.GameShopObjectHash;
 import GameShopEngine.PolyHash.GameShopPolyLineHash;
 import GameShopEngine.PolyHash.GameShopPolyMeshHash;
 import GameShopEngine.PolyHash.GameShopPolySurfaceHash;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 //import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
 //import GameShopEngine.UI.Characters.GameShopCharacter;
@@ -379,7 +385,7 @@ boolean windowOpen = true;
             GameShopATMS atms = new GameShopATMS("UI", 256, 256, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
             atms.makeATMS();
 //GameShopATMSHash.getInstance().addATMS("UI", atms);
-            GameShopATMSHash.getInstance().dictionary.get("UI").layer.drawCircle(128, 128, 256,  new Vector4f(0f,0f,127f,127f));
+            GameShopATMSHash.getInstance().dictionary.get("UI").layer.drawCircle(128, 128, 256, ColorRGBA.fromRGBA255(0,0,255,255));
             GameShopPolyMeshHash.getInstance().addGameShopPolyMesh("UI-Mesh-1", new GameShopPolyMesh( new GameShopPolySurface[]{GameShopPolySurfaceHash.getInstance().polySurfaceHash.get("UI-Surface-1")}, GameShopATMSHash.getInstance().dictionary.get("UI")));
             
             GameShopObjectHash.getInstance().addGameShopObject("UI-Object-1", new GameShopObject(GameShopPolyMeshHash.getInstance().polyMeshHash.get("UI-Mesh-1")));
@@ -388,6 +394,41 @@ boolean windowOpen = true;
         
 	private void loop() {
             
+            boolean write = true;
+            
+            if (write){
+            
+                GameShopATMSFrame characters = new GameShopATMSFrame();
+                
+                characters.frames.add(new GameShopATMSLayer());
+                characters.frames.get(0).layers.add(new GameShopATMSCanvas("A"));
+                if (characters.frames.get(0).getLayerByName("A") != null) {
+
+                    com.jme3.math.Vector4f color = new com.jme3.math.Vector4f(100,100,100,100);
+                    characters.frames.get(0).getLayerByName("A").canvas.add(new GameShopATMSArray());
+                    characters.frames.get(0).getLayerByName("A").canvas.add(new GameShopATMSArray());
+                    characters.frames.get(0).getLayerByName("A").canvas.add(new GameShopATMSArray());
+
+                    characters.frames.get(0).getLayerByName("A").canvas.get(0).command = "drawLine";
+                    characters.frames.get(0).getLayerByName("A").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new com.jme3.math.Vector4f(0, 0, 60, 100), false));
+                    characters.frames.get(0).getLayerByName("A").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new com.jme3.math.Vector4f(5, 0, 0, 0), false));
+                    characters.frames.get(0).getLayerByName("A").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+                    characters.frames.get(0).getLayerByName("A").canvas.get(1).command = "drawLine";
+                    characters.frames.get(0).getLayerByName("A").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new com.jme3.math.Vector4f(40, 100, 100, 0), false));
+                    characters.frames.get(0).getLayerByName("A").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new com.jme3.math.Vector4f(5, 0, 0, 0), false));
+                    characters.frames.get(0).getLayerByName("A").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+                    characters.frames.get(0).getLayerByName("A").canvas.get(2).command = "drawLine";
+                    characters.frames.get(0).getLayerByName("A").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new com.jme3.math.Vector4f(20, 50, 65, 50), false));
+                    characters.frames.get(0).getLayerByName("A").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new com.jme3.math.Vector4f(5, 0, 0, 0), false));
+                    characters.frames.get(0).getLayerByName("A").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+                }
+                System.out.println(characters.toString());
+            } else {
+            
+            }
             
             // This line is critical for LWJGL's interoperation with GLFW's
 		// OpenGL context, or any context that is managed externally.
@@ -572,7 +613,7 @@ boolean windowOpen = true;
                     GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z = FastMath.DEG_TO_RAD * 0f;
                     
                 }
-                System.out.println(    GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z * FastMath.RAD_TO_DEG);
+                //System.out.println(    GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z * FastMath.RAD_TO_DEG);
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 1f);
 
                     // GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);

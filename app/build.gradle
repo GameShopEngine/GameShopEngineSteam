@@ -73,7 +73,7 @@ implementation group: 'net.objecthunter', name: 'exp4j', version: '0.4.5'
 
     //JME for FastMath
     
-    implementation "org.jmonkeyengine:jme3-core:3.3.2-stable"
+    implementation "org.jmonkeyengine:jme3-core:3.8.1-stable"
 
 }
 

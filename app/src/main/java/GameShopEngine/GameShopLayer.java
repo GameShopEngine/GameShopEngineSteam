@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package GameShopEngine;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import org.lwjgl.system.MemoryStack;
 
@@ -35,15 +36,15 @@ public class GameShopLayer {
     }
     
     
-    public void drawRectangle(Vector2f start, Vector2f end, Vector4f color){
+    public void drawRectangle(Vector2f start, Vector2f end, ColorRGBA color){
     
              for (int y = (int) start.y; y <= end.y; y++){
 
             for (int x = (int) start.x; x <= end.x; x++) {
-                layer[y][x * 4] =  (byte)(color.x);
-                layer[y][(x * 4) + 1]  = (byte) (color.y);
-                layer[y][(x * 4) + 2] = (byte) (color.z);
-                layer[y][(x * 4) + 3]  = (byte) (color.w);
+                layer[y][x * 4] =  (byte)(color.r);
+                layer[y][(x * 4) + 1]  = (byte) (color.g);
+                layer[y][(x * 4) + 2] = (byte) (color.b);
+                layer[y][(x * 4) + 3]  = (byte) (color.a);
 //
             }
         }
@@ -53,7 +54,7 @@ public class GameShopLayer {
     /**
      color should be 0 to 255;
      */
-    public void drawSquare(int pointX, int pointY, int currency, Vector4f color){
+    public void drawSquare(int pointX, int pointY, int currency, ColorRGBA color){
     
         int startX = -1;
         int startY = -1;
@@ -98,10 +99,10 @@ public class GameShopLayer {
         for (int y = startY; y < endY; y++){
 
             for (int x = startX; x < endX; x++) {
-                layer[y][x * 4] =  (byte)(color.x);
-                layer[y][(x * 4) + 1]  = (byte) (color.y);
-                layer[y][(x * 4) + 2] = (byte) (color.z);
-                layer[y][(x * 4) + 3]  = (byte) (color.w);
+                layer[y][x * 4] =  (byte)(color.r);
+                layer[y][(x * 4) + 1]  = (byte) (color.g);
+                layer[y][(x * 4) + 2] = (byte) (color.b);
+                layer[y][(x * 4) + 3]  = (byte) (color.a);
 //
             }
         }
@@ -114,21 +115,21 @@ public class GameShopLayer {
         for (short y = 0; y < height; y++){
             for (short x = 0; x < width * 4; x +=4){
 
-                output[i] = (byte) ((layer[y][x]));
-                output[i + 1] = (byte) (layer[y][x + 1]);
-                output[i + 2] = (byte) ((layer[y][x + 2]));
-                output[i + 3] = (byte) (layer[y][x + 3]);
+                output[i] = (byte) ((layer[y][x] * 127));
+                output[i + 1] = (byte) (layer[y][x + 1] * 127);
+                output[i + 2] = (byte) ((layer[y][x + 2] * 127));
+                output[i + 3] = (byte) (layer[y][x + 3] * 127);
 
                 i += 4;
             }
 
         }
 
-       //System.out.println("OutPut" + output[2]);
+       System.out.println("OutPut" + output[2]);
         return output;
     }
  
-    public void drawPolyLine(GameShopPolyLine cl, short radius, Vector4f color){
+    public void drawPolyLine(GameShopPolyLine cl, short radius, ColorRGBA color){
 
         //int i = 0;
         System.out.println(Arrays.asList(cl.infinitesimals));
@@ -144,9 +145,9 @@ public class GameShopLayer {
         }
 
     }
-    public void drawLine(Vector2f pointA, Vector2f pointB, short radius, Vector4f color){
+    public void drawLine(Vector2f pointA, Vector2f pointB, short radius, ColorRGBA color){
 
-        System.out.println("drawLine " + pointA.toString(new DecimalFormat("##")) + " " + pointB.toString(new DecimalFormat("##")) + " " + radius + " " + color.toString(new DecimalFormat("##")));
+     //   System.out.println("drawLine " + pointA.toString(new DecimalFormat("##")) + " " + pointB.toString(new DecimalFormat("##")) + " " + radius + " " + color.toString(new DecimalFormat("##")));
 //       float dist = pointA.distance(pointB);
 //
 //        int i = (int) (dist/radius);
@@ -360,7 +361,7 @@ public class GameShopLayer {
 return  inc;
     }
     //0x0 center
-    public void drawCircle(int pointX, int pointY, int radius, Vector4f color){
+    public void drawCircle(int pointX, int pointY, int radius, ColorRGBA color){
 
 //        layer[((width - pointX) * (height - pointY) * 4)] = color.asBytesRGBA()[0];
 //        layer[((width - pointX) * (height - pointY) * 4) + 1] = color.asBytesRGBA()[1];
@@ -430,10 +431,10 @@ return  inc;
 
                 {
                     //if (FastMath.sqrt(FastMath.sqr((((float) x /4) + pointX * 4)) + FastMath.sqr((y + pointY))) < radius){
-                    layer[y][x * 4] = (byte) (color.x); //127
-                    layer[y][(x * 4) + 1] = (byte) (color.y);
-                    layer[y][(x * 4) + 2] = (byte) (color.z);
-                    layer[y][(x * 4) + 3] = (byte) (color.w);
+                    layer[y][x * 4] = (byte) (color.r); //127
+                    layer[y][(x * 4) + 1] = (byte) (color.g);
+                    layer[y][(x * 4) + 2] = (byte) (color.b);
+                    layer[y][(x * 4) + 3] = (byte) (color.a);
                     //System.out.println("IN");
 
                 }
