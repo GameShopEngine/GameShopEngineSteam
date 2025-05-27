@@ -13,13 +13,13 @@ import java.io.ObjectOutputStream;
  *
  * @author jmonkeygamesinc
  */
-public class GameShopFileWriter {
+public class GameShopFileWriter<T> {
     
     public GameShopFileWriter(){
     
     }
     
-    public static byte[] toByteArray(GameShopATMSFrame obj) throws IOException {
+    public byte[] toByteArray(T obj) throws IOException {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
         objectStream.writeObject(obj);

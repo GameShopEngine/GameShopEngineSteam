@@ -435,7 +435,7 @@ boolean windowOpen = true;
                 //System.out.println(characters);
                 
                 try (FileOutputStream fos = new FileOutputStream("temp.font.atms.gameshop")) {
-                    fos.write(GameShopFileWriter.toByteArray(characters));
+                    fos.write(new GameShopFileWriter<GameShopATMSFrame>().toByteArray(characters));
                     // Write data to the file
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -447,7 +447,7 @@ boolean windowOpen = true;
                 try (FileInputStream fis = new FileInputStream("temp.font.atms.gameshop")){
                 
                     byte[] byteArray = fis.readAllBytes();
-                    characters = GameShopFileReader.toObject(byteArray);
+                    characters = new GameShopFileReader<GameShopATMSFrame>().toObject(byteArray);
                 } catch (IOException e) {
                 
                     e.printStackTrace();
