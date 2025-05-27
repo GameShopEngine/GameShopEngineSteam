@@ -6,6 +6,7 @@ package GameShopEngine.FileIO;
 
 import GameShopEngine.Format.ATMS.GameShopATMSFrame;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -25,5 +26,15 @@ public class GameShopFileWriter<T> {
         objectStream.writeObject(obj);
         objectStream.close();
         return byteStream.toByteArray();
+    }
+    
+    public void write(String filename, T obj){
+    
+        try (FileOutputStream fos = new FileOutputStream(filename)) {
+            fos.write(toByteArray(obj));
+            // Write data to the file
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

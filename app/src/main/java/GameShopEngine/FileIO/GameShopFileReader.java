@@ -4,10 +4,14 @@
  */
 package GameShopEngine.FileIO;
 
+import GameShopEngine.App;
 import GameShopEngine.Format.ATMS.GameShopATMSFrame;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,5 +25,27 @@ public class GameShopFileReader<T> {
         T obj = (T) objectStream.readObject();
         objectStream.close();
         return obj;
+    }
+    
+    public T read(String filename){
+    
+        T characters = null;
+                
+                try (FileInputStream fis = new FileInputStream(filename)){
+                
+                    byte[] byteArray = fis.readAllBytes();
+                    characters = toObject(byteArray);
+                } catch (IOException e) {
+                
+                    e.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                
+                    System.out.println(characters);
+                }
+                
+                return characters;
+ 
     }
 }

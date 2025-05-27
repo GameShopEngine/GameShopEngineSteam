@@ -434,29 +434,10 @@ boolean windowOpen = true;
                 }
                 //System.out.println(characters);
                 
-                try (FileOutputStream fos = new FileOutputStream("temp.font.atms.gameshop")) {
-                    fos.write(new GameShopFileWriter<GameShopATMSFrame>().toByteArray(characters));
-                    // Write data to the file
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+               new GameShopFileWriter().write("temp.font.atms.gameshop", characters);
             } else {
             
-                GameShopATMSFrame characters = new GameShopATMSFrame();
-                
-                try (FileInputStream fis = new FileInputStream("temp.font.atms.gameshop")){
-                
-                    byte[] byteArray = fis.readAllBytes();
-                    characters = new GameShopFileReader<GameShopATMSFrame>().toObject(byteArray);
-                } catch (IOException e) {
-                
-                    e.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                
-                    System.out.println(characters);
-                }
+               new GameShopFileReader().read("temp.font.atms.gameshop");
                 
             }
             
