@@ -425,7 +425,7 @@ boolean windowOpen = true;
                     characters.frames.get(0).getLayerByName("A").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
 
                 }
-                System.out.println(characters.toString());
+                System.out.println(characters);
             } else {
             
             }
