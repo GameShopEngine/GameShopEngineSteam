@@ -4,6 +4,8 @@
 package GameShopEngine;
 
 //import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
+import GameShopEngine.FileIO.GameShopFileReader;
+import GameShopEngine.FileIO.GameShopFileWriter;
 import GameShopEngine.Format.ATMS.GameShopATMSArray;
 import GameShopEngine.Format.ATMS.GameShopATMSCanvas;
 import GameShopEngine.Format.ATMS.GameShopATMSFrame;
@@ -15,6 +17,9 @@ import GameShopEngine.PolyHash.GameShopPolyMeshHash;
 import GameShopEngine.PolyHash.GameShopPolySurfaceHash;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 //import GameShopEngine.UI.Characters.AlphaNumeric.GameShopCharacterUpperCaseA;
 //import GameShopEngine.UI.Characters.GameShopCharacter;
 //import GameShopEngine.UI.Characters.GameShopCharacterCursor;
@@ -31,6 +36,8 @@ import org.lwjgl.system.*;
 
 import java.nio.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -394,7 +401,7 @@ boolean windowOpen = true;
         
 	private void loop() {
             
-            boolean write = true;
+            boolean write = false;
             
             if (write){
             
@@ -425,9 +432,32 @@ boolean windowOpen = true;
                     characters.frames.get(0).getLayerByName("A").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
 
                 }
-                System.out.println(characters);
+                //System.out.println(characters);
+                
+                try (FileOutputStream fos = new FileOutputStream("temp.font.atms.gameshop")) {
+                    fos.write(GameShopFileWriter.toByteArray(characters));
+                    // Write data to the file
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
             
+                GameShopATMSFrame characters = new GameShopATMSFrame();
+                
+                try (FileInputStream fis = new FileInputStream("temp.font.atms.gameshop")){
+                
+                    byte[] byteArray = fis.readAllBytes();
+                    characters = GameShopFileReader.toObject(byteArray);
+                } catch (IOException e) {
+                
+                    e.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                
+                    System.out.println(characters);
+                }
+                
             }
             
             // This line is critical for LWJGL's interoperation with GLFW's

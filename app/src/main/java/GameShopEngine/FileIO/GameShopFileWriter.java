@@ -4,10 +4,26 @@
  */
 package GameShopEngine.FileIO;
 
+import GameShopEngine.Format.ATMS.GameShopATMSFrame;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 /**
  *
  * @author jmonkeygamesinc
  */
 public class GameShopFileWriter {
     
+    public GameShopFileWriter(){
+    
+    }
+    
+    public static byte[] toByteArray(GameShopATMSFrame obj) throws IOException {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
+        objectStream.writeObject(obj);
+        objectStream.close();
+        return byteStream.toByteArray();
+    }
 }
