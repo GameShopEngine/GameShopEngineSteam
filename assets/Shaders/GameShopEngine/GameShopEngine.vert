@@ -1,4 +1,4 @@
-#version 330;
+#version 330
 #extension GL_ARB_explicit_uniform_location : require
 
 layout (location=0) in vec3 inputPosition;
@@ -10,7 +10,7 @@ out vec2 outTextCoord;
 
 void main()
 {
-//gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0);
-    gl_Position = projMatrix * viewMatrix  * vec4(inputPosition, 1.0);
+gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0);
+//    gl_Position = projMatrix * viewMatrix  * vec4(inputPosition, 1.0);
     outTextCoord = texCoord;
 }
