@@ -237,7 +237,7 @@ boolean windowOpen = true;
 		// Make the window visible
 		glfwShowWindow(window);
 	}
-
+/*
         public String vertexShader = "#version 330\n" +
 "\n" +
                 "#extension GL_ARB_explicit_uniform_location : require\n"+
@@ -265,40 +265,26 @@ boolean windowOpen = true;
 "{\n" +
 "    fragColor = texture(txtSampler, outTextCoord);\n" +
 "}";
+        
+        */
 
         GameShopObject gso;
         Vector3f position = new Vector3f(0,0, 0);
         
-        //GameShopUI gsui;
-        
+         
         public void createShaders(){
         
             System.out.println(System.getProperty("user.dir"));
-            File userDir = new File(System.getProperty("user.dir"));
-            File assetsFolder = new File(userDir.getParent() + "/assets");
-            System.out.println(assetsFolder.getAbsolutePath());
-            File vs = new File(assetsFolder.getAbsolutePath() + "/Shaders/GameShopEngine/GameShopEngine.vert");
-            File fs = new File(assetsFolder.getAbsolutePath() + "/Shaders/GameShopEngine/GameShopEngine.frag");
             String vShader ="";
             String fShader ="";
-        try {
-            Scanner scanner = new Scanner(vs);
-            while(scanner.hasNextLine()){
-                vShader += scanner.nextLine() + "\n";
-            }
-            scanner.close();
-            scanner = new Scanner(fs);
-            while (scanner.hasNextLine()) {
-                fShader += scanner.nextLine() + "\n";
-            }
-            scanner.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            System.out.println(vShader);
+          
+            vShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopEngine/GameShopEngine.vert");
+            fShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopEngine/GameShopEngine.frag");
+             
+             
              GameShopShaderHash.getInstance().addShader("Hello GameShop", vShader, fShader);
              GameShopShaderHash.getInstance().compileShader("Hello GameShop");
-        }
+        
         }
         
         public void allocateShaderValues(){

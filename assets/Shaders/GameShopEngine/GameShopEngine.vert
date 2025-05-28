@@ -11,6 +11,6 @@ out vec2 outTextCoord;
 void main()
 {
 gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0);
-//    gl_Position = projMatrix * viewMatrix  * vec4(inputPosition, 1.0);
+ 
     outTextCoord = texCoord;
 }

@@ -6,9 +6,14 @@ package GameShopEngine.FileIO;
 
 import GameShopEngine.Format.ATMS.GameShopATMSFrame;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,6 +40,22 @@ public class GameShopFileWriter<T> {
             // Write data to the file
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void writeText(String filename, String text){
+    
+        try {
+            PrintWriter printer = new PrintWriter(filename);
+            Scanner scanner = new Scanner(text);
+            while (scanner.hasNextLine()){
+            
+                printer.println(scanner.nextLine() + "\n");
+            }
+            scanner.close();
+            printer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameShopFileWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
