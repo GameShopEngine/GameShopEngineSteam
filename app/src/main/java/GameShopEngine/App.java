@@ -11,6 +11,7 @@ import GameShopEngine.Format.ATMS.GameShopATMSCanvas;
 import GameShopEngine.Format.ATMS.GameShopATMSFrame;
 import GameShopEngine.Format.ATMS.GameShopATMSLayer;
 import GameShopEngine.Format.ATMS.GameShopATMSMap;
+import GameShopEngine.GameShopUI.GameShopUIPolyMesh;
 import GameShopEngine.PolyHash.GameShopObjectHash;
 import GameShopEngine.PolyHash.GameShopPolyLineHash;
 import GameShopEngine.PolyHash.GameShopPolyMeshHash;
@@ -284,7 +285,17 @@ boolean windowOpen = true;
              
              GameShopShaderHash.getInstance().addShader("Hello GameShop", vShader, fShader);
              GameShopShaderHash.getInstance().compileShader("Hello GameShop");
-        
+         
+//             vShader="";
+//             fShader="";
+//             vShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopUI/GameShopUI.vert");
+//             fShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopUI/GameShopUI.frag");
+//             
+//             GameShopShaderHash.getInstance().addShader("GameShopUI", vShader, fShader);
+//             GameShopShaderHash.getInstance().compileShader("GameShopUI");
+      
+             
+             
         }
         
         public void allocateShaderValues(){
@@ -306,6 +317,21 @@ boolean windowOpen = true;
          System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
     //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     
+    /*
+     GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")));
+               
+            System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("GameShopUI"));
+            //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
+//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
+//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("modelMatrix");
+//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("viewMatrix");
+
+            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).createUniform("txtSampler");
+
+            System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("GameShopUI"));
+            //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+            */
         }
         
         public void initGLEnable(){
@@ -323,7 +349,14 @@ boolean windowOpen = true;
                   GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").getModelMatrix());
              GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
- 
+            
+         ////glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI"));
+//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
+//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").getModelMatrix());
+//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
+           //// GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).setUniform("txtSampler", 0);
+
+         
         }
         
         public void updateMovement(){
@@ -408,6 +441,43 @@ boolean windowOpen = true;
             GameShopPolyMeshHash.getInstance().addGameShopPolyMesh("UI-Mesh-1", new GameShopPolyMesh( new GameShopPolySurface[]{GameShopPolySurfaceHash.getInstance().polySurfaceHash.get("UI-Surface-1")}, GameShopATMSHash.getInstance().dictionary.get("UI")));
             
             GameShopObjectHash.getInstance().addGameShopObject("UI-Object-1", new GameShopObject(GameShopPolyMeshHash.getInstance().polyMeshHash.get("UI-Mesh-1")));
+            
+            /*
+            GameShopATMS atmsUI = new GameShopATMS("ATMSUI", 256, 256, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+           
+           // atmsUI.layer.drawCircle(128, 128, 128, ColorRGBA.White);
+            atmsUI.makeATMS();
+             GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(128, 128, 256, ColorRGBA.fromRGBA255(255,255,255,255));
+           
+            float zAxis = 0f;
+            GameShopPolyLine[] clUI = new GameShopPolyLine[4];
+
+//        for (int i = 0; i < 4; i += 1){
+//
+//            clUI[i] = new GameShopCurrencyLine(new Vector3f[]{ new Vector3f(-1,((((float) i-5))+ (i * .33f)), 0), new Vector3f(-.33f,((((float) i-5))+ (i * .33f)), 0), new Vector3f(.33f,((((float) i-5))+ (i * .33f)), 0), new Vector3f(1f,((((float) i-5))+ (i * .33f)), 0)}, 2);
+//
+//        }
+            //for (int i = 0; i < 4; i += 1){
+            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, -1.335f, zAxis)}, 2);
+            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(3.3f, -.33f, zAxis)}, 2);
+            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(3.3f, .33f, zAxis)}, 2);
+            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, 1.335f, zAxis)}, 2);
+
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-1", clUI[0]);
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-2", clUI[1]);
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-3", clUI[2]);
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-4", clUI[3]);
+            
+            // }
+            GameShopPolySurface csUI = new GameShopPolySurface(clUI);
+            
+            GameShopPolySurfaceHash.getInstance().addGameShopPolySurface("GameShopUI-Surface-1", csUI);
+            
+            GameShopPolyMesh cmUI = new GameShopPolyMesh(new GameShopPolySurface[]{csUI}, atmsUI);
+            GameShopPolyMeshHash.getInstance().addGameShopPolyMesh("GameShopUI-Mesh-1", cmUI);
+            
+            GameShopObjectHash.getInstance().addGameShopObject("GameShopUI-Object-1", new GameShopObject(cmUI));
+            */
         }
         
         

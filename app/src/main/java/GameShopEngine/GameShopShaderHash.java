@@ -22,13 +22,16 @@ public class GameShopShaderHash {
     /**
      Name, GlProgram, VertexShader, FragmentShader
      */
-    public HashMap<HashMap<String, Integer>, HashMap<String, String>> glShaderProgram;
+    //public HashMap<HashMap<String, Integer>, HashMap<String, String>> glShaderProgram;
+    
+    public HashMap<HashMap<String, Integer>, HashMap<String, GameShopShader>> glShaderProgram;
+    
     
     private static GameShopShaderHash _instance;
     
     private GameShopShaderHash(){
     
-        glShaderProgram = new HashMap<HashMap<String, Integer>, HashMap<String, String>>();
+        glShaderProgram = new HashMap<HashMap<String, Integer>, HashMap<String, GameShopShader>>();
     }
     
     public static GameShopShaderHash getInstance(){
@@ -46,12 +49,12 @@ public class GameShopShaderHash {
     public void addShader(String name, String vertexShader, String fragmentShader) {
     
         HashMap <String, Integer> shader = new HashMap<String, Integer>();
-        HashMap<String, String> vertexAndFragment = new HashMap<String, String>();
+        HashMap<String, GameShopShader> vertexAndFragment = new HashMap<String, GameShopShader>();
         
         int program = glCreateProgram();
-        System.out.println(program);
+        System.out.println("PROGRAM " + program);
         shader.put(name, program);
-        vertexAndFragment.put(fragmentShader, vertexShader);
+        vertexAndFragment.put(name, new GameShopShader(vertexShader, fragmentShader));
         glShaderProgram.put(shader, vertexAndFragment);
         //if (shader.get(name) == glCreateProgram());
         
@@ -59,6 +62,7 @@ public class GameShopShaderHash {
     
     public int getGLShaderProgram(String name){
     
+        System.out.println(glShaderProgram.keySet());
         for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
         
             return shader.get(name);
@@ -71,32 +75,31 @@ public class GameShopShaderHash {
     public String getVertexShader(String name){
     
          
-        HashMap<String, Integer> shaderResult = null;
-        
+        //return glShaderProgram.get(name).get(name).vertexShader;
+//        HashMap<String, Integer> shaderResult = null;
+//        
         Integer i = null;
         
-       for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
         
-            i = shader.get(name);
-            
-            if (i != null){
-            
-                shaderResult = shader;
-                break;
-            }
+       for (HashMap<String, GameShopShader> shader: glShaderProgram.values()){
+        
+            return shader.get(name).vertexShader;
+             
         }
        
-       if (shaderResult == null) {
-       
-           return "";
-       }
-       for (String string: glShaderProgram.get(shaderResult).values()){
-       
-           return string;
-           
-       }
-       
-       return "";
+//       
+//        
+//        
+//       
+//           return glShaderProgram.get(shaderResult).
+//       
+//       for (String string: glShaderProgram.get(shaderResult).values()){
+//       
+//           return string;
+//           
+//       }
+//       
+//       return "";
 //       int j = 0;
 //       for (HashMap<String, String> values: glShaderProgram.values()){
 //        
@@ -110,37 +113,43 @@ public class GameShopShaderHash {
 //            }
 //        }
 //       
-//       return "";
+       return "";
        
     }
     
     public String getFragmentShader(String name){
-         HashMap<String, Integer> shaderResult = null;
-        
-        Integer i = null;
-        
-       for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
-        
-            i = shader.get(name);
-            
-            if (i != null){
-            
-                shaderResult = shader;
-                break;
-            }
+        for (HashMap<String, GameShopShader> shader : glShaderProgram.values()) {
+
+            return shader.get(name).fragmentShader;
+
         }
-       
-       if (shaderResult == null) {
-       
-           return "";
-       }
-       for (String string: glShaderProgram.get(shaderResult).keySet()){
-       
-           return string;
-           
-       }
-       
-       return "";
+        //return glShaderProgram.get(name).get(name).fragmentShader;
+//         HashMap<String, Integer> shaderResult = null;
+//        
+//        Integer i = null;
+//        
+//       for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
+//        
+//            i = shader.get(name);
+//            
+//            if (i != null){
+//            
+//                shaderResult = shader;
+//                break;
+//            }
+//        }
+//       
+//       if (shaderResult == null) {
+//       
+//           return "";
+//       }
+//       for (String string: glShaderProgram.get(shaderResult).keySet()){
+//       
+//           return string;
+//           
+//       }
+//       
+//       return "";
 //        int i = 0;
 //        
 //       for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
@@ -162,7 +171,7 @@ public class GameShopShaderHash {
 //            }
 //        }
 //       
-//       return "";
+       return "";
     }
     
     public void compileShader(String name){
