@@ -7,9 +7,11 @@ package GameShopEngine;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL20.glUniform1i;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
+import static org.lwjgl.opengl.GL20.glUniform4f;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL46;
 import org.lwjgl.system.MemoryStack;
@@ -52,6 +54,11 @@ public class GameShopUniform {
         glUniform1i(getUniformLocation(uniformName), value);
        
     }
+      
+      public void setUniform(String uniformName, Vector4f value){
+      
+          glUniform4f(getUniformLocation(uniformName), value.x, value.y, value.z, value.w);
+      }
       
      public void setUniform(String uniformName, Matrix4f value) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
