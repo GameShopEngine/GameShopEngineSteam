@@ -12,6 +12,8 @@ import GameShopEngine.Format.ATMS.GameShopATMSFrame;
 import GameShopEngine.Format.ATMS.GameShopATMSLayer;
 import GameShopEngine.Format.ATMS.GameShopATMSMap;
 import GameShopEngine.GameShopUI.GameShopUIPolyMesh;
+import GameShopEngine.GameShopUI.Widgets.GameShopAlphabet;
+import GameShopEngine.GameShopUI.WordProcessor.GameShopWordProcessor;
 import GameShopEngine.PolyHash.GameShopObjectHash;
 import GameShopEngine.PolyHash.GameShopPolyLineHash;
 import GameShopEngine.PolyHash.GameShopPolyMeshHash;
@@ -449,13 +451,17 @@ boolean windowOpen = true;
             
             */
             
-            GameShopATMS atmsUI = new GameShopATMS("ATMSUI", 256, 256, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+            GameShopATMS atmsUI = new GameShopATMS("ATMSUI", 1024, 1024, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
            
            // atmsUI.layer.drawCircle(128, 128, 128, ColorRGBA.White);
             atmsUI.makeATMS();
-             GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(128, 128, 256, ColorRGBA.fromRGBA255(255,0,0,255));
+             GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(512, 512, 1024, ColorRGBA.fromRGBA255(255,0,0,255));
            
-            float zAxis = 0f;
+             GameShopAlphabet alphabet = new GameShopAlphabet(50,50);
+             alphabet.generateCharacters(new com.jme3.math.Vector4f(0,0,0,100));
+             GameShopWordProcessor gswp = new GameShopWordProcessor("GameShop", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 550, 50);
+             
+             float zAxis = 0f;
             GameShopPolyLine[] clUI = new GameShopPolyLine[4];
 
 //        for (int i = 0; i < 4; i += 1){

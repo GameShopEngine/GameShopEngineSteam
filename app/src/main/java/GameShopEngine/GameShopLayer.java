@@ -228,7 +228,7 @@ public class GameShopLayer {
 
         }
 
-       System.out.println("OutPut" + output[2]);
+       //System.out.println("OutPut" + output[2]);
         return output;
     }
  
@@ -318,7 +318,7 @@ public class GameShopLayer {
                 
                 if (addX == 0 || Float.isNaN(addX) || Float.isInfinite(addX)){
                  
-                     System.out.println("NAN");
+                     //System.out.println("NAN");
                     //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
                  addX = 1; 
                  }
@@ -340,7 +340,7 @@ public class GameShopLayer {
                 addX /= (FastMath.abs(distY * 4));
                 if (addX == 0 || Float.isNaN(addX) || Float.isInfinite(addX)){
                  
-                     System.out.println("NAN");
+                     //System.out.println("NAN");
                     //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
                  addX = 1; 
                  }
@@ -363,7 +363,7 @@ public class GameShopLayer {
                 addY /= (FastMath.abs(distX * 4));
              if (addY == 0 || Float.isNaN(addY) || Float.isInfinite(addY)){
                  
-                     System.out.println("NAN");
+                     //System.out.println("NAN");
                     //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
                  addY = 1; 
                  }
@@ -386,7 +386,7 @@ public class GameShopLayer {
                 // System.out.println("addY" + addY);
                  if (addY == 0 || Float.isNaN(addY) || Float.isInfinite(addY)){
                  
-                     System.out.println("NAN");
+                     //System.out.println("NAN");
                     //addY = (FastMath.sqrt(FastMath.sqr(radius * distY) - FastMath.sqr(FastMath.abs(radius))));
                  addY = 1; 
                  }
