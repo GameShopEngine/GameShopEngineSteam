@@ -468,7 +468,7 @@ boolean windowOpen = true;
           //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
              GameShopAlphabet alphabet = new GameShopAlphabet(75,75);
              alphabet.generateCharacters(new com.jme3.math.Vector4f(100,100,100,100));
-             GameShopWordProcessor gswp = new GameShopWordProcessor("A", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 675, 75);
+             GameShopWordProcessor gswp = new GameShopWordProcessor("GAMESHOP", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 675, 75);
 //             GameShopATMSHash.getInstance().updateATMS("ATMSUI", atmsUI);
              float zAxis = 0f;
             GameShopPolyLine[] clUI = new GameShopPolyLine[4];

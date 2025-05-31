@@ -55,7 +55,7 @@ public class GameShopAlphabet {
         characters.frames.get(0).getLayerByName(character).canvas.add(new GameShopATMSArray());
         int length = characters.frames.get(0).getLayerByName(character).canvas.size() - 1;
         if (characters.frames.get(0).getLayerByName(character) != null){
-            characters.frames.get(0).getLayerByName(character).canvas.get(length).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName(character).canvas.get(length).command = "drawPolyLine";
             //characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(0,0,60,100), false));
             characters.frames.get(0).getLayerByName(character).canvas.get(length).arguments.add(new GameShopATMSMap("Point1", new Vector4f(), false));
             characters.frames.get(0).getLayerByName(character).canvas.get(length).arguments.add(new GameShopATMSMap("Point2", new Vector4f(), false));
@@ -69,10 +69,10 @@ public class GameShopAlphabet {
         }
     }
 
-    public void drawCurrencyLine(String character, int num, Vector4f[] currencyLinePoints){
+    public void drawPolyLine(String character, int num, Vector4f[] currencyLinePoints){
 
         if (characters.frames.get(0).getLayerByName(character) != null){
-            characters.frames.get(0).getLayerByName(character).canvas.get(num).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName(character).canvas.get(num).command = "drawPolyLine";
             //characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(0,0,60,100), false));
             characters.frames.get(0).getLayerByName(character).canvas.get(num).arguments.add(new GameShopATMSMap("Point1", currencyLinePoints[0], false));
             characters.frames.get(0).getLayerByName(character).canvas.get(num).arguments.add(new GameShopATMSMap("Point2", currencyLinePoints[1], false));
@@ -258,7 +258,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("a").canvas.add(new GameShopATMSArray());
 
 
-            characters.frames.get(0).getLayerByName("a").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("a").canvas.get(0).command = "drawPolyLine";
             //characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(0,0,60,100), false));
             characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,40,0,0), false));
             characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(60,50,0,0), false));
@@ -270,7 +270,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
 
-            characters.frames.get(0).getLayerByName("a").canvas.get(1).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("a").canvas.get(1).command = "drawPolyLine";
             //characters.frames.get(0).getLayerByName("a").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(0,0,60,100), false));
             characters.frames.get(0).getLayerByName("a").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,15,0,0), false));
             characters.frames.get(0).getLayerByName("a").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(60,30,0,0), false));
@@ -283,7 +283,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("a").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
 
             
-            characters.frames.get(0).getLayerByName("a").canvas.get(2).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("a").canvas.get(2).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("a").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,15,0,0), false));
             characters.frames.get(0).getLayerByName("a").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(60,0,0,0), false));
@@ -314,7 +314,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("B").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
             characters.frames.get(0).getLayerByName("B").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
         
-            characters.frames.get(0).getLayerByName("B").canvas.get(1).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("B").canvas.get(1).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("B").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,95,0,0), false));
             characters.frames.get(0).getLayerByName("B").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,95,0,0), false));
@@ -326,7 +326,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("B").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
 
 
-            characters.frames.get(0).getLayerByName("B").canvas.get(2).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("B").canvas.get(2).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("B").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,50,0,0), false));
             characters.frames.get(0).getLayerByName("B").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,50,0,0), false));
@@ -351,7 +351,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("b").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
  
 
-            characters.frames.get(0).getLayerByName("b").canvas.get(1).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("b").canvas.get(1).command = "drawPolyLine";
 
             characters.frames.get(0).getLayerByName("b").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,50,0,0), false));
             characters.frames.get(0).getLayerByName("b").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(45,50,0,0), false));
@@ -369,7 +369,7 @@ public class GameShopAlphabet {
             
             characters.frames.get(0).getLayerByName("C").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("C").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("C").canvas.get(0).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("C").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(95,95,0,0), false));
             characters.frames.get(0).getLayerByName("C").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,95,0,0), false));
@@ -387,7 +387,7 @@ public class GameShopAlphabet {
             
             characters.frames.get(0).getLayerByName("c").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("c").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("c").canvas.get(0).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("c").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(95,45,0,0), false));
             characters.frames.get(0).getLayerByName("c").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,45,0,0), false));
@@ -407,7 +407,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("D").canvas.add(new GameShopATMSArray());
             characters.frames.get(0).getLayerByName("D").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("D").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("D").canvas.get(0).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("D").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,95,0,0), false));
             characters.frames.get(0).getLayerByName("D").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,95,0,0), false));
@@ -437,7 +437,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("d").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
  
 
-            characters.frames.get(0).getLayerByName("d").canvas.get(1).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("d").canvas.get(1).command = "drawPolyLine";
 
             characters.frames.get(0).getLayerByName("d").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(95,50,0,0), false));
             characters.frames.get(0).getLayerByName("d").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(45,50,0,0), false));
@@ -487,7 +487,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("e").canvas.add(new GameShopATMSArray());
             characters.frames.get(0).getLayerByName("e").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("e").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("e").canvas.get(0).command = "drawPolyLine";
 
             characters.frames.get(0).getLayerByName("e").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(45,45,0,0), false));
             characters.frames.get(0).getLayerByName("e").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,45,0,0), false));
@@ -498,7 +498,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("e").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
             characters.frames.get(0).getLayerByName("e").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
-            characters.frames.get(0).getLayerByName("e").canvas.get(1).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("e").canvas.get(1).command = "drawPolyLine";
 
             characters.frames.get(0).getLayerByName("e").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(45,45,0,0), false));
             characters.frames.get(0).getLayerByName("e").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,25,0,0), false));
@@ -577,7 +577,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("G").canvas.add(new GameShopATMSArray());
             characters.frames.get(0).getLayerByName("G").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("G").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("G").canvas.get(0).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("G").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(95,95,0,0), false));
             characters.frames.get(0).getLayerByName("G").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,95,0,0), false));
@@ -1013,7 +1013,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("O").canvas.add(new GameShopATMSArray());
             characters.frames.get(0).getLayerByName("O").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("O").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("O").canvas.get(0).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("O").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,95,0,0), false));
             characters.frames.get(0).getLayerByName("O").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,95,0,0), false));
@@ -1024,7 +1024,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("O").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
             characters.frames.get(0).getLayerByName("O").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
-                characters.frames.get(0).getLayerByName("O").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("O").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("O").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,95,0,0), false));
@@ -1044,7 +1044,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("o").canvas.add(new GameShopATMSArray());
             characters.frames.get(0).getLayerByName("o").canvas.add(new GameShopATMSArray());
 
-            characters.frames.get(0).getLayerByName("o").canvas.get(0).command = "drawCurrencyLine";
+            characters.frames.get(0).getLayerByName("o").canvas.get(0).command = "drawPolyLine";
             
             characters.frames.get(0).getLayerByName("o").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,55,0,0), false));
             characters.frames.get(0).getLayerByName("o").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,55,0,0), false));
@@ -1055,7 +1055,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("o").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
             characters.frames.get(0).getLayerByName("o").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
-                characters.frames.get(0).getLayerByName("o").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("o").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("o").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,55,0,0), false));
@@ -1081,7 +1081,7 @@ public class GameShopAlphabet {
            characters.frames.get(0).getLayerByName("P").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
  
-                characters.frames.get(0).getLayerByName("P").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("P").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("P").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,55,0,0), false));
@@ -1107,7 +1107,7 @@ public class GameShopAlphabet {
            characters.frames.get(0).getLayerByName("p").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
  
-                characters.frames.get(0).getLayerByName("p").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("p").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("p").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,35,0,0), false));
@@ -1133,7 +1133,7 @@ public class GameShopAlphabet {
            characters.frames.get(0).getLayerByName("Q").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
  
-                characters.frames.get(0).getLayerByName("Q").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("Q").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("Q").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(95,55,0,0), false));
@@ -1159,7 +1159,7 @@ public class GameShopAlphabet {
            characters.frames.get(0).getLayerByName("q").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
  
-                characters.frames.get(0).getLayerByName("q").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("q").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("q").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(95,35,0,0), false));
@@ -1187,7 +1187,7 @@ public class GameShopAlphabet {
            characters.frames.get(0).getLayerByName("R").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
  
-                characters.frames.get(0).getLayerByName("R").canvas.get(1).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("R").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("R").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,55,0,0), false));
@@ -1233,7 +1233,7 @@ public class GameShopAlphabet {
 
             
  
-                characters.frames.get(0).getLayerByName("S").canvas.get(0).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("S").canvas.get(0).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("S").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(55,55,0,0), false));
@@ -1245,7 +1245,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("S").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
             characters.frames.get(0).getLayerByName("S").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
-               characters.frames.get(0).getLayerByName("S").canvas.get(1).command = "drawCurrencyLine";
+               characters.frames.get(0).getLayerByName("S").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("S").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(55,55,0,0), false));
@@ -1267,7 +1267,7 @@ public class GameShopAlphabet {
 
             
  
-                characters.frames.get(0).getLayerByName("s").canvas.get(0).command = "drawCurrencyLine";
+                characters.frames.get(0).getLayerByName("s").canvas.get(0).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("s").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(55,55,0,0), false));
@@ -1279,7 +1279,7 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("s").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
             characters.frames.get(0).getLayerByName("s").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
 
-               characters.frames.get(0).getLayerByName("s").canvas.get(1).command = "drawCurrencyLine";
+               characters.frames.get(0).getLayerByName("s").canvas.get(1).command = "drawPolyLine";
 
 
                 characters.frames.get(0).getLayerByName("s").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(55,55,0,0), false));

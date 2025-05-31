@@ -7,6 +7,7 @@ package GameShopEngine;
 
 //import GameShopEngine.LanguageProcessor.GameShopLanguageProcessor;
 //import GameShopEngine.UI.Components.GameShopLanguageProcessor;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector4f;
 import java.nio.*;
 import java.util.ArrayList;
@@ -47,6 +48,10 @@ public class GameShopATMS {
         //this.drawCalls = new String[1];
     }
     
+    public void clear(){
+    
+        this.layer.drawCircle(width/2, height/2, width + height, ColorRGBA.fromRGBA255(0, 0, 0, 0));
+    }
        public void makeATMS(){
      //textureId = glGenTextures();
 

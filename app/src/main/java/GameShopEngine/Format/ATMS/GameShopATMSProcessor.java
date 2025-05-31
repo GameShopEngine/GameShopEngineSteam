@@ -34,19 +34,25 @@ public class GameShopATMSProcessor {
 
         //atms.clear(ColorRGBA.fromRGBA255(0, 0, 0, 0));
 
-        boolean draw = false;
+        //boolean draw = false;
 
         for (GameShopATMSCanvas ac : frames.frames.get(currentFrame).layers) {
-            draw = false;
+            //draw = false;
             //if (Arrays.stream(layers).anyMatch())
             for (String s : layers) {
                 if (s.equals(ac.name)) {
-                    draw = true;
+                    atms.clear();
+                    draw(ac);
                     break;
                 }
             }
 
-            if (draw) {
+            
+        }
+    }
+    
+    public void draw(GameShopATMSCanvas ac){
+    //if (draw) {
                 for (GameShopATMSArray i : ac.canvas) {
                     if (i.command.equals("drawCircle") || i.command.equals("drawSquare")) {
                         Vector4f location = new Vector4f();
@@ -170,7 +176,6 @@ public class GameShopATMSProcessor {
                         atms.layer.drawPolyLine(new GameShopPolyLine(new Vector3f[]{new Vector3f(point1.x, point1.y, 0f), new Vector3f(point2.x, point2.y, 0f), new Vector3f(point3.x, point3.y, 0f), new Vector3f(point4.x, point4.y, 0f)}, (int) numPoints.x), (short) radius.x, ColorRGBA.fromRGBA255((int) color.x, (int) color.y, (int) color.z, (int) color.w));
                     }
                 }
-            }
-        }
+          //  }
     }
 }
