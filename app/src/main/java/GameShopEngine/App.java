@@ -484,10 +484,10 @@ boolean windowOpen = true;
 //            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(3.3f, .33f, zAxis)}, 2);
 //            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, 1.335f, zAxis)}, 2);
  
-            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, -1f, zAxis), new com.jme3.math.Vector3f(-.33f, -1f, zAxis), new com.jme3.math.Vector3f(.33f, -1f, zAxis), new com.jme3.math.Vector3f(1f, -1f, zAxis)}, 2);
-            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, -.33f, zAxis), new com.jme3.math.Vector3f(-.33f, -.33f, zAxis), new com.jme3.math.Vector3f(.33f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis)}, 2);
-            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, .33f, zAxis), new com.jme3.math.Vector3f(-.33f, .33f, zAxis), new com.jme3.math.Vector3f(.33f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis)}, 2);
-            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, 1f, zAxis), new com.jme3.math.Vector3f(-.33f, 1f, zAxis), new com.jme3.math.Vector3f(.33f, 1f, zAxis), new com.jme3.math.Vector3f(1f, 1f, zAxis)}, 2);
+            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.75f, -1f, zAxis), new com.jme3.math.Vector3f(-.33f, -1f, zAxis), new com.jme3.math.Vector3f(.33f, -1f, zAxis), new com.jme3.math.Vector3f(1.75f, -1f, zAxis)}, 2);
+            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.75f, -.33f, zAxis), new com.jme3.math.Vector3f(-.33f, -.33f, zAxis), new com.jme3.math.Vector3f(.33f, -.33f, zAxis), new com.jme3.math.Vector3f(1.75f, -.33f, zAxis)}, 2);
+            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.75f, .33f, zAxis), new com.jme3.math.Vector3f(-.33f, .33f, zAxis), new com.jme3.math.Vector3f(.33f, .33f, zAxis), new com.jme3.math.Vector3f(1.75f, .33f, zAxis)}, 2);
+            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.75f, 1f, zAxis), new com.jme3.math.Vector3f(-.33f, 1f, zAxis), new com.jme3.math.Vector3f(.33f, 1f, zAxis), new com.jme3.math.Vector3f(1.75f, 1f, zAxis)}, 2);
 
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-1", clUI[0]);
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-2", clUI[1]);
