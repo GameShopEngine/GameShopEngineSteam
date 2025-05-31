@@ -462,7 +462,8 @@ boolean windowOpen = true;
                //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
             GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(960,540, 1920, ColorRGBA.fromRGBA255(0,0,255,255));
             GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawLine(new Vector2f(960,540), new Vector2f(1920,1080), (short)50, ColorRGBA.fromRGBA255(255,255,255,255));
-            
+            GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawPolyLine(new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(0, 0, 0), new com.jme3.math.Vector3f(930, 540, 0), new com.jme3.math.Vector3f(990, 540, 0), new com.jme3.math.Vector3f(1920, 0, 0)},200), (short)5, ColorRGBA.White);
+          
            // GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(50,50, 15, ColorRGBA.fromRGBA255(0,0,255,255));
           //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
              GameShopAlphabet alphabet = new GameShopAlphabet(75,75);
@@ -698,14 +699,15 @@ boolean windowOpen = true;
                 }
                 allocateShaderValues();
            
-                /*
-                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(0, 0, -1.75f);
-            
+                
+                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").setPosition(0, 0, -1.75f);
+                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").updateModelMatrix();
+            /*
                 //GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setRotation(0, 1 , .5f, FastMath.DEG_TO_RAD * 60f);
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 45f);
                 
-               // GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);
-            
+                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);
+               
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").updateModelMatrix();
                 
                 System.out.println(GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation);
@@ -731,6 +733,7 @@ boolean windowOpen = true;
                  //gsui.uiPolyMesh.draw();
 
                  
+                 /*
                 if (GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").rotation.z > FastMath.DEG_TO_RAD * 360f){
                 
                     GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").rotation.z = FastMath.DEG_TO_RAD * 0f;
@@ -741,7 +744,7 @@ boolean windowOpen = true;
 
                 GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").setPosition(0f, 0, -1.75f);
                 GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").updateModelMatrix();
-                
+                */
                 
                 for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
                 
