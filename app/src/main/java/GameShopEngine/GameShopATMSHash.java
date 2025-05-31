@@ -41,4 +41,13 @@ public class GameShopATMSHash {
         //System.out.println(atmsHash.keySet().toString());
         //System.out.println(atmsHash.values().toString());
     }
+    
+    public void updateATMS(String name, GameShopATMS atms){
+    
+        GameShopATMS lastATMS = dictionary.get(name);
+        Integer lastNum = atmsHash.get(lastATMS);
+        dictionary.put(name, atms);
+        atmsHash.remove(lastATMS);
+        atmsHash.put(atms, lastNum);
+    }
 }

@@ -41,6 +41,7 @@ import org.lwjgl.system.*;
 
 import java.nio.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -278,16 +279,18 @@ boolean windowOpen = true;
         public void createShaders(){
         
             System.out.println(System.getProperty("user.dir"));
+            
             String vShader ="";
             String fShader ="";
           
-//            vShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopEngine/GameShopEngine.vert");
-//            fShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopEngine/GameShopEngine.frag");
-//             
-//             
-//             GameShopShaderHash.getInstance().addShader("Hello GameShop", vShader, fShader);
-//             GameShopShaderHash.getInstance().compileShader("Hello GameShop");
+            vShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopEngine/GameShopEngine.vert");
+            fShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopEngine/GameShopEngine.frag");
+             
+             
+             GameShopShaderHash.getInstance().addShader("Hello GameShop", vShader, fShader);
+             GameShopShaderHash.getInstance().compileShader("Hello GameShop");
          
+          /*
              vShader="";
              fShader="";
              vShader = new GameShopFileReader().readTextFromAssets("/Shaders/GameShopUI/GameShopUI.vert");
@@ -295,7 +298,7 @@ boolean windowOpen = true;
              
              GameShopShaderHash.getInstance().addShader("GameShopUI", vShader, fShader);
              GameShopShaderHash.getInstance().compileShader("GameShopUI");
-      
+      */
              
              
         }
@@ -303,7 +306,7 @@ boolean windowOpen = true;
         public void allocateShaderValues(){
         
                  GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x, (int)GameShopCursor.getInstance().vidModeSize.y));
-              /*
+              
                 GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
                
 //                GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projectionMatrix");
@@ -318,11 +321,11 @@ boolean windowOpen = true;
 
          System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
     //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    */
     
+    /*
      GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")));
                
-            System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("GameShopUI"));
+          //  System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("GameShopUI"));
             //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
 //            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
 //            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("modelMatrix");
@@ -331,9 +334,9 @@ boolean windowOpen = true;
             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).createUniform("m_ColorMap");
 
             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).createUniform("m_Color");
-            System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("GameShopUI"));
+            //System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("GameShopUI"));
             //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
+*/
             
         }
         
@@ -347,20 +350,21 @@ boolean windowOpen = true;
         
         public void useShaderValues(){
         
-            /*
+            
             glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop"));
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
-                  GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").getModelMatrix());
+                  GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").getModelMatrix());
              GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("txtSampler", 0);
+           
+         
             
-         */
-          glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI"));
-//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
-//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").getModelMatrix());
-//            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
-             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).setUniform("m_ColorMap", 0);
-             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).setUniform("m_Color", new Vector4f(1,1,1,1));
+//          glUseProgram(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI"));
+////            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("projMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").projMatrix);
+////            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("modelMatrix", GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").getModelMatrix());
+////            GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).setUniform("viewMatrix", GameShopCameraHub.getInstance().gsCameras.get("UI").getViewMatrix());
+//             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).setUniform("m_ColorMap", 0);
+//             GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("GameShopUI")).setUniform("m_Color", new Vector4f(1,1,1,1));
 
          
         }
@@ -451,16 +455,20 @@ boolean windowOpen = true;
             
             */
             
-            GameShopATMS atmsUI = new GameShopATMS("ATMSUI", 1024, 1024, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+            GameShopATMS atmsUI = new GameShopATMS("ATMSUI", 1920, 1080, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
            
            // atmsUI.layer.drawCircle(128, 128, 128, ColorRGBA.White);
             atmsUI.makeATMS();
-             GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(512, 512, 1024, ColorRGBA.fromRGBA255(255,0,0,255));
-           
-             GameShopAlphabet alphabet = new GameShopAlphabet(50,50);
-             alphabet.generateCharacters(new com.jme3.math.Vector4f(0,0,0,100));
-             GameShopWordProcessor gswp = new GameShopWordProcessor("GameShop", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 550, 50);
-             
+               //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
+            GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(960,540, 1920, ColorRGBA.fromRGBA255(0,0,255,255));
+            GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawLine(new Vector2f(960,540), new Vector2f(1920,1080), (short)50, ColorRGBA.fromRGBA255(255,255,255,255));
+            
+           // GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(50,50, 15, ColorRGBA.fromRGBA255(0,0,255,255));
+          //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
+             GameShopAlphabet alphabet = new GameShopAlphabet(75,75);
+             alphabet.generateCharacters(new com.jme3.math.Vector4f(100,100,100,100));
+             GameShopWordProcessor gswp = new GameShopWordProcessor("A", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 675, 75);
+//             GameShopATMSHash.getInstance().updateATMS("ATMSUI", atmsUI);
              float zAxis = 0f;
             GameShopPolyLine[] clUI = new GameShopPolyLine[4];
 
@@ -470,10 +478,15 @@ boolean windowOpen = true;
 //
 //        }
             //for (int i = 0; i < 4; i += 1){
-            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, -1.335f, zAxis)}, 2);
-            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(3.3f, -.33f, zAxis)}, 2);
-            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(3.3f, .33f, zAxis)}, 2);
-            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, 1.335f, zAxis)}, 2);
+//            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, -1.335f, zAxis)}, 2);
+//            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(3.3f, -.33f, zAxis)}, 2);
+//            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(3.3f, .33f, zAxis)}, 2);
+//            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, 1.335f, zAxis)}, 2);
+ 
+            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, -1f, zAxis), new com.jme3.math.Vector3f(-.33f, -1f, zAxis), new com.jme3.math.Vector3f(.33f, -1f, zAxis), new com.jme3.math.Vector3f(1f, -1f, zAxis)}, 2);
+            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, -.33f, zAxis), new com.jme3.math.Vector3f(-.33f, -.33f, zAxis), new com.jme3.math.Vector3f(.33f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis)}, 2);
+            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, .33f, zAxis), new com.jme3.math.Vector3f(-.33f, .33f, zAxis), new com.jme3.math.Vector3f(.33f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis)}, 2);
+            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1f, 1f, zAxis), new com.jme3.math.Vector3f(-.33f, 1f, zAxis), new com.jme3.math.Vector3f(.33f, 1f, zAxis), new com.jme3.math.Vector3f(1f, 1f, zAxis)}, 2);
 
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-1", clUI[0]);
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-2", clUI[1]);
@@ -491,15 +504,14 @@ boolean windowOpen = true;
             GameShopObjectHash.getInstance().addGameShopObject("GameShopUI-Object-1", new GameShopObject(cmUI));
             
         }
-        
-        
+        GameShopATMSFrame characters;
 	private void loop() {
             
             boolean write = false;
             
             if (write){
             
-                GameShopATMSFrame characters = new GameShopATMSFrame();
+                characters = new GameShopATMSFrame();
                 
                 characters.frames.add(new GameShopATMSLayer());
                 characters.frames.get(0).layers.add(new GameShopATMSCanvas("A"));
@@ -531,11 +543,10 @@ boolean windowOpen = true;
                new GameShopFileWriter().write("temp.font.atms.gameshop", characters);
             } else {
             
-               new GameShopFileReader().read("temp.font.atms.gameshop");
+              characters = new GameShopFileReader<GameShopATMSFrame>().read("temp.font.atms.gameshop");
                 
             }
-            
-            // This line is critical for LWJGL's interoperation with GLFW's
+              // This line is critical for LWJGL's interoperation with GLFW's
 		// OpenGL context, or any context that is managed externally.
 		// LWJGL detects the context that is current in the current thread,
 		// creates the GLCapabilities instance and makes the OpenGL
@@ -556,6 +567,9 @@ boolean windowOpen = true;
                  
                
                createPolyHashes();
+//               GameShopAlphabet alphabet = new GameShopAlphabet(50,50);
+//               alphabet.characters = characters;
+//               alphabet.drawCharacter(GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), "A", new com.jme3.math.Vector2f(500,500));
                /*
                 GameShopPolyLine[] gspl = new GameShopPolyLine[4];
                 GameShopPolyLine[] gspl1 = new GameShopPolyLine[4];
@@ -704,30 +718,31 @@ boolean windowOpen = true;
 		// the window or has pressed the ESCAPE key.
 		while ( !glfwWindowShouldClose(window) ) {
              
+           
                   updateMovement();
                   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                   useShaderValues();
                   GL46.glBlendFunc(GL46.GL_SRC_ALPHA, GL46.GL_ONE_MINUS_SRC_ALPHA);
 
-      
+              
         
                  glEnable(GL_CULL_FACE);
                  glCullFace(GL_FRONT);
                  //gsui.uiPolyMesh.draw();
 
-                 /*
-                if (GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z > FastMath.DEG_TO_RAD * 360f){
+                 
+                if (GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").rotation.z > FastMath.DEG_TO_RAD * 360f){
                 
-                    GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z = FastMath.DEG_TO_RAD * 0f;
+                    GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").rotation.z = FastMath.DEG_TO_RAD * 0f;
                     
                 }
                 //System.out.println(    GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotation.z * FastMath.RAD_TO_DEG);
-                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 1f);
+                //GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 1f);
 
-                    // GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);
-                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").updateModelMatrix();
-
-                */
+                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").setPosition(0f, 0, -1.75f);
+                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").updateModelMatrix();
+                
+                
                 for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
                 
                     gspm.draw();
@@ -759,12 +774,16 @@ boolean windowOpen = true;
         
         public void free(){ 
             
-//            for (int i = 0; i < n; i++){
-//            
-//            glDeleteBuffers(GameShopShapeHash.getInstance().shapeHash.get(gsps[i]));
-//      
-//            glDeleteVertexArrays(GameShopVertexHash.getInstance().vertexHash.get(gsps[i]));
-//            }
+            for (Integer i: GameShopShapeHash.getInstance().shapeHash.values()){
+            
+            glDeleteBuffers(i);
+      
+            }
+            
+            for (Integer i: GameShopVertexHash.getInstance().vertexHash.values()){
+            
+            glDeleteVertexArrays(i);
+            }
 //            glDeleteBuffers(GameShopShapeHash.getInstance().shapeHash.get(gsp));
 //      
 //            glDeleteVertexArrays(GameShopVertexHash.getInstance().vertexHash.get(gsp));

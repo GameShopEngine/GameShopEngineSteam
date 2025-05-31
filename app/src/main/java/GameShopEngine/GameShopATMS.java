@@ -15,6 +15,8 @@ import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.system.MemoryUtil.memAlloc;
+import static org.lwjgl.system.MemoryUtil.memFree;
 
 
 /**
@@ -48,24 +50,27 @@ public class GameShopATMS {
        public void makeATMS(){
      //textureId = glGenTextures();
 
-      ByteBuffer pixels = BufferUtils.createByteBuffer(layer.outputLayer().length);
+     FloatBuffer pixels = BufferUtils.createFloatBuffer(layer.outputLayer().length * 4);//memAlloc(16 * width* height);//BufferUtils.createByteBuffer(layer.outputLayer().length);
      pixels.put(layer.outputLayer());
      pixels.flip();
 //     if (this.uniqueID == null){
 //     this.uniqueID = GameShopATMSHash.getInstance().addATMS(this);
-//     }   
+//     }  
+    if (GameShopATMSHash.getInstance().dictionary.get(this.name) == null){
      GameShopATMSHash.getInstance().addATMS(this.name, this);
+    }
     //glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstance().atmsHash.get(uniqueID));
        glBindTexture(GL_TEXTURE_2D, GameShopATMSHash.getInstance().atmsHash.get(this));
          
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-       // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
-         //       GL_RGBA, GL_FLOAT, layer.outputLayer());
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
-                GL_RGBA, GL_BYTE, pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0,
+               GL_RGBA, GL_FLOAT, layer.outputLayer());
+        //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
+         //       GL_RGBA, GL_BYTE, pixels);
         glGenerateMipmap(GL_TEXTURE_2D);
+        //memFree(pixels);
         //assert (GameShopATMSHash.getInstance().atmsHash.get(this) != null);
     }
        

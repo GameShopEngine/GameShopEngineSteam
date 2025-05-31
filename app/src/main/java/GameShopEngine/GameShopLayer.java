@@ -32,6 +32,7 @@ public class GameShopLayer {
         this.height = height;
         
         layer = new float[height][width * 4];
+        //drawCircle(width/2, height/2, width * 2, ColorRGBA.Black);
         //layer = new Vector4f[height][width];
     }
     
@@ -46,7 +47,7 @@ public class GameShopLayer {
                         if ( getPixel((int) (x - start.x), (int) (y - start.y)).a == 0f) {
                             continue;
                         }
-                         setPixel(x, y,  getPixel((int) (x - start.x), (int) (y - start.y)));
+                         setPixel(x, y,  copy.getPixel((int) (x - start.x), (int) (y - start.y)));
 
                     }
 
@@ -67,7 +68,7 @@ public class GameShopLayer {
                         if ( getPixel((int) (x - start.x), (int) (y - start.y)).a == 0f) {
                             continue;
                         }
-                         setPixel(x, y,  getPixel((int) (x - start.x), (int) (y - start.y)));
+                         setPixel(x, y,  copy.getPixel((int) (x - start.x), (int) (y - start.y)));
 
                     }
 
@@ -88,7 +89,7 @@ public class GameShopLayer {
 //                        if (copy.dir.getPixel((int) (x - start.x), (int) (y - start.y)).a == 0f){
 //                            continue;
 //                        }
-                         setPixel(x, y,  getPixel((int) (x - start.x), (int) (y - start.y)));
+                         setPixel(x, y,  copy.getPixel((int) (x - start.x), (int) (y - start.y)));
 
                     }
 
@@ -109,7 +110,7 @@ public class GameShopLayer {
 //                        if (copy.dir.getPixel((int) (x - start.x), (int) (y - start.y)).a == 0f){
 //                            continue;
 //                        }
-                        setPixel(x, y, getPixel((int) (x - start.x), (int) (y - start.y)));
+                        setPixel(x, y, copy.getPixel((int) (x - start.x), (int) (y - start.y)));
 
                     }
 
@@ -144,10 +145,7 @@ public class GameShopLayer {
              for (int y = (int) start.y; y <= end.y; y++){
 
             for (int x = (int) start.x; x <= end.x; x++) {
-                layer[y][x * 4] =  (color.r);
-                layer[y][(x * 4) + 1]  =  (color.g);
-                layer[y][(x * 4) + 2] =  (color.b);
-                layer[y][(x * 4) + 3]  =  (color.a);
+                setPixel(x,y, color);
 //
             }
         }
@@ -202,40 +200,39 @@ public class GameShopLayer {
         for (int y = startY; y < endY; y++){
 
             for (int x = startX; x < endX; x++) {
-                layer[y][x * 4] =  (color.r);
-                layer[y][(x * 4) + 1]  =  (color.g);
-                layer[y][(x * 4) + 2] =  (color.b);
-                layer[y][(x * 4) + 3]  =  (color.a);
+                setPixel(x,y,color);
 //
             }
         }
     }
     
-        public byte[] outputLayer(){
+        public float[] outputLayer(){
 
-        byte[] output = new byte[width * height * 4];
+        float[] output = new float[(width * height * 4)];
         int i = 0;
         for (short y = 0; y < height; y++){
-            for (short x = 0; x < width * 4; x +=4){
+            for (short x = 0; x < width; x++){
 
-                output[i] =  (byte)(layer[y][x] * 127);
-                output[i + 1] =  (byte) (layer[y][x + 1] * 127);
-                output[i + 2] =  (byte)(layer[y][x + 2] * 127);
-                output[i + 3] =  (byte) (layer[y][x + 3] * 127);
+                output[i] =   getPixel(x,y).r;
+                output[i + 1] =    getPixel(x,y).g;
+                output[i + 2] =    getPixel(x,y).b;
+                output[i + 3] =    getPixel(x,y).a;
 
                 i += 4;
             }
 
         }
 
-       //System.out.println("OutPut" + output[2]);
+       //System.out.println("OutPutRED " + output[0]);
+       
+      // System.out.println("OutPutBLUE " + output[(2)]);
         return output;
     }
  
     public void drawPolyLine(GameShopPolyLine cl, short radius, ColorRGBA color){
 
         //int i = 0;
-        System.out.println(Arrays.asList(cl.infinitesimals));
+        //System.out.println(Arrays.asList(cl.infinitesimals));
         for (int i = 0; i < cl.infinitesimals.length - 1; i++){
 
             //if (i < cl.infinitesimals.length - 1) {
@@ -444,7 +441,7 @@ public class GameShopLayer {
                 
                     inc--;
                 }
-                System.out.println(inc);
+                //System.out.println(inc);
                 
                // lastX = x;
                 //break;
@@ -534,10 +531,7 @@ return  inc;
 
                 {
                     //if (FastMath.sqrt(FastMath.sqr((((float) x /4) + pointX * 4)) + FastMath.sqr((y + pointY))) < radius){
-                    layer[y][x * 4] =  (color.r); //127
-                    layer[y][(x * 4) + 1] =  (color.g);
-                    layer[y][(x * 4) + 2] =  (color.b);
-                    layer[y][(x * 4) + 3] =  (color.a);
+                    setPixel(x,y,color);
                     //System.out.println("IN");
 
                 }

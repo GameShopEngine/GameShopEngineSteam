@@ -52,7 +52,7 @@ public class GameShopShaderHash {
         HashMap<String, GameShopShader> vertexAndFragment = new HashMap<String, GameShopShader>();
         
         int program = glCreateProgram();
-        System.out.println("PROGRAM " + program);
+        //System.out.println("PROGRAM " + program);
         shader.put(name, program);
         vertexAndFragment.put(name, new GameShopShader(vertexShader, fragmentShader));
         glShaderProgram.put(shader, vertexAndFragment);
@@ -62,7 +62,7 @@ public class GameShopShaderHash {
     
     public int getGLShaderProgram(String name){
     
-        System.out.println(glShaderProgram.keySet());
+        //System.out.println(glShaderProgram.keySet());
         for (HashMap<String, Integer> shader: glShaderProgram.keySet()){
         
             return shader.get(name);

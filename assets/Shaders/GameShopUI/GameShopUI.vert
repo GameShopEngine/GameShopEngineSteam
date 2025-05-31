@@ -10,5 +10,6 @@ void main(){
     texCoord1 = texCoord;
      
    
-    gl_Position = vec4((inputPosition.x - 1.0) * (3.0 / 7.0), inputPosition.y * (3.0/4.0), 0.0, 1.0);
+    //gl_Position = vec4((inputPosition.x - 1.0) * (3.0 / 7.0), inputPosition.y * (3.0/4.0), 0.0, 1.0);
+    gl_Position = vec4(inputPosition.x, inputPosition.y, 0.0, 1.0);
 }
