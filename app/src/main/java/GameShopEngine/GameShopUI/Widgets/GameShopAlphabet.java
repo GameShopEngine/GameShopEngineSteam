@@ -1640,6 +1640,50 @@ public class GameShopAlphabet {
             characters.frames.get(0).getLayerByName("z").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
 
         }
+           
+               if (characters.frames.get(0).getLayerByName("0") != null){
+            
+            
+            characters.frames.get(0).getLayerByName("0").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("0").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("0").canvas.add(new GameShopATMSArray());
+
+
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,95,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,95,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(5,5,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+                characters.frames.get(0).getLayerByName("0").canvas.get(1).command = "drawPolyLine";
+
+
+                characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,95,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,95,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95,5,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("0").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).command = "drawPolyLine";
+
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 95, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95, 95, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95, 5, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 5, 0, 0), false));
+
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        } 
 
 
     }
