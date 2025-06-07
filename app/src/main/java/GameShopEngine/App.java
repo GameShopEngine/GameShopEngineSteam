@@ -94,8 +94,6 @@ boolean windowOpen = true;
         
         public boolean moveForward = false;
         public boolean moveBackward = false;
-        public boolean rotateLeft = false;
-        public boolean rotateRight = false;
         
         
         public void printEnvironmentVariables(){
@@ -129,12 +127,6 @@ boolean windowOpen = true;
                         
                           if (key == GLFW_KEY_S && action == GLFW_PRESS)
                             moveBackward = true;
-                          
-                          if (key == GLFW_KEY_A && action == GLFW_PRESS)
-                              rotateLeft = true;
-                          
-                          if (key == GLFW_KEY_D && action == GLFW_PRESS)
-                            rotateRight = true;
 		});   
 
                
@@ -307,8 +299,6 @@ boolean windowOpen = true;
         
                  GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x, (int)GameShopCursor.getInstance().vidModeSize.y));
               
-                System.out.println(GameShopObjectHash.getInstance().addGameShopObject("UI",GameShopCameraHub.getInstance().gsCameras.get("UI").gsObject));
-                
                 GameShopUniformHub.getInstance().gsUniforms.add(new GameShopUniform(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
                
           GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
@@ -355,75 +345,116 @@ boolean windowOpen = true;
               if (moveForward){
                      //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,-.1f));
                      //GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080);//.../.position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,-.1f));
-                     //position = position.add(0, 0, -0.1f);
-                       
-                    // GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));
+                     position = position.add(0, 0, -0.1f);
+                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));
                   
-                    GameShopObjectHash.getInstance().objectHash.get("UI").moveWithAngle(0, 0, 1);
                      moveForward = false;
                      moveBackward = false;
-                     rotateLeft = false;
-                     rotateRight = false;
-                     
                      //System.out.println("FORWARD");
                     } else if (moveBackward){
                     //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,.1f));
                      //                  GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080); 
-                     //position = position.add(0, 0, 0.1f);
-                       GameShopObjectHash.getInstance().objectHash.get("UI").moveWithAngle(0, 0, -1); 
-                     //GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));// new GameShopCamera(position, new Vector3f(), 1920, 1080));
+                     position = position.add(0, 0, 0.1f);
+                        GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));// new GameShopCamera(position, new Vector3f(), 1920, 1080));
                               // System.out.println("BACKWARD");
                                //System.out.println(position);
                      moveForward = false;
                      moveBackward = false;
-                     rotateLeft = false;
-                     rotateRight = false;
-                    } else if (rotateLeft){
-                    
-                     GameShopObjectHash.getInstance().objectHash.get("UI").rotate(0, FastMath.DEG_TO_RAD * 10, 0);
-                    
-                     moveForward = false;
-                     moveBackward = false;
-                     rotateLeft = false;
-                     rotateRight = false;
-                        
-                    } else if (rotateRight){
-                    
-                     GameShopObjectHash.getInstance().objectHash.get("UI").rotate(0, FastMath.DEG_TO_RAD * -10, 0);
-                    
-                     moveForward = false;
-                     moveBackward = false;
-                     rotateLeft = false;
-                     rotateRight = false;
                     }
-              
-                    
-              
-                    
                     if (GameShopCursor.getInstance().clicked){
                     //System.out.println("Cursor:" + GameShopCursor.getInstance().cursorPosition);
                     //System.out.println("GL Position: " + GameShopCursor.getInstance().glPosition);
                     GameShopCursor.getInstance().clicked = false;
                     }
-                    
-                    
         }
         
         
         public void createPolyHashes(){
         
+            //GameShopObjectHash.getInstance().addGameShopObject("UI", new GameShopObject);
           
+            /*
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("UI-Line-1", new GameShopPolyLine(new com.jme3.math.Vector3f[]{
+            
+                new com.jme3.math.Vector3f(1, 1, 0),
+                new com.jme3.math.Vector3f(.33f, 1, 0),
+                new com.jme3.math.Vector3f(-.33f, 1, 0),
+                new com.jme3.math.Vector3f(-1, 1 , 0)
+                    
+            }, 2));
+            
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("UI-Line-2", new GameShopPolyLine(new com.jme3.math.Vector3f[]{
+                new com.jme3.math.Vector3f(1, .33f, 0),
+                new com.jme3.math.Vector3f(.33f, .33f, 0),
+                new com.jme3.math.Vector3f(-.33f, .33f, 0),
+                new com.jme3.math.Vector3f(-1, .33f, 0)
+
+            }, 2));
+            
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("UI-Line-3", new GameShopPolyLine(new com.jme3.math.Vector3f[]{
+                new com.jme3.math.Vector3f(1, -.33f, 0),
+                new com.jme3.math.Vector3f(.33f, -.33f, 0),
+                new com.jme3.math.Vector3f(-.33f, -.33f, 0),
+                new com.jme3.math.Vector3f(-1, -.33f, 0)
+
+            }, 2));
+            
+            GameShopPolyLineHash.getInstance().addGameShopPolyLine("UI-Line-4", new GameShopPolyLine(new com.jme3.math.Vector3f[]{
+                new com.jme3.math.Vector3f(1, -1, 0),
+                new com.jme3.math.Vector3f(.33f, -1, 0),
+                new com.jme3.math.Vector3f(-.33f, -1, 0),
+                new com.jme3.math.Vector3f(-1, -1, 0)
+
+            }, 2));
+            
+            GameShopPolySurfaceHash.getInstance().addGameShopPolySurface("UI-Surface-1", new GameShopPolySurface(new GameShopPolyLine[]{
+            
+               GameShopPolyLineHash.getInstance().polyLineHash.get("UI-Line-1"),
+               GameShopPolyLineHash.getInstance().polyLineHash.get("UI-Line-2"),
+               GameShopPolyLineHash.getInstance().polyLineHash.get("UI-Line-3"),
+               GameShopPolyLineHash.getInstance().polyLineHash.get("UI-Line-4")
+                
+            }));
+            
+            GameShopATMS atms = new GameShopATMS("UI", 256, 256, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+            atms.makeATMS();
+//GameShopATMSHash.getInstance().addATMS("UI", atms);
+            GameShopATMSHash.getInstance().dictionary.get("UI").layer.drawCircle(128, 128, 256, ColorRGBA.fromRGBA255(0,0,255,255));
+            GameShopPolyMeshHash.getInstance().addGameShopPolyMesh("UI-Mesh-1", new GameShopPolyMesh( new GameShopPolySurface[]{GameShopPolySurfaceHash.getInstance().polySurfaceHash.get("UI-Surface-1")}, GameShopATMSHash.getInstance().dictionary.get("UI")));
+            
+            GameShopObjectHash.getInstance().addGameShopObject("UI-Object-1", new GameShopObject(GameShopPolyMeshHash.getInstance().polyMeshHash.get("UI-Mesh-1")));
+            
+            */
             
             GameShopATMS atmsUI = new GameShopATMS("ATMSUI", 1920, 1080, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
-             atmsUI.makeATMS();
-               GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(960,540, 1920, ColorRGBA.fromRGBA255(0,0,255,255));
-                GameShopAlphabet alphabet = new GameShopAlphabet(75,75);
+           
+           // atmsUI.layer.drawCircle(128, 128, 128, ColorRGBA.White);
+            atmsUI.makeATMS();
+               //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
+            GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(960,540, 1920, ColorRGBA.fromRGBA255(0,0,255,255));
+           // GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawLine(new Vector2f(960,540), new Vector2f(1920,1080), (short)50, ColorRGBA.fromRGBA255(255,255,255,255));
+            //GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawPolyLine(new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(0, 0, 0), new com.jme3.math.Vector3f(930, 540, 0), new com.jme3.math.Vector3f(990, 540, 0), new com.jme3.math.Vector3f(1920, 0, 0)},200), (short)5, ColorRGBA.White);
+          
+           // GameShopATMSHash.getInstance().dictionary.get("ATMSUI").layer.drawCircle(50,50, 15, ColorRGBA.fromRGBA255(0,0,255,255));
+          //System.out.println(Arrays.toString(atmsUI.layer.outputLayer()));
+             GameShopAlphabet alphabet = new GameShopAlphabet(75,75);
              alphabet.generateCharacters(new com.jme3.math.Vector4f(100,100,100,100));
              GameShopWordProcessor gswp = new GameShopWordProcessor("GAMESHOP", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 675, 75);
                      
+//             GameShopATMSHash.getInstance().updateATMS("ATMSUI", atmsUI);
              float zAxis = 0f;
             GameShopPolyLine[] clUI = new GameShopPolyLine[4];
 
+//        for (int i = 0; i < 4; i += 1){
+//
+//            clUI[i] = new GameShopCurrencyLine(new Vector3f[]{ new Vector3f(-1,((((float) i-5))+ (i * .33f)), 0), new Vector3f(-.33f,((((float) i-5))+ (i * .33f)), 0), new Vector3f(.33f,((((float) i-5))+ (i * .33f)), 0), new Vector3f(1f,((((float) i-5))+ (i * .33f)), 0)}, 2);
+//
+//        }
+            //for (int i = 0; i < 4; i += 1){
+//            clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(1f, -1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, -1.335f, zAxis)}, 2);
+//            clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(1f, -.33f, zAxis), new com.jme3.math.Vector3f(3.3f, -.33f, zAxis)}, 2);
+//            clUI[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(1f, .33f, zAxis), new com.jme3.math.Vector3f(3.3f, .33f, zAxis)}, 2);
+//            clUI[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.335f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(1f, 1.335f, zAxis), new com.jme3.math.Vector3f(3.335f, 1.335f, zAxis)}, 2);
  
             clUI[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.75f, -1f, zAxis), new com.jme3.math.Vector3f(-.33f, -1f, zAxis), new com.jme3.math.Vector3f(.33f, -1f, zAxis), new com.jme3.math.Vector3f(1.75f, -1f, zAxis)}, 2);
             clUI[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{new com.jme3.math.Vector3f(-1.75f, -.33f, zAxis), new com.jme3.math.Vector3f(-.33f, -.33f, zAxis), new com.jme3.math.Vector3f(.33f, -.33f, zAxis), new com.jme3.math.Vector3f(1.75f, -.33f, zAxis)}, 2);
@@ -434,7 +465,8 @@ boolean windowOpen = true;
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-2", clUI[1]);
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-3", clUI[2]);
             GameShopPolyLineHash.getInstance().addGameShopPolyLine("GameShopUI-Line-4", clUI[3]);
-             
+            
+            // }
             GameShopPolySurface csUI = new GameShopPolySurface(clUI);
             
             GameShopPolySurfaceHash.getInstance().addGameShopPolySurface("GameShopUI-Surface-1", csUI);
@@ -508,25 +540,144 @@ boolean windowOpen = true;
                  
                
                createPolyHashes();
- 
+//               GameShopAlphabet alphabet = new GameShopAlphabet(50,50);
+//               alphabet.characters = characters;
+//               alphabet.drawCharacter(GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), "A", new com.jme3.math.Vector2f(500,500));
+               /*
+                GameShopPolyLine[] gspl = new GameShopPolyLine[4];
+                GameShopPolyLine[] gspl1 = new GameShopPolyLine[4];
+                
+                GameShopPolyLine[] uiLines = new GameShopPolyLine[4];
+                
+                
+                int numPoints = 4;
+                float zAxis = 0;//-4.6f; //-1.6
+                float zAxis1 = -1.6f;
+                float xAxis = 1.65f;
+                
+                 uiLines[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 1,-1,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, -1, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, -1, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * -1, -1, zAxis)}, numPoints);
+                
+                uiLines[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 1,-.33f,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, -.33f, zAxis ),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, -.33f, zAxis ),
+                    new com.jme3.math.Vector3f(-xAxis * -1, -.33f, zAxis)}, numPoints);
+                
+                uiLines[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 1,.33f,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, .33f, zAxis ),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, .33f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * -1, .33f, zAxis)}, numPoints);
+                
+                uiLines[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 1,1,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, 1, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * -.33f, 1, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * -1, 1, zAxis)}, numPoints);
+                
+                
+                gspl[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 0,0,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, 0, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .66f, 0, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * 1, 0, zAxis)}, numPoints);
+                
+                gspl[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 0,.33f,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, .33f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .66f, .33f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * 1, .33f, zAxis)}, numPoints);
+                
+                gspl[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 0,.66f,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, .66f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .66f, .66f, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * 1, .66f, zAxis)}, numPoints);
+                
+                gspl[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(-xAxis * 0,1,zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .33f, 1, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * .66f, 1, zAxis),
+                    new com.jme3.math.Vector3f(-xAxis * 1, 1, zAxis)}, numPoints);
+                
+               
+                gspl1[0] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(0,0,zAxis1),
+                    new com.jme3.math.Vector3f(.33f, 0, zAxis1),
+                    new com.jme3.math.Vector3f(.66f, 0, zAxis1),
+                    new com.jme3.math.Vector3f(1, 0, zAxis1)}, numPoints);
+                
+                gspl1[1] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(0,.33f,zAxis1),
+                    new com.jme3.math.Vector3f(.33f, .33f, zAxis1),
+                    new com.jme3.math.Vector3f(.66f, .33f, zAxis1),
+                    new com.jme3.math.Vector3f(1, .33f, zAxis1)}, numPoints);
+                
+                gspl1[2] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(0,.66f,zAxis1),
+                    new com.jme3.math.Vector3f(.33f, .66f, zAxis1),
+                    new com.jme3.math.Vector3f(.66f, .66f, zAxis1),
+                    new com.jme3.math.Vector3f(1, .66f, zAxis1)}, numPoints);
+                
+                gspl1[3] = new GameShopPolyLine(new com.jme3.math.Vector3f[]{ 
+                    new com.jme3.math.Vector3f(0,1,zAxis1),
+                    new com.jme3.math.Vector3f(.33f, 1, zAxis1),
+                    new com.jme3.math.Vector3f(.66f, 1, zAxis1),
+                    new com.jme3.math.Vector3f(1, 1, zAxis1)}, numPoints);
+                
+                
+                
+                GameShopPolySurface uiSurface = new GameShopPolySurface(uiLines);
+                GameShopPolySurface gsps = new GameShopPolySurface(gspl);
+                GameShopPolySurface gsps1 = new GameShopPolySurface(gspl1);
+                
+                GameShopUIATMS uiATMS = new GameShopUIATMS(1366, 768, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+                uiATMS.uiLayer.drawCircle(683, 384, 800, new Vector4f(0,0,127,127));
+                uiATMS.makeATMS();
+                
+                GameShopUIPolyMesh uiGSPMesh = new GameShopUIPolyMesh(new GameShopPolySurface[]{uiSurface}, uiATMS);
+                
+                //this.gsui = new GameShopUI(uiGSPMesh);
+                
+               // makeUI(this.gsui);
+                
+                GameShopATMS atms = new GameShopATMS(128, 128, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+//                atms.layer.drawCircle(50, 50, 100, new Vector4f(0,0,0,1f));
+               
+                atms.layer.drawCircle(64, 64, 32, new Vector4f(0,0, 127,127));
+                atms.makeATMS();
+                
+                GameShopPolyMesh gspm = new GameShopPolyMesh(new GameShopPolySurface[]{uiSurface}, atms);
+            
+                GameShopATMS atms1 = new GameShopATMS(128, 128, new com.jme3.math.Vector4f[]{new com.jme3.math.Vector4f(0, 1, 0, 1)});
+//                atms.layer.drawCircle(50, 50, 100, new Vector4f(0,0,0,1f));
+               
+                atms1.layer.drawCircle(64, 64, 128, new Vector4f(0,0,0,1f));
+                atms1.makeATMS();
+              
+                uiGSPMesh.allocateBuffer();
+                
+                */
               
                 for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
                     gspm.allocateBuffer();
                   
-                      
+                    //System.out.println("UNIQUE ID " + gspm.atms.name);
+                  
                 }
                 allocateShaderValues();
            
                 
-                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").setPosition(0, 0, 1.75f);
-                
-                //GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setRotation(0, 1 , .5f, FastMath.DEG_TO_RAD * 60f);
-                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 180f, FastMath.DEG_TO_RAD * 0f);
-                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").moveWithAngle(0, 0, 1);
-                
+                GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").setPosition(0, 0, -1.75f);
                 GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").updateModelMatrix();
-            
-                /* 
+            /*
+                //GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setRotation(0, 1 , .5f, FastMath.DEG_TO_RAD * 60f);
+                GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").rotate(FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 0f, FastMath.DEG_TO_RAD * 45f);
+                
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").setPosition(.5f, 0, -1.75f);
                
                 GameShopObjectHash.getInstance().objectHash.get("UI-Object-1").updateModelMatrix();
@@ -548,16 +699,9 @@ boolean windowOpen = true;
                   GL46.glBlendFunc(GL46.GL_SRC_ALPHA, GL46.GL_ONE_MINUS_SRC_ALPHA);
 
               
-                  for (GameShopObject gso: GameShopObjectHash.getInstance().objectHash.values()){
-                  
-                      gso.updateModelMatrix();
-                      if (gso.polyMesh != null){
-                      gso.polyMesh.draw();
-                      }
-                  }
         
-                 //glEnable(GL_CULL_FACE);
-                 //glCullFace(GL_FRONT);
+                 glEnable(GL_CULL_FACE);
+                 glCullFace(GL_FRONT);
                  //gsui.uiPolyMesh.draw();
 
                  
@@ -574,10 +718,10 @@ boolean windowOpen = true;
                 GameShopObjectHash.getInstance().objectHash.get("GameShopUI-Object-1").updateModelMatrix();
                 */
                 
-//                for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
-//                
-//                    gspm.draw();
-//                }
+                for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
+                
+                    gspm.draw();
+                }
                  glfwSwapBuffers(window); // swap the color buffers
 
 			

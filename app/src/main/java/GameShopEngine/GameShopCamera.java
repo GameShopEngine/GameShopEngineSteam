@@ -4,7 +4,6 @@
  */
 package GameShopEngine;
 
-//import com.jme3.math.Quaternion;
 import org.joml.*;
 
 /**
@@ -20,21 +19,15 @@ public class GameShopCamera {
     public Matrix4f projMatrix;
     public Matrix4f viewMatrix;
     
-//    public Vector3f position;
-//    public Vector3f rotation;
-    
-    GameShopObject gsObject;
+    public Vector3f position;
+    public Vector3f rotation;
     
     
     public GameShopCamera(Vector3f position, Vector3f rotation, int width, int height){
     
-//        this.gsObject.position = position;
-//        this.gsObject.rotation = new Quaternionf();
+        this.position = position;
+        this.rotation = rotation;
         
-          this.gsObject = new GameShopObject();
-          this.gsObject.setPosition(position.x, position.y, position.z);
-          
-          
         projMatrix = new Matrix4f();
         viewMatrix = new Matrix4f();
         updateProjMatrix(width, height);
@@ -44,19 +37,22 @@ public class GameShopCamera {
     public void updateProjMatrix(int width, int height){
     
         projMatrix.setPerspective(FOV, (float)width/height, Z_NEAR, Z_FAR);
+<<<<<<< HEAD
         projMatrix.lookAt(gsObject.position, gsObject.calculateMoveWithAngle(0, 0, 10), new Vector3f(0, 1, 0));
+=======
+        projMatrix.lookAt(position, new Vector3f(0, 0, -10), new Vector3f(0, 1, 0));
+>>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
     }
-    
     
     public Matrix4f getViewMatrix() {
      
 
     viewMatrix.identity();
     // First do the rotation so camera rotates over its position
-    viewMatrix.rotate((float)org.joml.Math.toRadians(gsObject.rotation.x), new Vector3f(1, 0, 0))
-        .rotate((float)org.joml.Math.toRadians(gsObject.rotation.y), new Vector3f(0, 1, 0));
+    viewMatrix.rotate((float)org.joml.Math.toRadians(rotation.x), new Vector3f(1, 0, 0))
+        .rotate((float)org.joml.Math.toRadians(rotation.y), new Vector3f(0, 1, 0));
     // Then do the translation
-    viewMatrix.translate(-gsObject.position.x, -gsObject.position.y, -gsObject.position.z);
+    viewMatrix.translate(-position.x, -position.y, -position.z);
     return viewMatrix;
 }
     

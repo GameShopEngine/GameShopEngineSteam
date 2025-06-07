@@ -16,7 +16,6 @@ public class GameShopObject {
     public Vector3f position;
     public Quaternionf rotation;
    // public Vector3f angle;
-    Vector3f forward;
     
     public float scale;
     GameShopPolyMesh polyMesh;
@@ -27,16 +26,6 @@ public class GameShopObject {
         rotation = new Quaternionf();
         scale = 1;
         this.polyMesh = polys;
-        
-        updateModelMatrix();
-    }
-    public GameShopObject(){
-        modelMatrix = new Matrix4f();
-        position = new Vector3f();
-        rotation = new Quaternionf();
-        scale = 1;
-        //this.polyMesh = polys;
-        
         updateModelMatrix();
     }
     
@@ -56,6 +45,7 @@ public class GameShopObject {
         return scale;
     }
 
+<<<<<<< HEAD
     public void move(float x, float y, float z){
     
         position = position.add(new Vector3f(x, y, z));
@@ -78,6 +68,8 @@ public class GameShopObject {
         
     }
     
+=======
+>>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
     public final void setPosition(float x, float y, float z) {
         position.x = x;
         position.y = y;
