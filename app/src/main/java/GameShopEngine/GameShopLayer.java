@@ -44,7 +44,7 @@ public class GameShopLayer {
 
                     if (x >= 0 || x < width) {
 
-                        if ( getPixel((int) (x - start.x), (int) (y - start.y)).a == 0) {
+                        if ( copy.getPixel((int) (x - start.x), (int) (y - start.y)).a == 0) {
                             continue;
                         }
                          setPixel(x, y,  copy.getPixel((int) (x - start.x), (int) (y - start.y)));
@@ -65,7 +65,7 @@ public class GameShopLayer {
 
                     if (x >= 0 || x < width) {
 
-                        if ( getPixel((int) (x - start.x), (int) (y - start.y)).a == 0) {
+                        if (copy.getPixel((int) (x - start.x), (int) (y - start.y)).a == 0) {
                             continue;
                         }
                          setPixel(x, y,  copy.getPixel((int) (x - start.x), (int) (y - start.y)));
