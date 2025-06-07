@@ -45,7 +45,7 @@ public class GameShopObject {
         return scale;
     }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
     public void move(float x, float y, float z){
     
         position = position.add(new Vector3f(x, y, z));
@@ -53,7 +53,7 @@ public class GameShopObject {
     
     public void moveWithAngle(float x, float y, float z){
     
-        this.forward = new Vector3f(0,0,1);
+        Vector3f forward = new Vector3f(0,0,1);
         rotation.transform(forward);
         position.add(forward.mul(new Vector3f(x,y,z)));
     }
@@ -61,15 +61,15 @@ public class GameShopObject {
     public Vector3f calculateMoveWithAngle(float x, float y, float z){
     
         Vector3f temp = position;
-        this.forward = new Vector3f(0,0,1);
+        Vector3f forward = new Vector3f(0,0,1);
         rotation.transform(forward);
         System.out.println("Temp: " + temp.add(forward.mul(new Vector3f(x,y,z))));
         return temp;
         
     }
     
-=======
->>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
+//=======
+//>>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
     public final void setPosition(float x, float y, float z) {
         position.x = x;
         position.y = y;

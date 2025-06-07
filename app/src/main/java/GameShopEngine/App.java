@@ -272,7 +272,7 @@ boolean windowOpen = true;
         
         */
 
-        GameShopObject gso;
+        //GameShopObject gso;
         Vector3f position = new Vector3f(0,0, 0);
         
          

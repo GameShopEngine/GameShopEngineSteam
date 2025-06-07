@@ -37,11 +37,11 @@ public class GameShopCamera {
     public void updateProjMatrix(int width, int height){
     
         projMatrix.setPerspective(FOV, (float)width/height, Z_NEAR, Z_FAR);
-<<<<<<< HEAD
-        projMatrix.lookAt(gsObject.position, gsObject.calculateMoveWithAngle(0, 0, 10), new Vector3f(0, 1, 0));
-=======
+//<<<<<<< HEAD
+        //projMatrix.lookAt(gsObject.position, gsObject.calculateMoveWithAngle(0, 0, 10), new Vector3f(0, 1, 0));
+//=======
         projMatrix.lookAt(position, new Vector3f(0, 0, -10), new Vector3f(0, 1, 0));
->>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
+//>>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
     }
     
     public Matrix4f getViewMatrix() {
