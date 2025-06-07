@@ -204,8 +204,8 @@ public class GameShopPolyMesh {
 //              }
 //           }
 //        }
-       System.out.println(vertices.length);
-        System.out.println(Arrays.toString(vertices));
+       //System.out.println(vertices.length);
+       // System.out.println(Arrays.toString(vertices));
     }
     
     int skips = 0;
@@ -356,8 +356,8 @@ public class GameShopPolyMesh {
         }
         
         indices = Arrays.copyOfRange(indices, 0, finalIndex);
-        System.out.println("indices");
-           System.out.println(Arrays.toString(indices));
+       // System.out.println("indices");
+         //  System.out.println(Arrays.toString(indices));
     }
     
     public void allocateTexCoords(){
@@ -386,8 +386,8 @@ public class GameShopPolyMesh {
         int maxLines = gsps.vInfinitesimals.length;
         int lines = 0;
         
-        System.out.println("currencyLines " + gsps.polyLines.length);
-        System.out.println("vInfinitesimals " + gsps.vInfinitesimals.length);
+        //System.out.println("currencyLines " + gsps.polyLines.length);
+       // System.out.println("vInfinitesimals " + gsps.vInfinitesimals.length);
          
          }
      
@@ -451,7 +451,7 @@ public class GameShopPolyMesh {
         i++;
         slice++;
          
-        System.out.println(Arrays.toString(this.texCoord));
+        //System.out.println(Arrays.toString(this.texCoord));
     }
     
     public float[] convertVector2ToFloat(com.jme3.math.Vector2f[] v){

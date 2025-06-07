@@ -15,6 +15,7 @@ import com.jme3.math.Vector2f;
 public class GameShopAlphabet {
 
     public GameShopATMS atms;
+    public GameShopATMS trim;
 
     public GameShopATMSFrame characters;
    // public char c;
@@ -34,11 +35,87 @@ public class GameShopAlphabet {
 
     public void drawCharacter(GameShopATMS dest, String character, Vector2f location){
 
+        //trim = new GameShopATMS("Trim");
         //atms.clear();
+        //org.joml.Vector2f minMax = generateTrim(character);
         GameShopATMSProcessor ap = new GameShopATMSProcessor(atms, characters, 0);
         ap.process(new String[]{character});
+        
+       // trim.layer.copyLayerAndAlpha(ap.atms.layer, new org.joml.Vector2f(minMax.x, minMax.y));
 
         dest.layer.copyLayer(ap.atms.layer, new org.joml.Vector2f(location.x, location.y));
+    }
+    
+    public org.joml.Vector2f generateTrim(String character){
+    
+        int width = 0;
+        int minX = 50;
+        int maxX = 50;
+        
+        for (GameShopATMSArray gsArray: characters.frames.get(0).getLayerByName(character).canvas){
+        
+            for (GameShopATMSMap gsMap: gsArray.arguments){
+            
+                 if (gsArray.command.equals("drawPolyLine")){
+                 
+                     if(gsMap.argument.equals("Point1") || gsMap.argument.equals("Point2") || gsMap.argument.equals("Point3") || gsMap.argument.equals("Point4")){
+                     
+                         if (maxX < gsMap.value.x){
+                         
+                             maxX =  (int)gsMap.value.x;
+                         }
+                         
+                         if (minX > gsMap.value.x){
+                         
+                             minX = (int)gsMap.value.x;
+                         }
+                          
+                     }
+                      
+                 } else if (gsArray.command.equals("drawLine")){
+                 
+                     if ( gsMap.argument.equals("Location")){
+                      if (maxX < gsMap.value.x){
+                         
+                             maxX =  (int)gsMap.value.x;
+                         }
+                      if (maxX < gsMap.value.z){
+                         
+                             maxX =  (int)gsMap.value.z;
+                         }
+                         
+                         if (minX > gsMap.value.x){
+                         
+                             minX = (int)gsMap.value.x;
+                         }
+                         if (minX > gsMap.value.z){
+                         
+                             minX = (int)gsMap.value.z;
+                         }
+                     }
+                 } else if (gsArray.command.equals("drawCircle") || gsArray.command.equals("drawSquare")){
+                      if ( gsMap.argument.equals("Location")){
+                     
+                          if (maxX < gsMap.value.x){
+                         
+                             maxX =  (int)gsMap.value.x;
+                         }
+                         
+                         if (minX > gsMap.value.x){
+                         
+                             minX = (int)gsMap.value.x;
+                         }
+                     }   
+                         }
+            }
+        }
+        width = maxX - minX;
+        System.out.println("Width " + width + " maxX " + maxX + " minX " + minX);
+        trim = new GameShopATMS(atms.name + "-" + "Trim" + "-" + character, width, atms.height, new Vector4f[]{new Vector4f(0, 1, 0, 1)});
+        return new org.joml.Vector2f(minX, maxX);
+        
+
+        
     }
 
     public void initFrame(){
@@ -1674,10 +1751,10 @@ public class GameShopAlphabet {
 
                    characters.frames.get(0).getLayerByName("0").canvas.get(2).command = "drawPolyLine";
 
-                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 95, 0, 0), false));
-                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95, 95, 0, 0), false));
-                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95, 5, 0, 0), false));
-                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 5, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(25, 25, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(45, 45, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point3", new Vector4f(55, 55, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Point4", new Vector4f(75, 75, 0, 0), false));
 
                    characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
                    characters.frames.get(0).getLayerByName("0").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
@@ -1686,6 +1763,680 @@ public class GameShopAlphabet {
         } 
 
 
+        if (characters.frames.get(0).getLayerByName("1") != null) {
+
+            characters.frames.get(0).getLayerByName("1").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("1").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("1").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("1").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("1").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50, 5, 50, 95), false));
+            characters.frames.get(0).getLayerByName("1").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("1").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("1").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("1").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 75, 50, 95), false));
+            characters.frames.get(0).getLayerByName("1").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("1").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("1").canvas.get(2).command = "drawLine";
+            characters.frames.get(0).getLayerByName("1").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 5, 95, 5), false));
+            characters.frames.get(0).getLayerByName("1").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("1").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+        
+          if (characters.frames.get(0).getLayerByName("2") != null) {
+
+            characters.frames.get(0).getLayerByName("2").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("2").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("2").canvas.add(new GameShopATMSArray());
+             
+            characters.frames.get(0).getLayerByName("2").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("2").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 5, 75, 75), false));
+            characters.frames.get(0).getLayerByName("2").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("2").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+              characters.frames.get(0).getLayerByName("2").canvas.get(1).command = "drawPolyLine";
+
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5, 75, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(45, 95, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(55, 95, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(75, 75, 0, 0), false));
+
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+                   characters.frames.get(0).getLayerByName("2").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("2").canvas.get(2).command = "drawLine";
+            characters.frames.get(0).getLayerByName("2").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 5, 95, 5), false));
+            characters.frames.get(0).getLayerByName("2").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("2").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+          
+           if (characters.frames.get(0).getLayerByName("3") != null){
+            
+            
+            characters.frames.get(0).getLayerByName("3").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("3").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("B").canvas.add(new GameShopATMSArray());
+            
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).command = "drawLine";
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5,5,5,95), false));
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+        
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,95,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,95,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95,50,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(5,50,0,0), false));
+
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,50,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,50,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95,5,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(5,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("3").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+        
+        }
+           
+        if (characters.frames.get(0).getLayerByName("4") != null) {
+
+            characters.frames.get(0).getLayerByName("4").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("4").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("4").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("4").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("4").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("4").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50, 5, 50, 95), false));
+            characters.frames.get(0).getLayerByName("4").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("4").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("4").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("4").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 50, 50, 95), false));
+            characters.frames.get(0).getLayerByName("4").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("4").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+//            characters.frames.get(0).getLayerByName("4").canvas.get(2).command = "drawLine";
+//            characters.frames.get(0).getLayerByName("4").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 5, 95, 5), false));
+//            characters.frames.get(0).getLayerByName("4").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+//            characters.frames.get(0).getLayerByName("4").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("4").canvas.get(2).command = "drawLine";
+            characters.frames.get(0).getLayerByName("4").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 50, 95, 50), false));
+            characters.frames.get(0).getLayerByName("4").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("4").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+        
+        if (characters.frames.get(0).getLayerByName("5") != null){
+        
+            characters.frames.get(0).getLayerByName("5").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("5").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("5").canvas.add(new GameShopATMSArray());
+            
+            characters.frames.get(0).getLayerByName("5").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("5").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 95, 95, 95), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("5").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("5").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 50, 5, 95), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5,50,0,0), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,50,0,0), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95,5,0,0), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("Point4", new Vector4f(5,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("5").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+         
+                      
+        }
+        
+        if (characters.frames.get(0).getLayerByName("6") != null){
+        
+            characters.frames.get(0).getLayerByName("6").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("6").canvas.add(new GameShopATMSArray());
+            //characters.frames.get(0).getLayerByName("6").canvas.add(new GameShopATMSArray());
+            
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,95,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,50,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(5,5,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(25,50,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,50,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95,5,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(25,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("6").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+         
+                      
+        }
+        
+ 
+        if (characters.frames.get(0).getLayerByName("7") != null) {
+
+            characters.frames.get(0).getLayerByName("7").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("7").canvas.add(new GameShopATMSArray());
+            //characters.frames.get(0).getLayerByName("7").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("7").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("7").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50, 5, 95, 95), false));
+            characters.frames.get(0).getLayerByName("7").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("7").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("7").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("7").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 95, 85, 95), false));
+            characters.frames.get(0).getLayerByName("7").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("7").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+//            characters.frames.get(0).getLayerByName("7").canvas.get(2).command = "drawLine";
+//            characters.frames.get(0).getLayerByName("7").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(5, 5, 95, 5), false));
+//            characters.frames.get(0).getLayerByName("7").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+//            characters.frames.get(0).getLayerByName("7").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+        
+        
+           if (characters.frames.get(0).getLayerByName("8") != null){
+            
+            
+            characters.frames.get(0).getLayerByName("8").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("8").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("8").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("8").canvas.add(new GameShopATMSArray());
+//         
+//            characters.frames.get(0).getLayerByName("B").canvas.add(new GameShopATMSArray());
+            
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).command = "drawLine";
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5,5,5,95), false));
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+//            characters.frames.get(0).getLayerByName("3").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+        
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,95,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,95,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(5,50,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50,50,0,0), false));
+
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).command = "drawPolyLine";
+            
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,50,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5,50,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(5,5,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50,5,0,0), false));
+
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("8").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+        
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).command = "drawPolyLine";
+
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 95, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95, 95, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95, 50, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 50, 0, 0), false));
+
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).command = "drawPolyLine";
+
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 50, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95, 50, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95, 5, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 5, 0, 0), false));
+
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+               characters.frames.get(0).getLayerByName("8").canvas.get(3).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+           
+           if (characters.frames.get(0).getLayerByName("9") != null) {
+
+            characters.frames.get(0).getLayerByName("9").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("9").canvas.add(new GameShopATMSArray());
+            //characters.frames.get(0).getLayerByName("6").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95, 75, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95, 50, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 5, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(55, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(25, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(25, 50, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(55, 50, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("9").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+           
+           if (characters.frames.get(0).getLayerByName("(") != null) {
+
+            characters.frames.get(0).getLayerByName("(").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(5, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(5, 5, 0, 0), false));
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 5, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("(").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+           
+                  if (characters.frames.get(0).getLayerByName(")") != null) {
+
+            characters.frames.get(0).getLayerByName(")").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(50, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(50, 5, 0, 0), false));
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(5, 5, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName(")").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+                  
+                  if (characters.frames.get(0).getLayerByName("`") != null){
+                  
+            characters.frames.get(0).getLayerByName("`").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("`").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("`").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5,95,15,80), false));
+            characters.frames.get(0).getLayerByName("`").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("`").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+
+            if (characters.frames.get(0).getLayerByName("~") != null) {
+
+            characters.frames.get(0).getLayerByName("~").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(5, 75, 0, 0), false));
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(25, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(50, 75, 0, 0), false));
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(75, 95, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("~").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+            
+            if (characters.frames.get(0).getLayerByName("[") != null) {
+
+            characters.frames.get(0).getLayerByName("[").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("[").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("[").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("[").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("[").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(25, 5, 25, 95), false));
+            characters.frames.get(0).getLayerByName("[").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("[").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("[").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("[").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(25, 5, 75, 5), false));
+            characters.frames.get(0).getLayerByName("[").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("[").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("[").canvas.get(2).command = "drawLine";
+            characters.frames.get(0).getLayerByName("[").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(25, 95, 75, 95), false));
+            characters.frames.get(0).getLayerByName("[").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("[").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+            
+            if (characters.frames.get(0).getLayerByName("]") != null) {
+
+            characters.frames.get(0).getLayerByName("]").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("]").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("]").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("]").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("]").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(75, 5, 75, 95), false));
+            characters.frames.get(0).getLayerByName("]").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("]").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("]").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("]").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(25, 5, 75, 5), false));
+            characters.frames.get(0).getLayerByName("]").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("]").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("]").canvas.get(2).command = "drawLine";
+            characters.frames.get(0).getLayerByName("]").canvas.get(2).arguments.add(new GameShopATMSMap("Location", new Vector4f(25, 95, 75, 95), false));
+            characters.frames.get(0).getLayerByName("]").canvas.get(2).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("]").canvas.get(2).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+
+            if (characters.frames.get(0).getLayerByName("{") != null) {
+
+            characters.frames.get(0).getLayerByName("{").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("{").canvas.add(new GameShopATMSArray());
+            
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(25, 75, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(45, 65, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(25, 50, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(25, 50, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(45, 35, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(25, 25, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 5, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("{").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+        }
+            
+            if (characters.frames.get(0).getLayerByName("}") != null) {
+
+            characters.frames.get(0).getLayerByName("}").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("}").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("Point1", new Vector4f(25, 95, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("Point2", new Vector4f(45, 75, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("Point3", new Vector4f(25, 65, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50, 50, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).command = "drawPolyLine";
+
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50, 50, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(25, 35, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(45, 25, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(25, 5, 0, 0), false));
+
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50, 0, 0, 0), true));
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5, 0, 0, 0), false));
+            characters.frames.get(0).getLayerByName("}").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+        }
+            
+              if (characters.frames.get(0).getLayerByName("-") != null){
+                  
+            characters.frames.get(0).getLayerByName("-").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("-").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("-").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(25,50,75,50), false));
+            characters.frames.get(0).getLayerByName("-").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("-").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+              
+                 if (characters.frames.get(0).getLayerByName("_") != null){
+                  
+            characters.frames.get(0).getLayerByName("_").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("_").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("_").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5,5,95,5), false));
+            characters.frames.get(0).getLayerByName("_").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("_").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                 
+                  if (characters.frames.get(0).getLayerByName("/") != null){
+                  
+            characters.frames.get(0).getLayerByName("/").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("/").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("/").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5,5,95,95), false));
+            characters.frames.get(0).getLayerByName("/").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("/").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                  
+                   if (characters.frames.get(0).getLayerByName("?") != null){
+            
+            
+            characters.frames.get(0).getLayerByName("?").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("?").canvas.add(new GameShopATMSArray());
+
+           characters.frames.get(0).getLayerByName("?").canvas.get(0).command = "drawLine";
+           characters.frames.get(0).getLayerByName("?").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,55,50,15), false));
+           characters.frames.get(0).getLayerByName("?").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+           characters.frames.get(0).getLayerByName("?").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+
+ 
+                characters.frames.get(0).getLayerByName("?").canvas.get(1).command = "drawPolyLine";
+
+
+                characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("Point1", new Vector4f(50,55,0,0), false));
+            characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("Point2", new Vector4f(95,55,0,0), false));
+            characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("Point3", new Vector4f(95,95,0,0), false));
+            characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("Point4", new Vector4f(50,95,0,0), false));
+
+            characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("NumPoints", new Vector4f(50,0,0,0), true));
+            characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("?").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+
+        }
+                   
+                   if (characters.frames.get(0).getLayerByName("<") != null){
+                  
+            characters.frames.get(0).getLayerByName("<").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("<").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("<").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("<").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(25,50,75,75), false));
+            characters.frames.get(0).getLayerByName("<").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("<").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+            characters.frames.get(0).getLayerByName("<").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("<").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(25,50,75,25), false));
+            characters.frames.get(0).getLayerByName("<").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("<").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+                  }
+                   
+                    if (characters.frames.get(0).getLayerByName(">") != null){
+                  
+            characters.frames.get(0).getLayerByName(">").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName(">").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName(">").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName(">").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(75,50,25,75), false));
+            characters.frames.get(0).getLayerByName(">").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(">").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+            characters.frames.get(0).getLayerByName(">").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName(">").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(75,50,25,25), false));
+            characters.frames.get(0).getLayerByName(">").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(">").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+                  }
+                    
+                    if (characters.frames.get(0).getLayerByName(",") != null){
+                  
+            characters.frames.get(0).getLayerByName(",").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName(",").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName(",").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,5,65,20), false));
+            characters.frames.get(0).getLayerByName(",").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(",").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                    
+                        if (characters.frames.get(0).getLayerByName(".") != null){
+                  
+            characters.frames.get(0).getLayerByName(".").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName(".").canvas.get(0).command = "drawCircle";
+            characters.frames.get(0).getLayerByName(".").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,5,0,0), false));
+            characters.frames.get(0).getLayerByName(".").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(".").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                        
+                          if (characters.frames.get(0).getLayerByName("'") != null){
+                  
+            characters.frames.get(0).getLayerByName("'").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("'").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("'").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,95,50,75), false));
+            characters.frames.get(0).getLayerByName("'").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("'").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                          
+                           if (characters.frames.get(0).getLayerByName("\\") != null){
+                  
+            characters.frames.get(0).getLayerByName("\\").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("\\").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("\\").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(5,95,95,5), false));
+            characters.frames.get(0).getLayerByName("\\").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("\\").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                           
+                                 if (characters.frames.get(0).getLayerByName("|") != null){
+                  
+            characters.frames.get(0).getLayerByName("|").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("l").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("|").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("|").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,5,50,95), false));
+            characters.frames.get(0).getLayerByName("|").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("|").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+                  }
+                                 
+                  if (characters.frames.get(0).getLayerByName("\"") != null){
+                  
+            characters.frames.get(0).getLayerByName("\"").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName("\"").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName("\"").canvas.get(0).command = "drawLine";
+            characters.frames.get(0).getLayerByName("\"").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(55,95,55,75), false));
+            characters.frames.get(0).getLayerByName("\"").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("\"").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+            characters.frames.get(0).getLayerByName("\"").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName("\"").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(45,95,45,75), false));
+            characters.frames.get(0).getLayerByName("\"").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName("\"").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+               
+                  }
+                  
+                          if (characters.frames.get(0).getLayerByName(":") != null){
+                  
+            characters.frames.get(0).getLayerByName(":").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName(":").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName(":").canvas.get(0).command = "drawCircle";
+            characters.frames.get(0).getLayerByName(":").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,50,0,0), false));
+            characters.frames.get(0).getLayerByName(":").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(":").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+            characters.frames.get(0).getLayerByName(":").canvas.get(1).command = "drawCircle";
+            characters.frames.get(0).getLayerByName(":").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,25,0,0), false));
+            characters.frames.get(0).getLayerByName(":").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(":").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+               
+                  }
+                          
+                if (characters.frames.get(0).getLayerByName(";") != null){
+                  
+            characters.frames.get(0).getLayerByName(";").canvas.add(new GameShopATMSArray());
+            characters.frames.get(0).getLayerByName(";").canvas.add(new GameShopATMSArray());
+//            characters.frames.get(0).getLayerByName("I").canvas.add(new GameShopATMSArray());
+
+            characters.frames.get(0).getLayerByName(";").canvas.get(0).command = "drawCircle";
+            characters.frames.get(0).getLayerByName(";").canvas.get(0).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,50,0,0), false));
+            characters.frames.get(0).getLayerByName(";").canvas.get(0).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(";").canvas.get(0).arguments.add(new GameShopATMSMap("Color", color, false));
+            
+            characters.frames.get(0).getLayerByName(";").canvas.get(1).command = "drawLine";
+            characters.frames.get(0).getLayerByName(";").canvas.get(1).arguments.add(new GameShopATMSMap("Location", new Vector4f(50,25,40,10), false));
+            characters.frames.get(0).getLayerByName(";").canvas.get(1).arguments.add(new GameShopATMSMap("Radius", new Vector4f(5,0,0,0), false));
+            characters.frames.get(0).getLayerByName(";").canvas.get(1).arguments.add(new GameShopATMSMap("Color", color, false));
+               
+                  }
+                  
+        }
     }
-}
+
 

@@ -97,11 +97,11 @@ boolean windowOpen = true;
         
         
         public void printEnvironmentVariables(){
-            System.out.println("Hello LWJGL " + Version.getVersion() + "!");
-            System.out.println(System.getProperty("java.vendor"));
-            System.out.println(System.getProperty("java.vendor.url"));
-            System.out.println(System.getProperty("java.version"));
-            System.out.println(System.getProperty("sun.arch.data.model"));
+//            System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+//            System.out.println(System.getProperty("java.vendor"));
+//            System.out.println(System.getProperty("java.vendor.url"));
+//            System.out.println(System.getProperty("java.version"));
+//            System.out.println(System.getProperty("sun.arch.data.model"));
         }
         
         public void configureOpenGLHints(){
@@ -202,7 +202,7 @@ boolean windowOpen = true;
                 
                 vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
  
-                System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
+               // System.out.println("vidmode: " + vidmode.width() + " " + vidmode.height());
                 
                    
                 //I NEED A METHOD TO PERFECTLY MAP KEYS
@@ -278,7 +278,7 @@ boolean windowOpen = true;
          
         public void createShaders(){
         
-            System.out.println(System.getProperty("user.dir"));
+            //System.out.println(System.getProperty("user.dir"));
             
             String vShader ="";
             String fShader ="";
@@ -311,7 +311,7 @@ boolean windowOpen = true;
                
 //                GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projectionMatrix");
 //               
-                System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("Hello GameShop"));
+                //System.out.println("vShader: " + GameShopShaderHash.getInstance().getVertexShader("Hello GameShop"));
                //System.out.println(glGetShaderInfoLog(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")));
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("projMatrix");
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("modelMatrix");
@@ -319,7 +319,7 @@ boolean windowOpen = true;
 
          GameShopUniformHub.getInstance().get(GameShopShaderHash.getInstance().getGLShaderProgram("Hello GameShop")).createUniform("txtSampler");
 
-         System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
+         //System.out.println("fShader: " + GameShopShaderHash.getInstance().getFragmentShader("Hello GameShop"));
     //    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     
     /*
@@ -379,20 +379,20 @@ boolean windowOpen = true;
                   
                      moveForward = false;
                      moveBackward = false;
-                     System.out.println("FORWARD");
+                     //System.out.println("FORWARD");
                     } else if (moveBackward){
                     //GameShopCameraHub.getInstance().gsCameras.get("UI").position = new Vector3f(      GameShopCameraHub.getInstance().gsCameras.get("UI").position.add(0,0,.1f));
                      //                  GameShopCameraHub.getInstance().gsCameras.get("UI").updateProjMatrix(1920, 1080); 
                      position = position.add(0, 0, 0.1f);
                         GameShopCameraHub.getInstance().gsCameras.put("UI", new GameShopCamera(position, new Vector3f(), (int)GameShopCursor.getInstance().vidModeSize.x , (int)GameShopCursor.getInstance().vidModeSize.y));// new GameShopCamera(position, new Vector3f(), 1920, 1080));
-                               System.out.println("BACKWARD");
-                               System.out.println(position);
+                              // System.out.println("BACKWARD");
+                               //System.out.println(position);
                      moveForward = false;
                      moveBackward = false;
                     }
                     if (GameShopCursor.getInstance().clicked){
-                    System.out.println("Cursor:" + GameShopCursor.getInstance().cursorPosition);
-                    System.out.println("GL Position: " + GameShopCursor.getInstance().glPosition);
+                    //System.out.println("Cursor:" + GameShopCursor.getInstance().cursorPosition);
+                    //System.out.println("GL Position: " + GameShopCursor.getInstance().glPosition);
                     GameShopCursor.getInstance().clicked = false;
                     }
         }
@@ -469,6 +469,7 @@ boolean windowOpen = true;
              GameShopAlphabet alphabet = new GameShopAlphabet(75,75);
              alphabet.generateCharacters(new com.jme3.math.Vector4f(100,100,100,100));
              GameShopWordProcessor gswp = new GameShopWordProcessor("GAMESHOP", alphabet, GameShopATMSHash.getInstance().dictionary.get("ATMSUI"), new com.jme3.math.Vector2f(0, 500), new com.jme3.math.Vector2f(), 675, 75);
+                     
 //             GameShopATMSHash.getInstance().updateATMS("ATMSUI", atmsUI);
              float zAxis = 0f;
             GameShopPolyLine[] clUI = new GameShopPolyLine[4];
@@ -694,7 +695,7 @@ boolean windowOpen = true;
                 for (GameShopPolyMesh gspm: GameShopPolyMeshHash.getInstance().polyMeshHash.values()){
                     gspm.allocateBuffer();
                   
-                    System.out.println("UNIQUE ID " + gspm.atms.name);
+                    //System.out.println("UNIQUE ID " + gspm.atms.name);
                   
                 }
                 allocateShaderValues();

@@ -63,7 +63,7 @@ public class GameShopFileReader<T> {
     public String readText(String filename){
     
         File textFile = new File(filename);
-        System.out.println(textFile);
+       // System.out.println(textFile);
         String text = "";
         
         Scanner scanner;
@@ -77,7 +77,7 @@ public class GameShopFileReader<T> {
             Logger.getLogger(GameShopFileReader.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println(text);
+        //System.out.println(text);
         return text;
     }
     
