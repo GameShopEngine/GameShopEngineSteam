@@ -44,7 +44,7 @@ public class GameShopCamera {
     public void updateProjMatrix(int width, int height){
     
         projMatrix.setPerspective(FOV, (float)width/height, Z_NEAR, Z_FAR);
-        projMatrix.lookAt(gsObject.position, new Vector3f(0, 0, 10), new Vector3f(0, 1, 0));
+        projMatrix.lookAt(gsObject.position, gsObject.calculateMoveWithAngle(0, 0, 10), new Vector3f(0, 1, 0));
     }
     
     

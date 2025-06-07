@@ -63,9 +63,19 @@ public class GameShopObject {
     
     public void moveWithAngle(float x, float y, float z){
     
-        this.forward = new Vector3f(0,0,-1);
+        this.forward = new Vector3f(0,0,1);
         rotation.transform(forward);
         position.add(forward.mul(new Vector3f(x,y,z)));
+    }
+    
+    public Vector3f calculateMoveWithAngle(float x, float y, float z){
+    
+        Vector3f temp = position;
+        this.forward = new Vector3f(0,0,1);
+        rotation.transform(forward);
+        System.out.println("Temp: " + temp.add(forward.mul(new Vector3f(x,y,z))));
+        return temp;
+        
     }
     
     public final void setPosition(float x, float y, float z) {
