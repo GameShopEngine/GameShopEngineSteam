@@ -16,6 +16,7 @@ public class GameShopObject {
     public Vector3f position;
     public Quaternionf rotation;
    // public Vector3f angle;
+    Vector3f forward;
     
     public float scale;
     GameShopPolyMesh polyMesh;
@@ -26,6 +27,16 @@ public class GameShopObject {
         rotation = new Quaternionf();
         scale = 1;
         this.polyMesh = polys;
+        
+        updateModelMatrix();
+    }
+    public GameShopObject(){
+        modelMatrix = new Matrix4f();
+        position = new Vector3f();
+        rotation = new Quaternionf();
+        scale = 1;
+        //this.polyMesh = polys;
+        
         updateModelMatrix();
     }
     
@@ -45,6 +56,18 @@ public class GameShopObject {
         return scale;
     }
 
+    public void move(float x, float y, float z){
+    
+        position = position.add(new Vector3f(x, y, z));
+    }
+    
+    public void moveWithAngle(float x, float y, float z){
+    
+        this.forward = new Vector3f(0,0,-1);
+        rotation.transform(forward);
+        position.add(forward.mul(new Vector3f(x,y,z)));
+    }
+    
     public final void setPosition(float x, float y, float z) {
         position.x = x;
         position.y = y;

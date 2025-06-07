@@ -36,7 +36,7 @@ public class GameShopObjectHash {
     
         for (String s: objectHash.keySet()){
         
-            if (s.contains(name)){
+            if (s.equals(name)){
             
                 return "Declined - Name Already Taken";
             }
