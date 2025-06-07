@@ -19,14 +19,18 @@ public class GameShopCamera {
     public Matrix4f projMatrix;
     public Matrix4f viewMatrix;
     
-    public Vector3f position;
-    public Vector3f rotation;
+    GameShopObject gso;
+    //public Vector3f position;
+    //public Vector3f rotation;
     
     
     public GameShopCamera(Vector3f position, Vector3f rotation, int width, int height){
     
-        this.position = position;
-        this.rotation = rotation;
+        gso = new GameShopObject(null);
+        gso.setPosition(position.x, position.y, position.z);
+        gso.rotate(rotation.x, rotation.y, rotation.z);
+        //this.position = position;
+        //this.rotation = rotation;
         
         projMatrix = new Matrix4f();
         viewMatrix = new Matrix4f();
@@ -38,9 +42,9 @@ public class GameShopCamera {
     
         projMatrix.setPerspective(FOV, (float)width/height, Z_NEAR, Z_FAR);
 //<<<<<<< HEAD
-        //projMatrix.lookAt(gsObject.position, gsObject.calculateMoveWithAngle(0, 0, 10), new Vector3f(0, 1, 0));
+        projMatrix.lookAt(gso.position, gso.calculateMoveWithAngle(0, 0, 10), new Vector3f(0, 1, 0));
 //=======
-        projMatrix.lookAt(position, new Vector3f(0, 0, -10), new Vector3f(0, 1, 0));
+        //projMatrix.lookAt(gso.position, new Vector3f(0, 0, 10), new Vector3f(0, 1, 0));
 //>>>>>>> parent of c78a16a (Fixing Camera for ScreenCasting)
     }
     
@@ -49,10 +53,10 @@ public class GameShopCamera {
 
     viewMatrix.identity();
     // First do the rotation so camera rotates over its position
-    viewMatrix.rotate((float)org.joml.Math.toRadians(rotation.x), new Vector3f(1, 0, 0))
-        .rotate((float)org.joml.Math.toRadians(rotation.y), new Vector3f(0, 1, 0));
+    viewMatrix.rotate((float)org.joml.Math.toRadians(gso.rotation.x), new Vector3f(1, 0, 0))
+        .rotate((float)org.joml.Math.toRadians(gso.rotation.y), new Vector3f(0, 1, 0));
     // Then do the translation
-    viewMatrix.translate(-position.x, -position.y, -position.z);
+    viewMatrix.translate(-gso.position.x, -gso.position.y, -gso.position.z);
     return viewMatrix;
 }
     

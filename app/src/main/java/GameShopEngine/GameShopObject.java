@@ -60,7 +60,7 @@ public class GameShopObject {
     
     public Vector3f calculateMoveWithAngle(float x, float y, float z){
     
-        Vector3f temp = position;
+        Vector3f temp = new Vector3f(position);
         Vector3f forward = new Vector3f(0,0,1);
         rotation.transform(forward);
         System.out.println("Temp: " + temp.add(forward.mul(new Vector3f(x,y,z))));
